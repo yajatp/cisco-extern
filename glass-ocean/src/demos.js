@@ -20,7 +20,10 @@ export function createDemos() {
   let activeN = null // which demo currently owns the clicker, or null
   let relaying = false // true while we inject a synthetic key, so it isn't echoed
 
-  const NAV_KEYS = ['ArrowRight', 'ArrowLeft', ' ', 'PageDown', 'PageUp']
+  const NAV_KEYS = ['ArrowRight', 'ArrowLeft', ' ', 'PageDown', 'PageUp', 'ArrowUp', 'ArrowDown']
+  // ↑/↓ are global jump-to-first/last hatches the deck owns; a demo never handles
+  // them, so they must relay up even from the active demo (unlike the beat keys).
+  const HATCH_KEYS = ['ArrowUp', 'ArrowDown']
 
   // Keyboard-nav lifeline: a preloaded (or clicked) demo iframe can quietly grab
   // focus, and then key presses land in the iframe instead of the parent window
@@ -41,8 +44,10 @@ export function createDemos() {
       try {
         cw.addEventListener('keydown', (e) => {
           if (relaying) return // a key we injected — don't echo it back
-          if (activeN === n) return // active demo handles its own keys
           if (!NAV_KEYS.includes(e.key)) return
+          // The active demo drives its own beat keys — don't echo those — but the
+          // global ↑/↓ jump hatches are never handled by a demo, so always relay.
+          if (activeN === n && !HATCH_KEYS.includes(e.key)) return
           window.dispatchEvent(new KeyboardEvent('keydown', { key: e.key }))
         })
       } catch {

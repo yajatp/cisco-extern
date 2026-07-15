@@ -53,9 +53,15 @@ export class Deck {
       if (e.repeat) return
 
       // Global hatches work everywhere.
-      if (e.key === 'Home') {
+      if (e.key === 'Home' || e.key === 'ArrowUp') {
+        // ↑ — jump straight to the first slide.
         e.preventDefault()
         return this.goTo(0, { instant: true })
+      }
+      if (e.key === 'End' || e.key === 'ArrowDown') {
+        // ↓ — jump straight to the last slide.
+        e.preventDefault()
+        return this.goTo(this.sequence.length - 1, { instant: true })
       }
       if (e.key === 's' || e.key === 'S') {
         e.preventDefault()
