@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;family=Great+Vibes&amp;display=swap" rel="stylesheet">
+<style>
+  html, body { margin:0; padding:0; background:#eef6f9; }
+  *{ box-sizing:border-box; }
+  a{ color:#256e80; text-decoration:none; }
+  a:hover{ color:#14586f; }
+  @keyframes go-pulse { 0%,100%{ opacity:1; transform:scale(1);} 50%{ opacity:.35; transform:scale(.82);} }
+  @keyframes go-ring { 0%{ transform:scale(.6); opacity:.6;} 100%{ transform:scale(2.4); opacity:0;} }
+  @keyframes go-rowin { from{ opacity:0; transform:translateY(-8px);} to{ opacity:1; transform:translateY(0);} }
+  @keyframes go-spin { to{ transform:rotate(360deg);} }
+  @keyframes go-shimmer { 0%{ background-position:-200% 0;} 100%{ background-position:200% 0;} }
+</style>
+</helmet>
+
+<div style="font-family:'Quicksand',sans-serif; min-height:100%; background:linear-gradient(180deg,#fdfefe 0%,#eef6f9 46%,#dcebf1 100%); color:#2e7d9c; padding-bottom:0;">
+
+  <!-- ===== HEADER ===== -->
+  <div style="position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; padding:20px 48px; background:rgba(253,254,254,0.82); backdrop-filter:blur(10px); border-bottom:1px solid #d8e8ee;">
+    <div style="display:flex; align-items:center; gap:16px;">
+      <div style="position:relative; width:14px; height:14px; flex:none;">
+        <span style="position:absolute; inset:0; border-radius:50%; background:#1f9d6b; animation:go-pulse 2s ease-in-out infinite;"></span>
+        <span style="position:absolute; inset:0; border-radius:50%; border:2px solid #1f9d6b; animation:go-ring 2.4s ease-out infinite;"></span>
+      </div>
+      <div style="line-height:1;">
+        <div style="font-size:26px; font-weight:700; letter-spacing:0.14em; color:#14586f;">GLASS OCEAN</div>
+        <div style="font-family:'Great Vibes',cursive; font-size:26px; color:#2f8ba6; line-height:0.9; margin-top:2px;">the ocean, on the record</div>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:24px;">
+      <div style="text-align:right; line-height:1.35;">
+        <div style="font-size:13px; font-weight:600; letter-spacing:0.18em; color:#1f9d6b;">● LIVE FEED</div>
+        <div style="font-size:14px; color:#5b8ba0; font-variant-numeric:tabular-nums;">{{ zoneLabel }} · {{ clock }}</div>
+      </div>
+      <div style="display:flex; padding:5px; background:#e5f0f4; border:1px solid #d8e8ee; border-radius:999px;">
+        <button onClick="{{ setPublic }}" style="{{ publicBtnStyle }}">Public view</button>
+        <button onClick="{{ setRegulator }}" style="{{ regBtnStyle }}">Regulator view</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1200px; margin:0 auto; padding:46px 48px 90px;">
+
+    <!-- ===== HERO ===== -->
+    <div style="display:flex; gap:44px; align-items:stretch; margin-bottom:44px;">
+      <div style="flex:1;">
+        <div style="font-size:14px; font-weight:600; letter-spacing:0.24em; color:#4b9ab8; margin-bottom:22px;">LIVE FROM THE MINING SITE &nbsp;·&nbsp; 4,000 m DEEP IN THE PACIFIC</div>
+        <h1 style="margin:0 0 22px; font-size:56px; font-weight:500; line-height:1.08; color:#14586f; letter-spacing:0.01em;">A public window into<br>the deep-sea mine.</h1>
+        <p style="margin:0; font-size:20px; line-height:1.6; color:#2e7d9c; max-width:640px;">A live dashboard anyone can watch. Seafloor sensors track the mine's impact on the ocean, and every reading is locked the instant it's taken — so no one can fake the numbers.</p>
+      </div>
+      <div style="flex:none; width:300px; background:linear-gradient(160deg,#256e80,#14586f); border-radius:20px; padding:34px; color:#fff; display:flex; flex-direction:column; justify-content:center; box-shadow:0 20px 50px rgba(20,88,111,0.28);">
+        <div style="font-size:13px; font-weight:600; letter-spacing:0.2em; color:#a9d4e2;">RECORDS UNTAMPERED</div>
+        <div style="font-size:76px; font-weight:600; line-height:1; margin:8px 0 4px;">100<span style="font-size:38px;">%</span></div>
+        <div style="height:1px; background:rgba(255,255,255,0.22); margin:16px 0;"></div>
+        <div style="display:flex; justify-content:space-between; font-size:15px; margin-bottom:10px;"><span style="color:#a9d4e2;">Readings locked today</span><span style="font-weight:700; font-variant-numeric:tabular-nums;">{{ signedToday }}</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:15px;"><span style="color:#a9d4e2;">Times altered</span><span style="font-weight:700; color:#7ff0c0;">0</span></div>
+      </div>
+    </div>
+
+    <!-- ===== METRIC CARDS ===== -->
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin-bottom:44px;">
+
+      <div style="background:rgba(255,255,255,0.82); border:1px solid #d8e8ee; border-radius:16px; padding:24px; box-shadow:0 10px 30px rgba(20,88,111,0.07);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+          <div style="font-size:14px; font-weight:600; letter-spacing:0.06em; color:#5b8ba0;">Water cloudiness</div>
+          <div style="font-size:11px; font-weight:700; letter-spacing:0.12em; color:#1f9d6b; background:#e4f6ee; padding:4px 10px; border-radius:999px;">NORMAL</div>
+        </div>
+        <div style="font-size:40px; font-weight:600; color:#14586f; line-height:1; font-variant-numeric:tabular-nums;">{{ plume }}<span style="font-size:17px; font-weight:500; color:#5b8ba0;"> cloudiness</span></div>
+        <div style="position:relative; height:8px; background:#e5f0f4; border-radius:999px; margin:16px 0 8px; overflow:hidden;">
+          <div style="position:absolute; left:0; top:0; bottom:0; width:{{ plumePct }}%; background:linear-gradient(90deg,#4b9ab8,#1f9d6b); border-radius:999px; transition:width 1.2s ease;"></div>
+          <div style="position:absolute; left:{{ plumeThreshPct }}%; top:-3px; bottom:-3px; width:2px; background:#d1495b;"></div>
+        </div>
+        <div style="font-size:12px; color:#8ab4c4;">slows down on its own if this climbs past 5.0</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.82); border:1px solid #d8e8ee; border-radius:16px; padding:24px; box-shadow:0 10px 30px rgba(20,88,111,0.07);">
+        <div style="font-size:14px; font-weight:600; letter-spacing:0.06em; color:#5b8ba0; margin-bottom:14px;">Sea life heard nearby</div>
+        <div style="font-size:40px; font-weight:600; color:#14586f; line-height:1;">{{ whales }} <span style="font-size:17px; font-weight:500; color:#5b8ba0;">nearby</span></div>
+        <div style="font-size:12px; color:#8ab4c4; margin:6px 0 16px;">whale &amp; dolphin calls today</div>
+        <div style="display:flex; align-items:center; gap:10px; font-size:13px; color:#2f8ba6; background:#eaf4f7; border-radius:10px; padding:10px 12px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:#2f8ba6; flex:none; animation:go-pulse 2s infinite;"></span>
+          <span>Mining paused to let them pass · {{ quietedAgo }} ago</span>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.82); border:1px solid #d8e8ee; border-radius:16px; padding:24px; box-shadow:0 10px 30px rgba(20,88,111,0.07);">
+        <div style="font-size:14px; font-weight:600; letter-spacing:0.06em; color:#5b8ba0; margin-bottom:14px;">Grab-or-skip calls · today</div>
+        <div style="display:flex; gap:22px;">
+          <div><div style="font-size:40px; font-weight:600; color:#14586f; line-height:1; font-variant-numeric:tabular-nums;">{{ collected }}</div><div style="font-size:12px; color:#8ab4c4;">collected</div></div>
+          <div><div style="font-size:40px; font-weight:600; color:#2f8ba6; line-height:1; font-variant-numeric:tabular-nums;">{{ skipped }}</div><div style="font-size:12px; color:#8ab4c4;">sea life spared</div></div>
+        </div>
+        <div style="font-size:13px; color:#2f8ba6; margin-top:16px; background:#eaf4f7; border-radius:10px; padding:10px 12px;">spots sea life <b style="color:#14586f;">94.2%</b> of the time</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.82); border:1px solid #d8e8ee; border-radius:16px; padding:24px; box-shadow:0 10px 30px rgba(20,88,111,0.07);">
+        <div style="font-size:14px; font-weight:600; letter-spacing:0.06em; color:#5b8ba0; margin-bottom:14px;">Sensor network</div>
+        <div style="font-size:40px; font-weight:600; color:#14586f; line-height:1;">{{ sensorsOnline }}<span style="font-size:17px; font-weight:500; color:#5b8ba0;">/12</span></div>
+        <div style="font-size:12px; color:#8ab4c4; margin:6px 0 16px;">sensor pods reporting</div>
+        <div style="display:flex; align-items:center; gap:10px; font-size:13px; color:#1f9d6b; background:#e4f6ee; border-radius:10px; padding:10px 12px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:#1f9d6b; flex:none;"></span>
+          <span>Record unbroken · entry #{{ lastBlock }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== LEDGER + VERIFY ===== -->
+    <div style="display:grid; grid-template-columns:1.35fr 1fr; gap:26px; margin-bottom:44px;">
+
+      <!-- Live ledger feed -->
+      <div style="background:rgba(255,255,255,0.82); border:1px solid #d8e8ee; border-radius:18px; padding:26px 28px; box-shadow:0 10px 30px rgba(20,88,111,0.07);">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:23px; font-weight:600; color:#14586f;">Live locked record</h2>
+          <span style="font-size:12px; font-weight:700; letter-spacing:0.14em; color:#049fd9;">SPLUNK</span>
+        </div>
+        <p style="margin:0 0 18px; font-size:13px; color:#8ab4c4;">Every entry is linked to the one before it, like a chain. Change any single entry and every entry after it visibly breaks.</p>
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <sc-for list="{{ ledger }}" as="row" hint-placeholder-count="7">
+            <div style="display:flex; align-items:center; gap:16px; padding:13px 4px; border-bottom:1px solid #eef4f6; animation:go-rowin 0.5s ease;">
+              <span style="font-size:13px; color:#8ab4c4; font-variant-numeric:tabular-nums; width:78px; flex:none;">{{ row.time }}</span>
+              <span style="width:9px; height:9px; border-radius:50%; flex:none; background:{{ row.dot }};"></span>
+              <div style="flex:1; min-width:0;">
+                <div style="font-size:15px; font-weight:600; color:#14586f;">{{ row.type }}</div>
+                <div style="font-size:12.5px; color:#5b8ba0;">{{ row.detail }}</div>
+              </div>
+              <div style="text-align:right; flex:none;">
+                <div style="font-size:11px; font-family:'Courier New',monospace; color:#8ab4c4;">entry #{{ row.blk }} · {{ row.hash }}</div>
+                <div style="font-size:11px; font-weight:700; letter-spacing:0.1em; color:#1f9d6b;">LOCKED ✓</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- Verify money moment -->
+      <div style="background:linear-gradient(165deg,#f5fafb,#e9f3f6); border:1px solid #cfe4ea; border-radius:18px; padding:26px 28px; box-shadow:0 10px 30px rgba(20,88,111,0.09);">
+        <h2 style="margin:0 0 4px; font-size:23px; font-weight:600; color:#14586f;">Check a reading is real</h2>
+        <p style="margin:0 0 18px; font-size:13px; color:#8ab4c4;">Anyone can check for themselves that a reading hasn't been changed since it was taken.</p>
+
+        <div style="background:#fff; border:1px solid #d8e8ee; border-radius:12px; padding:16px 18px; margin-bottom:18px;">
+          <div style="font-size:12px; letter-spacing:0.1em; color:#8ab4c4; margin-bottom:6px;">SELECTED READING</div>
+          <div style="font-size:17px; font-weight:600; color:#14586f;">Water cloudiness · 2.1</div>
+          <div style="font-size:12.5px; color:#5b8ba0; margin-top:4px;">Sensor SP-03 · taken 04:12:07 · entry #48,207</div>
+        </div>
+
+        <sc-for list="{{ verifySteps }}" as="st" hint-placeholder-count="0">
+          <div style="display:flex; align-items:center; gap:12px; padding:8px 2px; font-size:14px; color:{{ st.color }};">
+            <span style="width:22px; height:22px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; background:{{ st.badgeBg }}; color:{{ st.badgeFg }}; {{ st.spin }}">{{ st.icon }}</span>
+            <span>{{ st.label }}</span>
+          </div>
+        </sc-for>
+
+        <sc-if value="{{ verifyResult }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:14px; border-radius:12px; padding:16px 18px; background:{{ resultBg }}; border:1px solid {{ resultBorder }};">
+            <div style="font-size:15px; font-weight:700; color:{{ resultColor }}; letter-spacing:0.02em;">{{ resultTitle }}</div>
+            <div style="font-size:13px; color:{{ resultColor }}; opacity:0.85; margin-top:4px; line-height:1.45;">{{ resultBody }}</div>
+          </div>
+        </sc-if>
+
+        <button onClick="{{ doVerify }}" style="width:100%; margin-top:18px; padding:15px; border:none; border-radius:12px; background:#256e80; color:#fff; font-family:'Quicksand',sans-serif; font-size:16px; font-weight:600; letter-spacing:0.02em; cursor:pointer;">Check this reading</button>
+        <button onClick="{{ doTamper }}" style="width:100%; margin-top:10px; padding:12px; border:1px solid #e2c3ca; border-radius:12px; background:transparent; color:#c0475a; font-family:'Quicksand',sans-serif; font-size:14px; font-weight:600; cursor:pointer;">Try sneaking in a changed copy →</button>
+      </div>
+    </div>
+
+    <!-- ===== SENSOR GRID ===== -->
+    <div style="background:rgba(255,255,255,0.82); border:1px solid #d8e8ee; border-radius:18px; padding:26px 28px; margin-bottom:44px; box-shadow:0 10px 30px rgba(20,88,111,0.07);">
+      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:18px;">
+        <h2 style="margin:0; font-size:23px; font-weight:600; color:#14586f;">Seafloor Sensor Network</h2>
+        <span style="font-size:12px; color:#8ab4c4;">{{ coordNote }}</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:14px;">
+        <sc-for list="{{ sensors }}" as="s" hint-placeholder-count="12">
+          <div style="background:#f5fafb; border:1px solid #e2eef2; border-radius:12px; padding:14px; text-align:center;">
+            <div style="display:flex; align-items:center; justify-content:center; gap:7px; margin-bottom:8px;">
+              <span style="width:8px; height:8px; border-radius:50%; background:{{ s.dot }}; flex:none;"></span>
+              <span style="font-size:13px; font-weight:600; color:#14586f;">{{ s.id }}</span>
+            </div>
+            <div style="font-size:11px; color:#8ab4c4;">{{ s.status }}</div>
+            <div style="font-size:15px; font-weight:600; color:#2f8ba6; margin-top:4px; font-variant-numeric:tabular-nums;">{{ s.ntu }}<span style="font-size:10px; color:#a9c6d0;"> cloud.</span></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- ===== REGULATOR-ONLY PANEL ===== -->
+    <sc-if value="{{ regulator }}" hint-placeholder-val="{{ false }}">
+      <div style="background:linear-gradient(160deg,#14586f,#256e80); border-radius:18px; padding:30px 34px; margin-bottom:44px; color:#fff; box-shadow:0 20px 50px rgba(20,88,111,0.25);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+          <div>
+            <div style="font-size:12px; letter-spacing:0.2em; color:#a9d4e2;">RESTRICTED · YOU ARE VIEWING AS NOAA OBSERVER</div>
+            <h2 style="margin:6px 0 0; font-size:24px; font-weight:600;">Regulator Observation Room</h2>
+          </div>
+          <span style="font-size:13px; font-weight:700; letter-spacing:0.14em; color:#7fd4ff;">WEBEX · LIVE</span>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+          <div style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:12px; padding:18px;">
+            <div style="font-size:12px; color:#a9d4e2; letter-spacing:0.1em;">EXACT VESSEL POSITION</div>
+            <div style="font-size:20px; font-weight:600; margin-top:6px; font-variant-numeric:tabular-nums;">10°24.7′N 150°18.2′W</div>
+            <div style="font-size:12px; color:#8fbccb; margin-top:4px;">unlocked for regulators · public sees zone only</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:12px; padding:18px;">
+            <div style="font-size:12px; color:#a9d4e2; letter-spacing:0.1em;">FULL DATA HISTORY</div>
+            <div style="font-size:20px; font-weight:600; margin-top:6px;">Full access · direct feed</div>
+            <div style="font-size:12px; color:#8fbccb; margin-top:4px;">every raw reading, plus proof it's untouched</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:12px; padding:18px;">
+            <div style="font-size:12px; color:#a9d4e2; letter-spacing:0.1em;">LIVE OPERATIONS FEED</div>
+            <div style="font-size:20px; font-weight:600; margin-top:6px;">3 observers watching</div>
+            <div style="font-size:12px; color:#8fbccb; margin-top:4px;">NOAA · ISA liaison · independent scientist</div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ===== GOVERNANCE ===== -->
+    <div style="margin-bottom:40px;">
+      <h2 style="margin:0 0 4px; font-size:26px; font-weight:600; color:#14586f;">Who can see what</h2>
+      <p style="margin:0 0 22px; font-size:15px; color:#5b8ba0;">Clear rules, published for all to see. The sensor records are one-way: data flows out, nothing can be changed.</p>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px;">
+        <div style="background:rgba(255,255,255,0.82); border:1px solid #d8e8ee; border-radius:16px; padding:22px; box-shadow:0 10px 30px rgba(20,88,111,0.06);">
+          <div style="font-size:17px; font-weight:700; color:#14586f; margin-bottom:10px;">Public</div>
+          <div style="font-size:13.5px; line-height:1.55; color:#5b8ba0;">Verified environmental indicators, summarized zone location, one-click verification.</div>
+          <div style="margin-top:14px; font-size:12px; font-weight:700; letter-spacing:0.1em; color:#1f9d6b;">READ · SUMMARIZED</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.82); border:1px solid #d8e8ee; border-radius:16px; padding:22px; box-shadow:0 10px 30px rgba(20,88,111,0.06);">
+          <div style="font-size:17px; font-weight:700; color:#14586f; margin-bottom:10px;">Regulator · NOAA / ISA</div>
+          <div style="font-size:13.5px; line-height:1.55; color:#5b8ba0;">Everything public, plus exact position, raw time-series, and the Webex observation room.</div>
+          <div style="margin-top:14px; font-size:12px; font-weight:700; letter-spacing:0.1em; color:#1f9d6b;">READ · FULL DETAIL</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.82); border:1px solid #d8e8ee; border-radius:16px; padding:22px; box-shadow:0 10px 30px rgba(20,88,111,0.06);">
+          <div style="font-size:17px; font-weight:700; color:#14586f; margin-bottom:10px;">Independent scientists</div>
+          <div style="font-size:13.5px; line-height:1.55; color:#5b8ba0;">Full raw deep-sea readings, each with a proof page confirming it's untouched.</div>
+          <div style="margin-top:14px; font-size:12px; font-weight:700; letter-spacing:0.1em; color:#1f9d6b;">READ · RAW / API</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.82); border:2px solid #e2c3ca; border-radius:16px; padding:22px; box-shadow:0 10px 30px rgba(20,88,111,0.06);">
+          <div style="font-size:17px; font-weight:700; color:#14586f; margin-bottom:10px;">TMC operators</div>
+          <div style="font-size:13.5px; line-height:1.55; color:#5b8ba0;">Can read their own environmental data — but <b style="color:#c0475a;">cannot change anything in the sensor records.</b> Not even their own administrators.</div>
+          <div style="margin-top:14px; font-size:12px; font-weight:700; letter-spacing:0.1em; color:#c0475a;">READ-ONLY · ONE-WAY</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CISCO FOOTER ===== -->
+    <div style="border-top:1px solid #d8e8ee; padding-top:28px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+      <div style="font-size:15px; color:#5b8ba0;">Secured end-to-end by <b style="color:#049fd9;">Cisco</b> — from the moment data reaches the surface.</div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <span style="font-size:13px; font-weight:600; color:#049fd9; border:1px solid #bfe3f2; border-radius:999px; padding:8px 18px;">Splunk</span>
+        <span style="font-size:13px; font-weight:600; color:#049fd9; border:1px solid #bfe3f2; border-radius:999px; padding:8px 18px;">Catalyst Industrial Ethernet</span>
+        <span style="font-size:13px; font-weight:600; color:#049fd9; border:1px solid #bfe3f2; border-radius:999px; padding:8px 18px;">ThousandEyes</span>
+        <span style="font-size:13px; font-weight:600; color:#049fd9; border:1px solid #bfe3f2; border-radius:999px; padding:8px 18px;">Webex</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;defaultView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Public&quot;,&quot;Regulator&quot;],&quot;default&quot;:&quot;Public&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;},&quot;live&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Demo&quot;},&quot;zone&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Clarion-Clipperton Zone&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
+class Component extends DCLogic {
+  state = {
+    regulator: (this.props.defaultView === 'Regulator'),
+    plume: '2.1',
+    collected: 1284,
+    skipped: 96,
+    whales: 3,
+    sensors: [],
+    ledger: [],
+    clock: '04:12:07Z',
+    lastBlock: 48213,
+    verifyStep: 0,
+    verifyMode: null,
+    verifyResult: null,
+  };
+
+  hex(n){ let s=''; const c='0123456789abcdef'; for(let i=0;i<n;i++) s+=c[Math.floor(Math.random()*16)]; return s; }
+
+  fmtTime(sec){
+    const h=Math.floor(sec/3600)%24, m=Math.floor(sec/60)%60, s=sec%60;
+    const p=(x)=>String(x).padStart(2,'0');
+    return `${p(h)}:${p(m)}:${p(s)}Z`;
+  }
+
+  makeEntry(){
+    const types=[
+      {type:'Water cloudiness', detail:()=>`${(2+Math.random()*0.6).toFixed(1)} · within safe limit`, dot:'#1f9d6b'},
+      {type:'Sea life heard', detail:()=>'whale call · mining paused', dot:'#2f8ba6'},
+      {type:'Grab-or-skip call', detail:()=> Math.random()<0.32?'sea life spotted · SKIPPED':'bare rock · collected', dot:'#4b9ab8'},
+      {type:'Mud spread', detail:()=>'6h forecast · within limit', dot:'#d98c2b'},
+      {type:'Water quality', detail:()=>'pH 7.62 · oxygen normal', dot:'#256e80'},
+    ];
+    const t=types[Math.floor(Math.random()*types.length)];
+    this._blk=(this._blk||48213)+1;
+    return { time:this.state.clock, type:t.type, detail:t.detail(), dot:t.dot, blk:this._blk.toLocaleString(), hash:'seal '+this.hex(4)+'…'+this.hex(2) };
+  }
+
+  componentDidMount(){
+    this._sec = 4*3600+12*7;
+    this._blk = 48213;
+    // seed sensors
+    const sensors=[];
+    for(let i=1;i<=12;i++){
+      const online = !(i===7);
+      sensors.push({ id:'SP-'+String(i).padStart(2,'0'), dot: online?'#1f9d6b':'#d98c2b', status: online?'online':'re-syncing', ntu:(1.8+Math.random()*0.8).toFixed(1) });
+    }
+    // seed ledger
+    const led=[];
+    for(let i=0;i<7;i++){ this._sec-=Math.floor(6+Math.random()*10); const e=this.makeEntry(); e.time=this.fmtTime(this._sec); led.push(e); }
+    led.reverse();
+    this._blk = 48213;
+    // re-number ascending so newest has highest block
+    led.forEach((e,i)=>{ e.blk=(48207+i).toLocaleString(); });
+    this._blk = 48207+led.length-1;
+    this.setState({ sensors, ledger: led, lastBlock:this._blk });
+
+    if (this.props.live === false) return;
+
+    this._clk = setInterval(()=>{ this._sec++; this.setState({ clock:this.fmtTime(this._sec) }); }, 1000);
+    this._plume = setInterval(()=>{ this.setState({ plume:(2.0+Math.random()*0.7).toFixed(1) }); }, 1900);
+    this._harv = setInterval(()=>{
+      this.setState(s=>({ collected:s.collected + (Math.random()<0.75?1:0), skipped:s.skipped + (Math.random()<0.3?1:0) }));
+    }, 2600);
+    this._feed = setInterval(()=>{
+      const e=this.makeEntry(); e.time=this.state.clock; e.blk=this._blk.toLocaleString();
+      this.setState(s=>({ ledger:[e, ...s.ledger].slice(0,8), lastBlock:this._blk }));
+    }, 4200);
+  }
+
+  componentWillUnmount(){ [this._clk,this._plume,this._harv,this._feed].forEach(t=>t&&clearInterval(t)); this._vt&&this._vt.forEach(t=>clearTimeout(t)); }
+
+  setPublic = () => this.setState({ regulator:false });
+  setRegulator = () => this.setState({ regulator:true });
+
+  runVerify(mode){
+    this._vt&&this._vt.forEach(t=>clearTimeout(t));
+    this._vt=[];
+    this.setState({ verifyMode:mode, verifyStep:0, verifyResult:null });
+    if (mode==='verify'){
+      this._vt.push(setTimeout(()=>this.setState({verifyStep:1}), 800));
+      this._vt.push(setTimeout(()=>this.setState({verifyStep:2}), 1700));
+      this._vt.push(setTimeout(()=>this.setState({verifyStep:3, verifyResult:'verified'}), 2700));
+    } else {
+      this._vt.push(setTimeout(()=>this.setState({verifyStep:1}), 800));
+      this._vt.push(setTimeout(()=>this.setState({verifyResult:'mismatch'}), 1800));
+    }
+  }
+  doVerify = () => this.runVerify('verify');
+  doTamper = () => this.runVerify('tamper');
+
+  renderVals(){
+    const s=this.state;
+    const activeStyle='background:#256e80; color:#fff;';
+    const idleStyle='background:transparent; color:#5b8ba0;';
+    const btnBase='border:none; border-radius:999px; padding:9px 20px; font-family:Quicksand,sans-serif; font-size:14px; font-weight:600; cursor:pointer; ';
+
+    // verify steps
+    const labels=[
+      'Re-checking the reading\'s fingerprint',
+      'Comparing it to the locked record',
+      'Confirming the sensor\'s signature',
+    ];
+    const total = s.verifyMode==='tamper' ? 2 : (s.verifyMode==='verify' ? 3 : 0);
+    const steps=[];
+    for(let i=0;i<total;i++){
+      let st;
+      if (i < s.verifyStep) st='done';
+      else if (i===s.verifyStep){
+        st = (s.verifyResult==='mismatch') ? 'fail' : 'active';
+      } else st='pending';
+      let color='#8ab4c4', badgeBg='#e5f0f4', badgeFg='#8ab4c4', icon=String(i+1), spin='';
+      if (st==='done'){ color='#1f9d6b'; badgeBg='#1f9d6b'; badgeFg='#fff'; icon='✓'; }
+      else if (st==='active'){ color='#14586f'; badgeBg='#256e80'; badgeFg='#fff'; icon='◠'; spin='animation:go-spin 0.9s linear infinite;'; }
+      else if (st==='fail'){ color='#c0475a'; badgeBg='#c0475a'; badgeFg='#fff'; icon='✕'; }
+      let label=labels[i];
+      if (st==='fail') label='The record rejects the altered copy';
+      steps.push({ label, color, badgeBg, badgeFg, icon, spin });
+    }
+
+    const verified = s.verifyResult==='verified';
+    const mismatch = s.verifyResult==='mismatch';
+
+    return {
+      zoneLabel: this.props.zone || 'Clarion-Clipperton Zone',
+      zoneUpper: (this.props.zone || 'Clarion-Clipperton Zone').toUpperCase(),
+      clock: s.clock,
+      regulator: s.regulator,
+      setPublic: this.setPublic,
+      setRegulator: this.setRegulator,
+      publicBtnStyle: btnBase + (s.regulator?idleStyle:activeStyle),
+      regBtnStyle: btnBase + (s.regulator?activeStyle:idleStyle),
+
+      signedToday: '48,213',
+      plume: s.plume,
+      plumePct: Math.min(100, (parseFloat(s.plume)/5.0)*100).toFixed(0),
+      plumeThreshPct: 100,
+      whales: s.whales,
+      quietedAgo: '2h 14m',
+      collected: s.collected.toLocaleString(),
+      skipped: s.skipped.toLocaleString(),
+      sensorsOnline: s.sensors.filter(x=>x.dot==='#1f9d6b').length || 11,
+      lastBlock: s.lastBlock.toLocaleString(),
+      coordNote: s.regulator ? 'exact positions visible · regulator view' : 'positions summarized to zone · public view',
+
+      ledger: s.ledger,
+      sensors: s.sensors,
+
+      verifySteps: steps,
+      verifyResult: !!s.verifyResult,
+      resultBg: verified ? '#e4f6ee' : '#fbe9ec',
+      resultBorder: verified ? '#bfe6d3' : '#f0c9d1',
+      resultColor: verified ? '#1f7a55' : '#c0475a',
+      resultTitle: verified ? 'GENUINE — unchanged since it was taken' : 'ALTERED — this doesn\'t match the record',
+      resultBody: verified
+        ? 'The fingerprint matches record entry #48,207 and the sensor\'s signature checks out — this is exactly what the sensor measured at 04:12:07.'
+        : 'The changed copy doesn\'t match its fingerprint in the record. The record rejects it and keeps the original — no one, including the mining company, can overwrite it.',
+      doVerify: this.doVerify,
+      doTamper: this.doTamper,
+    };
+  }
+}
+</script>
+</body>
+</html>

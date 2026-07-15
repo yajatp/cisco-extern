@@ -1,46 +1,44 @@
 /**
  * The full show as a flat list of clicker presses.
- * Each cue is either { slide } or { sim, stage }.
- * `freezeSim: true` = the slide surfaces IN FRONT of the frozen sim (Sim-2 Stage C).
- * `build` = intra-slide reveal step.
+ * Each cue is either { slide } or { demo:n }.
+ *
+ * The three "Live Demo" filler slides (page-09 / page-14 / page-18) are gone —
+ * their slots are now the actual Claude-designed demos, which the deck sinks
+ * into and surfaces out of. Each demo owns its own internal beats.
  */
 export const SEQUENCE = [
-  { slide: 'title' },                     //  1
-  { slide: 'client' },                    //  2
-  { slide: 'alignment' },                 //  3
-  { slide: 'problem1' },                  //  4
-  { sim: 'bridge', stage: 0 },            //  5  descend into the Glass Bridge
-  { sim: 'bridge', stage: 1 },            //  6  TAMPER-DETECTION BEAT
-  { slide: 'solution1' },                 //  7  surface
-  { slide: 'problem2' },                  //  8
-  { sim: 'robot', stage: 0 },             //  9  descend — robot exterior orbit
-  { sim: 'robot', stage: 1 },             // 10  callout: vision pod
-  { sim: 'robot', stage: 2 },             // 11  callout: edge AI / UCS
-  { sim: 'robot', stage: 3 },             // 12  callout: signed telemetry
-  { sim: 'robot', stage: 4 },             // 13  callout: CURWB surface link
-  { sim: 'robot', stage: 5 },             // 14  DIVE INTO THE HEAD — interactive
-  { slide: 'solution2', freezeSim: true },// 15  FREEZE-INTO-SLIDE moment
-  { slide: 'problem3' },                  // 16
-  { sim: 'sharks', stage: 0 },            // 17  descend — schematic appears
-  { sim: 'sharks', stage: 1 },            // 18  attack 1: phishing vs Duo
-  { sim: 'sharks', stage: 2 },            // 19  attack 2: ransomware vs ISE
-  { sim: 'sharks', stage: 3 },            // 20  attack 3: data poisoning vs one-way
-  { sim: 'sharks', stage: 4 },            // 21  defense constellation
-  { slide: 'solution3' },                 // 22  surface
-  { slide: 'value' },                     // 23
-  { slide: 'scalability' },               // 24
-  { slide: 'roadmap' },                   // 25
-  { slide: 'closing', build: 0 },         // 26  thesis line
-  { slide: 'closing', build: 1 },         // 27  fade-in: license to operate
+  { slide: 'page-01' },  //  1 Title
+  { slide: 'page-02' },  //  2 Team
+  { slide: 'page-03' },  //  3 Client
+  { slide: 'page-04' },  //  4 Roadmap
+  { slide: 'page-05' },  //  5 Implementation & Risk
+  { slide: 'page-06' },  //  6 Glass Ocean / Our Problem
+  { slide: 'page-07' },  //  7 Glass Ocean / Our Solution
+  { slide: 'page-08' },  //  8 Glass Ocean / Cisco Tech
+  { demo: 1 },           //  9 SINK → Demo 1: Glass Ocean live dashboard (was page-09)
+  { slide: 'page-10' },  // 10 Mining in the Dark / Our Problem
+  { slide: 'page-11' },  // 11 Mining in the Dark / Our Solution
+  { slide: 'page-12' },  // 12 Mining in the Dark / Cisco Tech
+  { slide: 'page-13' },  // 13 Mining in the Dark / Where Cisco Starts
+  { demo: 2 },           // 14 SINK → Demo 2: Robot Cam selective harvesting (was page-14)
+  { slide: 'page-15' },  // 15 Zero Trust / Our Problem
+  { slide: 'page-16' },  // 16 Zero Trust / Our Solution
+  { slide: 'page-17' },  // 17 Zero Trust / Cisco Tech
+  { demo: 3 },           // 18 SINK → Demo 3: Shark Attack live threat view (was page-18)
+  { slide: 'page-19' },  // 19 Value & Metrics
+  { slide: 'page-20' },  // 20 Scalability
+  { slide: 'page-21' },  // 21 Two More Markets
+  { slide: 'page-22' },  // 22 The Deciding Metric
+  { slide: 'page-23' },  // 23 Thank You
 ]
 
-/** Chapter id per cue (for the progress dots): consecutive cues sharing a slide/sim collapse to one dot. */
+/** Chapter id per cue (for the progress dots): consecutive cues sharing a slide/demo collapse to one dot. */
 export function chapters(sequence) {
   const ids = []
   const cueChapter = []
   let prev = null
   for (const cue of sequence) {
-    const id = cue.sim || cue.slide
+    const id = cue.demo != null ? `demo-${cue.demo}` : cue.slide
     if (id !== prev) ids.push(id)
     cueChapter.push(ids.length - 1)
     prev = id

@@ -4,15 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <title>Project Glass Ocean</title>
   </head>
   <body>
     <div id="canvas-host"></div>
     <div id="vignette"></div>
-    <div id="overlay-layer">
-      <div class="sim-overlay" id="overlay-bridge"></div>
-      <div class="sim-overlay" id="overlay-robot"></div>
-      <div class="sim-overlay" id="overlay-sharks"></div>
+    <div id="demo-layer">
+      <iframe class="demo-frame" id="demo-1" src="/demos/demo-1.dc.html" title="Glass Ocean — live dashboard" loading="eager"></iframe>
+      <iframe class="demo-frame" id="demo-2" src="/demos/demo-2.dc.html" title="Robot Cam — selective harvesting" loading="eager"></iframe>
+      <iframe class="demo-frame" id="demo-3" src="/demos/demo-3.dc.html" title="Shark Attack — live threat view" loading="eager"></iframe>
     </div>
     <div id="slide-layer"></div>
     <div id="dots"></div>

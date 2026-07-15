@@ -1,0 +1,21 @@
+<!DOCTYPE html><html><head><style>html,body{margin:0;background:#888}#c{display:block;width:100vw}</style></head><body>
+<img id="c" style="display:block;width:100vw">
+<script type="module">
+import * as pdfjs from 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.min.mjs';
+pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.min.mjs';
+const doc = await pdfjs.getDocument('https://raw.githubusercontent.com/yajatp/cisco-extern/main/cisco%20slideshow.pdf').promise;
+window.numPages = doc.numPages;
+window.pageReady = false;
+window.showPage = async (n) => {
+  window.pageReady = false;
+  const page = await doc.getPage(n);
+  const vp = page.getViewport({ scale: 1600 / page.getViewport({scale:1}).width });
+  const cv = document.createElement('canvas');
+  cv.width = vp.width; cv.height = vp.height;
+  await page.render({ canvasContext: cv.getContext('2d'), viewport: vp }).promise;
+  document.getElementById('c').src = cv.toDataURL('image/png');
+  window.pageReady = true;
+};
+await window.showPage(1);
+document.title = 'ready';
+</script></body></html>

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;family=Great+Vibes&amp;display=swap" rel="stylesheet">
+<style>
+  html, body { margin:0; padding:0; background:#0a2230; overflow:hidden; }
+  *{ box-sizing:border-box; }
+  @keyframes rc-spin { to{ transform:rotate(360deg);} }
+  @keyframes rc-spin-r { to{ transform:rotate(-360deg);} }
+  @keyframes rc-pulse { 0%,100%{ opacity:1; transform:translate(-50%,-50%) scale(1);} 50%{ opacity:.5; transform:translate(-50%,-50%) scale(1.35);} }
+  @keyframes rc-in { from{ opacity:0; transform:translate(-50%,-50%) scale(.9);} to{ opacity:1; transform:translate(-50%,-50%) scale(1);} }
+  @keyframes rc-surface { from{ opacity:0; transform:translateY(50px);} to{ opacity:1; transform:translateY(0);} }
+  @keyframes rc-bubble { 0%{ transform:translateY(0) translateX(0) scale(0.7); opacity:0;} 12%{ opacity:0.75;} 88%{ opacity:0.6;} 100%{ transform:translateY(-96vh) translateX(24px) scale(1.05); opacity:0;} }
+  @keyframes rc-swim { from{ transform:translateX(-32vw);} to{ transform:translateX(122vw);} }
+  @keyframes rc-sway { 0%,100%{ transform:rotate(-5deg);} 50%{ transform:rotate(5deg);} }
+  @keyframes rc-float { 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-9px);} }
+  @keyframes rc-blink { 0%,80%,100%{ opacity:1;} 88%{ opacity:0.25;} }
+  @keyframes rc-oreglow { 0%,100%{ box-shadow:0 0 40px 6px rgba(120,220,245,0.55), inset -10px -12px 24px rgba(0,0,0,0.5);} 50%{ box-shadow:0 0 70px 16px rgba(120,220,245,0.85), inset -10px -12px 24px rgba(0,0,0,0.5);} }
+</style>
+</helmet>
+
+<div onMouseMove="{{ onMove }}" style="position:relative; width:100%; height:100vh; overflow:hidden; font-family:'Quicksand',sans-serif; background:radial-gradient(120% 90% at 50% 12%, #dff0f6 0%, #a9cede 32%, #6ba3ba 62%, #3d7186 100%); cursor:crosshair;">
+
+  <!-- caustic light + vignette -->
+  <div style="position:absolute; inset:0; background:radial-gradient(60% 45% at 50% 0%, rgba(255,255,255,0.45), transparent 70%); pointer-events:none;"></div>
+  <div style="position:absolute; inset:0; background:radial-gradient(120% 100% at 50% 42%, transparent 45%, rgba(12,48,66,0.42) 100%); pointer-events:none;"></div>
+
+  <!-- ============ SHARED OCEAN SCENE (behind every stage) ============ -->
+  <div style="position:absolute; inset:0; overflow:hidden; pointer-events:none;">
+
+    <!-- god rays -->
+    <div style="position:absolute; left:20%; top:-10%; width:120px; height:120%; background:linear-gradient(180deg,rgba(255,255,255,0.28),transparent 70%); transform:rotate(12deg); filter:blur(6px);"></div>
+    <div style="position:absolute; left:58%; top:-10%; width:90px; height:120%; background:linear-gradient(180deg,rgba(255,255,255,0.22),transparent 70%); transform:rotate(-9deg); filter:blur(6px);"></div>
+
+    <!-- fish, water column -->
+    <div style="position:absolute; top:16%; left:0; transform:scaleX(1);"><div style="animation:rc-swim 30s linear infinite;"><div style="position:relative; width:48px; height:27px;"><div style="position:absolute; inset:0; border-radius:52% 60% 60% 52%/50%; background:linear-gradient(180deg,#8fd0df,#3f8ba3);"></div><div style="position:absolute; left:-11px; top:50%; transform:translateY(-50%); width:0; height:0; border-top:11px solid transparent; border-bottom:11px solid transparent; border-right:15px solid #3f8ba3;"></div><div style="position:absolute; right:9px; top:7px; width:6px; height:6px; border-radius:50%; background:#fff;"><div style="position:absolute; left:1.5px; top:1.5px; width:3px; height:3px; border-radius:50%; background:#0f4256;"></div></div><div style="position:absolute; left:16px; top:-4px; width:14px; height:11px; border-radius:60% 60% 0 0; background:#5aa7bd;"></div></div></div></div>
+
+    <div style="position:absolute; top:30%; left:0; transform:scaleX(-1);"><div style="animation:rc-swim 42s linear infinite 4s;"><div style="position:relative; width:34px; height:19px;"><div style="position:absolute; inset:0; border-radius:52% 60% 60% 52%/50%; background:linear-gradient(180deg,#ffd59b,#e8a24d);"></div><div style="position:absolute; left:-8px; top:50%; transform:translateY(-50%); width:0; height:0; border-top:8px solid transparent; border-bottom:8px solid transparent; border-right:11px solid #e8a24d;"></div><div style="position:absolute; right:6px; top:5px; width:4px; height:4px; border-radius:50%; background:#fff;"><div style="position:absolute; left:1px; top:1px; width:2px; height:2px; border-radius:50%; background:#5a3a12;"></div></div></div></div></div>
+
+    <div style="position:absolute; top:22%; left:0; transform:scaleX(-1);"><div style="animation:rc-swim 36s linear infinite 9s;"><div style="position:relative; width:40px; height:23px;"><div style="position:absolute; inset:0; border-radius:52% 60% 60% 52%/50%; background:linear-gradient(180deg,#c6b3e6,#8a7bc0);"></div><div style="position:absolute; left:-9px; top:50%; transform:translateY(-50%); width:0; height:0; border-top:9px solid transparent; border-bottom:9px solid transparent; border-right:13px solid #8a7bc0;"></div><div style="position:absolute; right:7px; top:6px; width:5px; height:5px; border-radius:50%; background:#fff;"><div style="position:absolute; left:1.5px; top:1.5px; width:2px; height:2px; border-radius:50%; background:#3b2a5c;"></div></div></div></div></div>
+
+    <div style="position:absolute; top:40%; left:0; transform:scaleX(1);"><div style="animation:rc-swim 48s linear infinite 14s;"><div style="position:relative; width:30px; height:17px;"><div style="position:absolute; inset:0; border-radius:52% 60% 60% 52%/50%; background:linear-gradient(180deg,#a7dbe7,#57a0b6);"></div><div style="position:absolute; left:-7px; top:50%; transform:translateY(-50%); width:0; height:0; border-top:7px solid transparent; border-bottom:7px solid transparent; border-right:10px solid #57a0b6;"></div><div style="position:absolute; right:6px; top:4px; width:4px; height:4px; border-radius:50%; background:#fff;"></div></div></div></div>
+
+    <!-- little fish school -->
+    <div style="position:absolute; top:12%; left:0; transform:scaleX(1);"><div style="animation:rc-swim 26s linear infinite 2s;"><div style="position:relative; width:70px; height:20px;">
+      <span style="position:absolute; left:0; top:4px; width:12px; height:8px; border-radius:50% 60% 60% 50%; background:#5aa7bd;"></span>
+      <span style="position:absolute; left:20px; top:9px; width:12px; height:8px; border-radius:50% 60% 60% 50%; background:#5aa7bd;"></span>
+      <span style="position:absolute; left:40px; top:2px; width:12px; height:8px; border-radius:50% 60% 60% 50%; background:#5aa7bd;"></span>
+      <span style="position:absolute; left:52px; top:11px; width:12px; height:8px; border-radius:50% 60% 60% 50%; background:#5aa7bd;"></span>
+    </div></div></div>
+
+    <!-- sandy seabed: fills from the horizon (~50%) all the way down -->
+    <div style="position:absolute; left:0; right:0; top:50%; bottom:0; background:linear-gradient(180deg,#e2d3ac 0%,#d3c090 42%,#bfab7c 100%); box-shadow:inset 0 26px 54px rgba(120,100,60,0.22);"></div>
+    <!-- sand ripple texture -->
+    <div style="position:absolute; left:0; right:0; top:50%; bottom:0; opacity:0.35; background:repeating-linear-gradient(96deg, rgba(255,255,255,0.14) 0 3px, transparent 3px 26px);"></div>
+    <!-- soft horizon light -->
+    <div style="position:absolute; left:0; right:0; top:50%; height:5%; background:linear-gradient(180deg,rgba(255,250,235,0.35),transparent);"></div>
+
+    <!-- coral cluster A (finger coral, dusty rose) -->
+    <div style="position:absolute; left:7%; top:41%; width:130px; height:112px;">
+      <div style="position:absolute; left:14px; bottom:0; width:22px; height:96px; border-radius:14px; background:linear-gradient(180deg,#e39aa6,#c26e7d); transform:rotate(-9deg);"></div>
+      <div style="position:absolute; left:40px; bottom:0; width:24px; height:112px; border-radius:14px; background:linear-gradient(180deg,#eaa6b1,#cb7686);"></div>
+      <div style="position:absolute; left:70px; bottom:0; width:20px; height:84px; border-radius:12px; background:linear-gradient(180deg,#e39aa6,#c26e7d); transform:rotate(11deg);"></div>
+      <span style="position:absolute; left:20px; top:6px; width:8px; height:8px; border-radius:50%; background:#f4c3cb;"></span>
+      <span style="position:absolute; left:47px; top:-2px; width:9px; height:9px; border-radius:50%; background:#f4c3cb;"></span>
+    </div>
+
+    <!-- coral cluster B (brain coral blob, teal-green) -->
+    <div style="position:absolute; left:29%; top:47%; width:120px; height:70px;">
+      <div style="position:absolute; inset:0; border-radius:50% 50% 44% 44%/70% 70% 40% 40%; background:radial-gradient(60% 60% at 45% 30%,#79c2ad,#3f8f79); box-shadow:inset 0 -8px 16px rgba(0,0,0,0.2);"></div>
+      <div style="position:absolute; left:14px; top:14px; right:14px; height:8px; border-radius:999px; border-top:3px solid rgba(20,70,60,0.35);"></div>
+      <div style="position:absolute; left:22px; top:28px; right:22px; height:8px; border-radius:999px; border-top:3px solid rgba(20,70,60,0.3);"></div>
+    </div>
+
+    <!-- coral cluster C (fan coral, gold) -->
+    <div style="position:absolute; left:66%; top:42%; width:120px; height:104px;">
+      <div style="position:absolute; left:40px; bottom:0; width:12px; height:40px; border-radius:6px; background:#b98a3e;"></div>
+      <div style="position:absolute; left:6px; bottom:30px; width:100px; height:74px; border-radius:50% 50% 6% 6%; background:radial-gradient(70% 90% at 50% 100%,#e6c069,#c99a3c); clip-path:polygon(50% 100%, 0 6%, 14% 0, 30% 8%, 42% 0, 58% 0, 70% 8%, 86% 0, 100% 6%);"></div>
+    </div>
+
+    <!-- coral cluster D (finger coral, purple) -->
+    <div style="position:absolute; left:87%; top:44%; width:110px; height:104px;">
+      <div style="position:absolute; left:10px; bottom:0; width:20px; height:80px; border-radius:12px; background:linear-gradient(180deg,#b0a0d8,#8672b8); transform:rotate(-8deg);"></div>
+      <div style="position:absolute; left:36px; bottom:0; width:22px; height:100px; border-radius:13px; background:linear-gradient(180deg,#bcaee0,#9583c4);"></div>
+      <div style="position:absolute; left:62px; bottom:0; width:18px; height:70px; border-radius:11px; background:linear-gradient(180deg,#b0a0d8,#8672b8); transform:rotate(10deg);"></div>
+      <span style="position:absolute; left:15px; top:2px; width:8px; height:8px; border-radius:50%; background:#dcd2f2;"></span>
+      <span style="position:absolute; left:41px; top:-4px; width:9px; height:9px; border-radius:50%; background:#dcd2f2;"></span>
+    </div>
+
+    <!-- seaweed -->
+    <div style="position:absolute; left:20%; top:44%; width:40px; height:120px; transform-origin:bottom center; animation:rc-sway 5s ease-in-out infinite;">
+      <div style="position:absolute; left:6px; bottom:0; width:12px; height:120px; border-radius:8px; background:linear-gradient(180deg,#57a86f,#2f7a4d);"></div>
+      <div style="position:absolute; left:20px; bottom:0; width:10px; height:96px; border-radius:8px; background:linear-gradient(180deg,#6bbd80,#3a8a58);"></div>
+    </div>
+    <div style="position:absolute; left:52%; top:46%; width:36px; height:104px; transform-origin:bottom center; animation:rc-sway 6.5s ease-in-out infinite 0.8s;">
+      <div style="position:absolute; left:4px; bottom:0; width:10px; height:104px; border-radius:8px; background:linear-gradient(180deg,#6bbd80,#3a8a58);"></div>
+      <div style="position:absolute; left:16px; bottom:0; width:12px; height:84px; border-radius:8px; background:linear-gradient(180deg,#57a86f,#2f7a4d);"></div>
+    </div>
+    <div style="position:absolute; left:79%; top:45%; width:34px; height:112px; transform-origin:bottom center; animation:rc-sway 5.8s ease-in-out infinite 1.6s;">
+      <div style="position:absolute; left:5px; bottom:0; width:11px; height:112px; border-radius:8px; background:linear-gradient(180deg,#5fb377,#358152);"></div>
+    </div>
+
+    <!-- soft sandy bed + mounds (deep background) -->
+    <div style="position:absolute; left:-6%; bottom:-5%; width:64%; height:140px; border-radius:50% 50% 0 0/100% 100% 0 0; background:radial-gradient(60% 100% at 50% 100%, rgba(200,214,196,0.5), rgba(150,180,170,0.18)); filter:blur(1px);"></div>
+    <div style="position:absolute; right:-10%; bottom:-5%; width:60%; height:118px; border-radius:50% 50% 0 0/100% 100% 0 0; background:radial-gradient(60% 100% at 50% 100%, rgba(200,214,196,0.45), rgba(150,180,170,0.15)); filter:blur(1px);"></div>
+
+    <!-- seashell (scallop) -->
+    <div style="position:absolute; left:13%; bottom:3%; width:38px; height:32px; transform:rotate(-8deg);">
+      <div style="position:absolute; inset:0; background:linear-gradient(180deg,#f6e3c4,#e3c398); clip-path:polygon(50% 100%, 2% 34%, 14% 10%, 32% 26%, 50% 6%, 68% 26%, 86% 10%, 98% 34%);"></div>
+      <div style="position:absolute; left:49%; top:22%; width:2px; height:70%; background:rgba(178,138,92,0.5);"></div>
+      <div style="position:absolute; left:33%; top:30%; width:2px; height:58%; background:rgba(178,138,92,0.4); transform:rotate(-16deg); transform-origin:bottom;"></div>
+      <div style="position:absolute; left:65%; top:30%; width:2px; height:58%; background:rgba(178,138,92,0.4); transform:rotate(16deg); transform-origin:bottom;"></div>
+    </div>
+    <!-- seashell (scallop) -->
+    <div style="position:absolute; right:16%; bottom:2%; width:30px; height:26px; transform:rotate(10deg);">
+      <div style="position:absolute; inset:0; background:linear-gradient(180deg,#f3ddd0,#dcb7a4); clip-path:polygon(50% 100%, 2% 34%, 14% 10%, 32% 26%, 50% 6%, 68% 26%, 86% 10%, 98% 34%);"></div>
+      <div style="position:absolute; left:49%; top:22%; width:2px; height:70%; background:rgba(168,120,102,0.45);"></div>
+    </div>
+    <!-- spiral snail shell -->
+    <div style="position:absolute; left:40%; bottom:2%; width:26px; height:26px; border-radius:50%; background:conic-gradient(from 210deg,#e8cfa6,#cfa871 55%,#e8cfa6); box-shadow:inset -3px -3px 6px rgba(120,90,50,0.4); transform:rotate(-14deg);">
+      <div style="position:absolute; left:6px; top:6px; width:12px; height:12px; border-radius:50%; border:2px solid rgba(150,110,60,0.4); border-right-color:transparent;"></div>
+    </div>
+    <!-- resting starfish -->
+    <div style="position:absolute; right:30%; bottom:3%; width:54px; height:54px; transform:rotate(18deg);">
+      <div style="position:absolute; left:50%; top:50%; width:44px; height:19px; margin:-9.5px 0 0 -22px; border-radius:10px; background:linear-gradient(90deg,#c96f2f,#eea45a 50%,#c96f2f); transform:rotate(0deg);"></div>
+      <div style="position:absolute; left:50%; top:50%; width:44px; height:19px; margin:-9.5px 0 0 -22px; border-radius:10px; background:linear-gradient(90deg,#c96f2f,#eea45a 50%,#c96f2f); transform:rotate(72deg);"></div>
+      <div style="position:absolute; left:50%; top:50%; width:44px; height:19px; margin:-9.5px 0 0 -22px; border-radius:10px; background:linear-gradient(90deg,#c96f2f,#eea45a 50%,#c96f2f); transform:rotate(144deg);"></div>
+      <div style="position:absolute; left:50%; top:50%; width:44px; height:19px; margin:-9.5px 0 0 -22px; border-radius:10px; background:linear-gradient(90deg,#c96f2f,#eea45a 50%,#c96f2f); transform:rotate(216deg);"></div>
+      <div style="position:absolute; left:50%; top:50%; width:44px; height:19px; margin:-9.5px 0 0 -22px; border-radius:10px; background:linear-gradient(90deg,#c96f2f,#eea45a 50%,#c96f2f); transform:rotate(288deg);"></div>
+      <div style="position:absolute; left:50%; top:50%; width:22px; height:22px; margin:-11px 0 0 -11px; border-radius:50%; background:radial-gradient(circle at 38% 32%,#f4c08a,#cf8036);"></div>
+    </div>
+
+    <!-- cartoon bubbles rising -->
+    <span style="position:absolute; left:11%; bottom:2%; width:14px; height:14px; border-radius:50%; background:radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(180,225,240,0.35) 60%, rgba(150,205,225,0.15)); box-shadow:inset 0 0 4px rgba(255,255,255,0.7); animation:rc-bubble 11s linear infinite;"></span>
+    <span style="position:absolute; left:24%; bottom:0; width:9px; height:9px; border-radius:50%; background:radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(180,225,240,0.3) 60%, rgba(150,205,225,0.12)); animation:rc-bubble 9s linear infinite 1.5s;"></span>
+    <span style="position:absolute; left:37%; bottom:4%; width:18px; height:18px; border-radius:50%; background:radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(180,225,240,0.32) 60%, rgba(150,205,225,0.13)); box-shadow:inset 0 0 5px rgba(255,255,255,0.6); animation:rc-bubble 13s linear infinite 0.7s;"></span>
+    <span style="position:absolute; left:49%; bottom:1%; width:7px; height:7px; border-radius:50%; background:radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(180,225,240,0.3) 60%, rgba(150,205,225,0.1)); animation:rc-bubble 8s linear infinite 2.2s;"></span>
+    <span style="position:absolute; left:63%; bottom:3%; width:12px; height:12px; border-radius:50%; background:radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(180,225,240,0.32) 60%, rgba(150,205,225,0.12)); box-shadow:inset 0 0 4px rgba(255,255,255,0.65); animation:rc-bubble 10.5s linear infinite 3s;"></span>
+    <span style="position:absolute; left:74%; bottom:0; width:10px; height:10px; border-radius:50%; background:radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(180,225,240,0.3) 60%, rgba(150,205,225,0.12)); animation:rc-bubble 9.5s linear infinite 1.1s;"></span>
+    <span style="position:absolute; left:86%; bottom:5%; width:15px; height:15px; border-radius:50%; background:radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(180,225,240,0.32) 60%, rgba(150,205,225,0.12)); box-shadow:inset 0 0 5px rgba(255,255,255,0.6); animation:rc-bubble 12s linear infinite 2.6s;"></span>
+    <span style="position:absolute; left:93%; bottom:1%; width:8px; height:8px; border-radius:50%; background:radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(180,225,240,0.3) 60%, rgba(150,205,225,0.1)); animation:rc-bubble 8.5s linear infinite 0.4s;"></span>
+    <span style="position:absolute; left:5%; bottom:0; width:11px; height:11px; border-radius:50%; background:radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(180,225,240,0.3) 60%, rgba(150,205,225,0.12)); animation:rc-bubble 10s linear infinite 4.3s;"></span>
+    <span style="position:absolute; left:56%; bottom:2%; width:6px; height:6px; border-radius:50%; background:radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(180,225,240,0.3) 60%, rgba(150,205,225,0.1)); animation:rc-bubble 7.5s linear infinite 5s;"></span>
+  </div>
+
+  <!-- top-left lockup -->
+  <div style="position:absolute; top:26px; left:32px; z-index:40; line-height:1.4;">
+    <div style="font-size:15px; font-weight:700; letter-spacing:0.2em; color:#0f4256;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+    <div style="font-size:15px; letter-spacing:0.16em; color:#2f7f99;">VERITAS BLUE</div>
+  </div>
+  <sc-if value="{{ notComplete }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute; top:26px; left:50%; transform:translateX(-50%); z-index:40; text-align:center;">
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.28em; color:#0f4256;">AI SELECTIVE HARVESTING</div>
+      <div style="font-size:12px; letter-spacing:0.22em; color:#2f7f99;">{{ stageLabel }}</div>
+    </div>
+  </sc-if>
+
+  <!-- ============ STAGE A — EXTERIOR 360 ============ -->
+  <sc-if value="{{ isExterior }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute; inset:0;">
+      <!-- clean inspection ring: thin static ring + slow rotating scan arc -->
+      <div style="position:absolute; left:48%; top:47%; width:560px; height:560px; transform:translate(-50%,-50%); border-radius:50%; border:1px solid rgba(15,66,86,0.16);"></div>
+      <div style="position:absolute; left:48%; top:47%; width:560px; height:560px; transform:translate(-50%,-50%); border-radius:50%; background:conic-gradient(from 0deg, transparent 0 74%, rgba(4,159,217,0.20) 86%, rgba(4,159,217,0.05) 92%, transparent 96%); -webkit-mask:radial-gradient(circle, transparent 271px, #000 273px); mask:radial-gradient(circle, transparent 271px, #000 273px); animation:rc-spin 18s linear infinite;">
+        <span style="position:absolute; left:50%; top:-5px; width:9px; height:9px; margin-left:-4.5px; border-radius:50%; background:#049fd9; box-shadow:0 0 12px #049fd9;"></span>
+      </div>
+      <!-- cardinal ticks -->
+      <div style="position:absolute; left:48%; top:47%; width:560px; height:560px; transform:translate(-50%,-50%);">
+        <span style="position:absolute; left:50%; top:-1px; width:2px; height:12px; margin-left:-1px; background:rgba(15,66,86,0.35);"></span>
+        <span style="position:absolute; left:50%; bottom:-1px; width:2px; height:12px; margin-left:-1px; background:rgba(15,66,86,0.35);"></span>
+        <span style="position:absolute; top:50%; left:-1px; width:12px; height:2px; margin-top:-1px; background:rgba(15,66,86,0.35);"></span>
+        <span style="position:absolute; top:50%; right:-1px; width:12px; height:2px; margin-top:-1px; background:rgba(15,66,86,0.35);"></span>
+      </div>
+      <div style="position:absolute; left:48%; top:calc(47% + 300px); transform:translate(-50%,-50%); font-size:12px; font-weight:600; letter-spacing:0.3em; color:#0f4256;">360° INSPECTION</div>
+
+      <!-- cartoon collector robot -->
+      <div style="position:absolute; left:48%; top:47%; transform:translate(-50%,-50%);">
+        <div style="animation:rc-float 4.5s ease-in-out infinite;">
+          <div style="position:relative; width:320px; height:230px;">
+            <!-- thruster mount bracket (flush to body right edge) -->
+            <div style="position:absolute; left:262px; top:78px; width:20px; height:78px; border-radius:6px; background:linear-gradient(90deg,#5f8494,#7ba3b4);"></div>
+            <!-- back thrusters -->
+            <div style="position:absolute; left:278px; top:74px; width:30px; height:26px; border-radius:7px; background:linear-gradient(180deg,#6d93a3,#3f6577); box-shadow:inset -3px 0 6px rgba(0,0,0,0.35);"></div>
+            <div style="position:absolute; left:302px; top:78px; width:8px; height:18px; border-radius:0 6px 6px 0; background:#2b3d45;"></div>
+            <div style="position:absolute; left:278px; top:110px; width:30px; height:26px; border-radius:7px; background:linear-gradient(180deg,#6d93a3,#3f6577); box-shadow:inset -3px 0 6px rgba(0,0,0,0.35);"></div>
+            <div style="position:absolute; left:302px; top:114px; width:8px; height:18px; border-radius:0 6px 6px 0; background:#2b3d45;"></div>
+            <!-- main body -->
+            <div style="position:absolute; left:26px; top:44px; width:250px; height:120px; border-radius:34px; background:linear-gradient(180deg,#eaf2f5 0%,#bcd3dc 42%,#7ba3b4 100%); box-shadow:inset -14px -16px 30px rgba(20,60,80,0.4), inset 10px 10px 22px rgba(255,255,255,0.6), 0 26px 50px rgba(10,48,66,0.4);"></div>
+            <!-- yellow accent stripe -->
+            <div style="position:absolute; left:26px; top:150px; width:250px; height:12px; background:#f2c34b; border-radius:0 0 24px 24px; opacity:0.9;"></div>
+            <!-- glass dome -->
+            <div style="position:absolute; left:96px; top:8px; width:120px; height:76px; border-radius:60px 60px 40px 40px; background:linear-gradient(180deg,rgba(220,245,252,0.9),rgba(120,190,215,0.55)); border:3px solid #cfe0e6; box-shadow:inset 6px 6px 14px rgba(255,255,255,0.7);"></div>
+            <div style="position:absolute; left:118px; top:16px; width:34px; height:20px; border-radius:50%; background:rgba(255,255,255,0.75); transform:rotate(-18deg);"></div>
+            <!-- [PERCEPTION] big camera eye / vision pod -->
+            <div style="position:absolute; left:120px; top:78px; width:72px; height:72px; border-radius:50%; background:radial-gradient(circle at 38% 32%, #2a3a44, #0d1a22); border:5px solid #cfe0e6; box-shadow:0 8px 18px rgba(10,48,66,0.4);">
+              <div style="position:absolute; left:50%; top:50%; width:34px; height:34px; margin:-17px 0 0 -17px; border-radius:50%; background:radial-gradient(circle at 40% 35%, #7fdcff, #049fd9 60%, #0a5f86);"></div>
+              <div style="position:absolute; left:26px; top:20px; width:12px; height:12px; border-radius:50%; background:rgba(255,255,255,0.9);"></div>
+            </div>
+            <!-- vision-pod LED array (part of perception) -->
+            <div style="position:absolute; left:112px; top:62px; width:88px; height:8px; border-radius:5px; background:linear-gradient(90deg,#f2c34b,#fff3cf,#f2c34b); box-shadow:0 0 10px rgba(255,236,160,0.7);"></div>
+            <!-- headlights -->
+            <div style="position:absolute; left:36px; top:96px; width:26px; height:26px; border-radius:50%; background:radial-gradient(circle at 40% 35%, #fff8dc, #f2c34b); box-shadow:0 0 22px 6px rgba(255,236,160,0.8);"></div>
+            <div style="position:absolute; left:36px; top:66px; width:20px; height:20px; border-radius:50%; background:radial-gradient(circle at 40% 35%, #fff8dc, #f2c34b); box-shadow:0 0 16px 4px rgba(255,236,160,0.7);"></div>
+            <!-- [CISCO UCS] edge-AI compute rack (right of body) -->
+            <div style="position:absolute; left:206px; top:96px; width:54px; height:50px; border-radius:9px; background:linear-gradient(180deg,#2d3f48,#16232a); border:2px solid #4a6470; box-shadow:inset 0 2px 4px rgba(255,255,255,0.15);">
+              <div style="position:absolute; left:8px; top:8px; right:8px; height:5px; border-radius:3px; background:#049fd9; box-shadow:0 0 6px #049fd9;"></div>
+              <div style="position:absolute; left:8px; top:18px; right:8px; height:5px; border-radius:3px; background:#3ec0ea;"></div>
+              <div style="position:absolute; left:8px; top:28px; right:8px; height:5px; border-radius:3px; background:#049fd9; opacity:0.7;"></div>
+              <div style="position:absolute; left:0; bottom:5px; width:100%; text-align:center; font-size:7px; font-weight:700; letter-spacing:0.14em; color:#9fd8ee;">UCS</div>
+            </div>
+            <!-- [INTEGRITY] telemetry signing module (lower-left of body) -->
+            <div style="position:absolute; left:52px; top:112px; width:46px; height:38px; border-radius:8px; background:linear-gradient(180deg,#eaf2f5,#9db8c2); border:2px solid #cfe0e6; box-shadow:inset 0 2px 4px rgba(255,255,255,0.5);">
+              <div style="position:absolute; left:50%; top:8px; width:14px; height:10px; margin-left:-7px; border-radius:3px; background:#2f6f86;"></div>
+              <div style="position:absolute; left:50%; top:4px; width:10px; height:9px; margin-left:-5px; border-radius:5px 5px 0 0; border:2px solid #2f6f86; border-bottom:none;"></div>
+              <div style="position:absolute; left:0; bottom:5px; width:100%; text-align:center; font-size:7px; font-weight:700; letter-spacing:0.1em; color:#2f6f86;">SIGN</div>
+            </div>
+            <!-- [CURWB] antenna surface link -->
+            <div style="position:absolute; left:150px; top:-14px; width:4px; height:26px; background:#6d93a3;"></div>
+            <div style="position:absolute; left:146px; top:-24px; width:12px; height:12px; border-radius:50%; background:#049fd9; box-shadow:0 0 10px #049fd9; animation:rc-blink 2.6s ease-in-out infinite;"></div>
+            <!-- signal arcs on antenna -->
+            <div style="position:absolute; left:158px; top:-26px; width:14px; height:14px; border-radius:50%; border:2px solid rgba(4,159,217,0.5); border-left-color:transparent; border-bottom-color:transparent;"></div>
+            <div style="position:absolute; left:162px; top:-32px; width:22px; height:22px; border-radius:50%; border:2px solid rgba(4,159,217,0.3); border-left-color:transparent; border-bottom-color:transparent;"></div>
+            <!-- treads -->
+            <div style="position:absolute; left:34px; top:168px; width:236px; height:36px; border-radius:18px; background:linear-gradient(180deg,#3d4b52,#1c262b);"></div>
+            <div style="position:absolute; left:48px; top:176px; width:20px; height:20px; border-radius:50%; background:#5f757f; border:3px solid #cfe0e6;"></div>
+            <div style="position:absolute; left:104px; top:176px; width:20px; height:20px; border-radius:50%; background:#5f757f; border:3px solid #cfe0e6;"></div>
+            <div style="position:absolute; left:180px; top:176px; width:20px; height:20px; border-radius:50%; background:#5f757f; border:3px solid #cfe0e6;"></div>
+            <div style="position:absolute; left:236px; top:176px; width:20px; height:20px; border-radius:50%; background:#5f757f; border:3px solid #cfe0e6;"></div>
+            <!-- collector claw arm (mounted to body via shoulder joint) -->
+            <div style="position:absolute; left:14px; top:116px; width:30px; height:30px; border-radius:50%; background:radial-gradient(circle at 35% 30%,#eef4f6,#5f8494); border:3px solid #cfe0e6; box-shadow:0 3px 8px rgba(10,48,66,0.35);"></div>
+            <div style="position:absolute; left:24px; top:124px; width:14px; height:14px; border-radius:50%; background:#049fd9; box-shadow:0 0 6px #049fd9;"></div>
+            <div style="position:absolute; left:-4px; top:126px; width:44px; height:14px; border-radius:8px; background:linear-gradient(90deg,#5f8494,#bcd3dc); transform:rotate(28deg); transform-origin:right center;"></div>
+            <div style="position:absolute; left:-28px; top:156px; width:22px; height:10px; border-radius:6px; background:#5f8494; transform:rotate(40deg);"></div>
+            <div style="position:absolute; left:-28px; top:164px; width:22px; height:10px; border-radius:6px; background:#5f8494; transform:rotate(-40deg);"></div>
+            <!-- thruster exhaust bubbles -->
+            <span style="position:absolute; left:312px; top:86px; width:7px; height:7px; border-radius:50%; background:radial-gradient(circle at 32% 28%, rgba(255,255,255,0.9), rgba(180,225,240,0.3)); animation:rc-bubble 5s linear infinite;"></span>
+            <span style="position:absolute; left:314px; top:120px; width:6px; height:6px; border-radius:50%; background:radial-gradient(circle at 32% 28%, rgba(255,255,255,0.9), rgba(180,225,240,0.3)); animation:rc-bubble 6s linear infinite 1.2s;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- callout leader lines -->
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;">
+        <sc-for list="{{ callouts }}" as="c" hint-placeholder-count="4">
+          <line x1="{{ c.ax }}" y1="{{ c.ay }}" x2="{{ c.lx }}" y2="{{ c.y }}" stroke="{{ c.stroke }}" stroke-width="0.15" stroke-dasharray="0.6 0.6" style="opacity:{{ c.op }}; transition:opacity 0.5s;"></line>
+        </sc-for>
+      </svg>
+      <!-- callout chips -->
+      <sc-for list="{{ callouts }}" as="c" hint-placeholder-count="4">
+        <div style="position:absolute; left:{{ c.chipX }}%; top:{{ c.y }}%; transform:translate(-50%,-50%); max-width:230px; padding:12px 16px; border-radius:12px; background:rgba(253,254,254,0.92); border:1px solid {{ c.border }}; box-shadow:0 10px 26px rgba(10,48,66,0.2); font-size:14px; font-weight:600; color:#0f4256; line-height:1.35; opacity:{{ c.op }}; transition:opacity 0.5s;">
+          <span style="display:block; font-size:10px; font-weight:700; letter-spacing:0.14em; color:{{ c.tagColor }}; margin-bottom:4px;">{{ c.tag }}</span>
+          {{ c.text }}
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <!-- ============ STAGE B/C — FIRST PERSON ============ -->
+  <sc-if value="{{ isFpv }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; inset:0; filter:{{ sceneFilter }};">
+      <!-- sandy seafloor: extends from the middle line down -->
+      <div style="position:absolute; left:0; right:0; top:50%; bottom:0; background:linear-gradient(180deg,#e6d7b0 0%,#d3c090 42%,#bfab7c 100%); box-shadow:inset 0 30px 60px rgba(120,100,60,0.28);"></div>
+      <div style="position:absolute; left:0; right:0; top:50%; height:4px; background:linear-gradient(90deg,transparent,rgba(255,250,235,0.6),transparent);"></div>
+      <!-- sand ripple texture -->
+      <div style="position:absolute; left:0; right:0; top:50%; bottom:0; opacity:0.4; background:repeating-linear-gradient(96deg, rgba(255,255,255,0.16) 0 3px, transparent 3px 28px); pointer-events:none;"></div>
+      <span style="position:absolute; left:14%; top:78%; width:44px; height:22px; border-radius:50%; background:radial-gradient(60% 60% at 40% 30%,#8ba6b2,#5c7d8c);"></span>
+      <span style="position:absolute; left:82%; top:72%; width:60px; height:28px; border-radius:50%; background:radial-gradient(60% 60% at 40% 30%,#8ba6b2,#5c7d8c);"></span>
+      <span style="position:absolute; left:44%; top:88%; width:52px; height:24px; border-radius:50%; background:radial-gradient(60% 60% at 40% 30%,#93aeb9,#63838f);"></span>
+      <!-- floor seashells + starfish -->
+      <div style="position:absolute; left:24%; top:82%; width:40px; height:34px; transform:rotate(-10deg); pointer-events:none;">
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg,#f6e3c4,#e3c398); clip-path:polygon(50% 100%, 2% 34%, 14% 10%, 32% 26%, 50% 6%, 68% 26%, 86% 10%, 98% 34%);"></div>
+        <div style="position:absolute; left:49%; top:22%; width:2px; height:70%; background:rgba(178,138,92,0.5);"></div>
+        <div style="position:absolute; left:33%; top:30%; width:2px; height:58%; background:rgba(178,138,92,0.4); transform:rotate(-16deg); transform-origin:bottom;"></div>
+        <div style="position:absolute; left:65%; top:30%; width:2px; height:58%; background:rgba(178,138,92,0.4); transform:rotate(16deg); transform-origin:bottom;"></div>
+      </div>
+      <div style="position:absolute; left:68%; top:80%; width:30px; height:30px; border-radius:50%; background:conic-gradient(from 210deg,#e8cfa6,#cfa871 55%,#e8cfa6); box-shadow:inset -3px -3px 6px rgba(120,90,50,0.4); transform:rotate(-14deg); pointer-events:none;">
+        <div style="position:absolute; left:7px; top:7px; width:14px; height:14px; border-radius:50%; border:2px solid rgba(150,110,60,0.4); border-right-color:transparent;"></div>
+      </div>
+      <div style="position:absolute; left:58%; top:90%; width:58px; height:58px; transform:rotate(24deg); pointer-events:none;">
+        <div style="position:absolute; left:50%; top:50%; width:48px; height:20px; margin:-10px 0 0 -24px; border-radius:11px; background:linear-gradient(90deg,#c96f2f,#eea45a 50%,#c96f2f); transform:rotate(0deg);"></div>
+        <div style="position:absolute; left:50%; top:50%; width:48px; height:20px; margin:-10px 0 0 -24px; border-radius:11px; background:linear-gradient(90deg,#c96f2f,#eea45a 50%,#c96f2f); transform:rotate(72deg);"></div>
+        <div style="position:absolute; left:50%; top:50%; width:48px; height:20px; margin:-10px 0 0 -24px; border-radius:11px; background:linear-gradient(90deg,#c96f2f,#eea45a 50%,#c96f2f); transform:rotate(144deg);"></div>
+        <div style="position:absolute; left:50%; top:50%; width:48px; height:20px; margin:-10px 0 0 -24px; border-radius:11px; background:linear-gradient(90deg,#c96f2f,#eea45a 50%,#c96f2f); transform:rotate(216deg);"></div>
+        <div style="position:absolute; left:50%; top:50%; width:48px; height:20px; margin:-10px 0 0 -24px; border-radius:11px; background:linear-gradient(90deg,#c96f2f,#eea45a 50%,#c96f2f); transform:rotate(288deg);"></div>
+        <div style="position:absolute; left:50%; top:50%; width:24px; height:24px; margin:-12px 0 0 -12px; border-radius:50%; background:radial-gradient(circle at 38% 32%,#f4c08a,#cf8036);"></div>
+      </div>
+
+      <!-- foreground reef framing the harvest floor -->
+      <div style="position:absolute; left:2%; top:58%; width:150px; height:150px; pointer-events:none;">
+        <div style="position:absolute; left:20px; bottom:0; width:26px; height:130px; border-radius:16px; background:linear-gradient(180deg,#eaa6b1,#c26e7d); transform:rotate(-10deg);"></div>
+        <div style="position:absolute; left:56px; bottom:0; width:28px; height:150px; border-radius:16px; background:linear-gradient(180deg,#eaa6b1,#cb7686);"></div>
+        <div style="position:absolute; left:94px; bottom:0; width:22px; height:104px; border-radius:14px; background:linear-gradient(180deg,#e39aa6,#c26e7d); transform:rotate(12deg);"></div>
+      </div>
+      <div style="position:absolute; right:1%; top:56%; width:160px; height:170px; pointer-events:none;">
+        <div style="position:absolute; left:18px; bottom:0; width:26px; height:120px; border-radius:15px; background:linear-gradient(180deg,#b0a0d8,#8672b8); transform:rotate(-9deg);"></div>
+        <div style="position:absolute; left:56px; bottom:0; width:30px; height:160px; border-radius:16px; background:linear-gradient(180deg,#bcaee0,#9583c4);"></div>
+        <div style="position:absolute; left:98px; bottom:0; width:22px; height:108px; border-radius:14px; background:linear-gradient(180deg,#b0a0d8,#8672b8); transform:rotate(11deg);"></div>
+      </div>
+      <div style="position:absolute; left:38%; top:60%; width:130px; height:70px; pointer-events:none;">
+        <div style="position:absolute; inset:0; border-radius:50% 50% 44% 44%/70% 70% 40% 40%; background:radial-gradient(60% 60% at 45% 30%,#79c2ad,#3f8f79);"></div>
+      </div>
+
+      <!-- headlight pool -->
+      <div style="position:absolute; left:50%; top:70%; width:80%; height:44%; transform:translate(-50%,-50%); background:radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0.32), transparent 70%); pointer-events:none;"></div>
+
+      <!-- rocks -->
+      <sc-for list="{{ rocks }}" as="r" hint-placeholder-count="0">
+        <button onClick="{{ r.onClick }}" style="{{ r.style }}">
+          <!-- classification box -->
+          <sc-if value="{{ r.showBox }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute; left:50%; bottom:112%; transform:translateX(-50%); white-space:nowrap; padding:7px 12px; border-radius:8px; border:2px solid {{ r.boxColor }}; background:{{ r.boxBg }}; backdrop-filter:blur(3px);">
+              <div style="font-size:12px; font-weight:700; letter-spacing:0.08em; color:{{ r.boxColor }};">{{ r.boxTitle }}</div>
+              <div style="font-size:11px; color:{{ r.boxColor }}; opacity:0.85;">{{ r.boxSub }}</div>
+            </div>
+          </sc-if>
+          <!-- ore nodule -->
+          <sc-if value="{{ r.isOre }}" hint-placeholder-val="{{ true }}">
+            <div style="width:120px; height:96px; position:relative;">
+              <div style="position:absolute; inset:0; border-radius:48% 52% 46% 54% / 54% 48% 52% 46%; background:radial-gradient(60% 55% at 38% 30%, #6f6a5e, #3c3830 58%, #23201b); box-shadow:inset -9px -11px 20px rgba(0,0,0,0.55), inset 7px 9px 15px rgba(255,255,255,0.12), 0 12px 24px rgba(10,40,55,0.4);"></div>
+              <span style="position:absolute; left:30%; top:38%; width:11px; height:11px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #eaf7fc, #8fbccd 55%, #4f7f93); box-shadow:0 0 7px rgba(150,225,245,0.9);"></span>
+              <span style="position:absolute; left:56%; top:52%; width:8px; height:8px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #eaf7fc, #8fbccd 55%, #4f7f93); box-shadow:0 0 6px rgba(150,225,245,0.85);"></span>
+              <span style="position:absolute; left:44%; top:64%; width:6px; height:6px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #eaf7fc, #8fbccd 55%, #4f7f93); box-shadow:0 0 5px rgba(150,225,245,0.8);"></span>
+              <span style="position:absolute; left:66%; top:34%; width:6px; height:6px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #eaf7fc, #8fbccd 55%, #4f7f93); box-shadow:0 0 5px rgba(150,225,245,0.8);"></span>
+            </div>
+          </sc-if>
+          <!-- fauna rock (cartoon creature) -->
+          <sc-if value="{{ r.isFauna }}" hint-placeholder-val="{{ false }}">
+            <div style="width:150px; height:130px; position:relative;">
+              <!-- rocky base -->
+              <div style="position:absolute; left:50%; bottom:0; transform:translateX(-50%); width:128px; height:56px; border-radius:50%/70% 70% 40% 40%; background:radial-gradient(60% 60% at 40% 30%, #6f6a5e, #3c3830 60%, #23201b); box-shadow:inset -8px -8px 16px rgba(0,0,0,0.5);"></div>
+              <!-- protected ring -->
+              <div style="position:absolute; left:50%; top:8px; transform:translateX(-50%); width:110px; height:110px; border-radius:50%; border:3px solid rgba(192,71,90,0.6); box-shadow:0 0 22px rgba(192,71,90,0.35);"></div>
+
+              <!-- SPONGE -->
+              <sc-if value="{{ r.isSponge }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute; left:50%; bottom:26px; transform:translateX(-50%); width:90px; height:84px;">
+                  <div style="position:absolute; left:8px; bottom:0; width:26px; height:60px; border-radius:13px 13px 6px 6px; background:linear-gradient(180deg,#f0a869,#d1743f); transform:rotate(-6deg);"></div>
+                  <div style="position:absolute; left:32px; bottom:0; width:30px; height:80px; border-radius:15px 15px 6px 6px; background:linear-gradient(180deg,#f6b475,#dd7f45);"></div>
+                  <div style="position:absolute; left:58px; bottom:0; width:24px; height:52px; border-radius:12px 12px 6px 6px; background:linear-gradient(180deg,#f0a869,#d1743f); transform:rotate(7deg);"></div>
+                  <div style="position:absolute; left:35px; bottom:74px; width:24px; height:12px; border-radius:50%; background:#a9532a;"></div>
+                  <div style="position:absolute; left:11px; bottom:54px; width:20px; height:10px; border-radius:50%; background:#a9532a; transform:rotate(-6deg);"></div>
+                  <div style="position:absolute; left:60px; bottom:46px; width:18px; height:9px; border-radius:50%; background:#a9532a; transform:rotate(7deg);"></div>
+                </div>
+              </sc-if>
+
+              <!-- BRITTLE STAR -->
+              <sc-if value="{{ r.isStar }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute; left:50%; bottom:30px; transform:translateX(-50%); width:96px; height:96px;">
+                  <div style="position:absolute; left:50%; top:50%; width:64px; height:14px; margin:-7px 0 0 -32px; border-radius:8px; background:linear-gradient(90deg,#7a2f4c,#c05a78 50%,#7a2f4c); transform:rotate(0deg);"></div>
+                  <div style="position:absolute; left:50%; top:50%; width:64px; height:14px; margin:-7px 0 0 -32px; border-radius:8px; background:linear-gradient(90deg,#7a2f4c,#c05a78 50%,#7a2f4c); transform:rotate(72deg);"></div>
+                  <div style="position:absolute; left:50%; top:50%; width:64px; height:14px; margin:-7px 0 0 -32px; border-radius:8px; background:linear-gradient(90deg,#7a2f4c,#c05a78 50%,#7a2f4c); transform:rotate(144deg);"></div>
+                  <div style="position:absolute; left:50%; top:50%; width:64px; height:14px; margin:-7px 0 0 -32px; border-radius:8px; background:linear-gradient(90deg,#7a2f4c,#c05a78 50%,#7a2f4c); transform:rotate(216deg);"></div>
+                  <div style="position:absolute; left:50%; top:50%; width:64px; height:14px; margin:-7px 0 0 -32px; border-radius:8px; background:linear-gradient(90deg,#7a2f4c,#c05a78 50%,#7a2f4c); transform:rotate(288deg);"></div>
+                  <div style="position:absolute; left:50%; top:50%; width:30px; height:30px; margin:-15px 0 0 -15px; border-radius:50%; background:radial-gradient(circle at 38% 32%,#d977a0,#a03e63);"></div>
+                </div>
+              </sc-if>
+
+              <!-- OCTOPUS -->
+              <sc-if value="{{ r.isOcto }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute; left:50%; bottom:22px; transform:translateX(-50%); width:96px; height:92px;">
+                  <!-- tentacles -->
+                  <div style="position:absolute; left:6px; bottom:6px; width:20px; height:40px; border-radius:12px; background:linear-gradient(180deg,#9583c4,#6f5aa8); transform:rotate(24deg);"></div>
+                  <div style="position:absolute; left:24px; bottom:0; width:20px; height:46px; border-radius:12px; background:linear-gradient(180deg,#9583c4,#6f5aa8); transform:rotate(8deg);"></div>
+                  <div style="position:absolute; left:50px; bottom:0; width:20px; height:46px; border-radius:12px; background:linear-gradient(180deg,#9583c4,#6f5aa8); transform:rotate(-8deg);"></div>
+                  <div style="position:absolute; left:70px; bottom:6px; width:20px; height:40px; border-radius:12px; background:linear-gradient(180deg,#9583c4,#6f5aa8); transform:rotate(-24deg);"></div>
+                  <!-- head -->
+                  <div style="position:absolute; left:50%; bottom:30px; transform:translateX(-50%); width:72px; height:64px; border-radius:50% 50% 46% 46%; background:radial-gradient(60% 55% at 42% 32%,#bcaee0,#8672b8);"></div>
+                  <!-- eyes -->
+                  <div style="position:absolute; left:26px; bottom:56px; width:16px; height:16px; border-radius:50%; background:#fff;"><div style="position:absolute; left:5px; top:5px; width:7px; height:7px; border-radius:50%; background:#2b1e45;"></div></div>
+                  <div style="position:absolute; left:52px; bottom:56px; width:16px; height:16px; border-radius:50%; background:#fff;"><div style="position:absolute; left:4px; top:5px; width:7px; height:7px; border-radius:50%; background:#2b1e45;"></div></div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+        </button>
+      </sc-for>
+
+      <!-- BIG ORE finale -->
+      <sc-if value="{{ bigOre }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ finish }}" style="position:absolute; left:50%; top:60%; transform:translate(-50%,-50%); border:none; background:transparent; cursor:pointer; animation:rc-in 0.6s ease;">
+          <div style="position:relative; width:300px; height:250px;">
+            <div style="position:absolute; inset:0; border-radius:48% 52% 46% 54% / 54% 48% 52% 46%; background:radial-gradient(60% 55% at 38% 30%, #7a7568, #403c33 58%, #24211c); animation:rc-oreglow 2.4s ease-in-out infinite;"></div>
+            <span style="position:absolute; left:32%; top:34%; width:26px; height:26px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #eaf7fc, #8fbccd 55%, #4f7f93); box-shadow:0 0 16px rgba(150,225,245,0.95);"></span>
+            <span style="position:absolute; left:56%; top:50%; width:20px; height:20px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #eaf7fc, #8fbccd 55%, #4f7f93); box-shadow:0 0 13px rgba(150,225,245,0.9);"></span>
+            <span style="position:absolute; left:46%; top:64%; width:15px; height:15px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #eaf7fc, #8fbccd 55%, #4f7f93); box-shadow:0 0 11px rgba(150,225,245,0.85);"></span>
+            <span style="position:absolute; left:66%; top:30%; width:13px; height:13px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #eaf7fc, #8fbccd 55%, #4f7f93); box-shadow:0 0 10px rgba(150,225,245,0.85);"></span>
+          </div>
+          <div style="margin-top:18px; padding:12px 26px; border-radius:999px; background:#256e80; color:#fff; font-size:16px; font-weight:700; letter-spacing:0.12em; box-shadow:0 12px 30px rgba(10,48,66,0.4);">MASSIVE NODULE · CLICK TO HARVEST</div>
+        </button>
+      </sc-if>
+
+      <!-- ===== ROBOT ARM (follows cursor) ===== -->
+      <div style="position:absolute; inset:0; pointer-events:none; overflow:hidden;">
+        <div ref="{{ armRef }}" style="position:absolute; left:50%; top:calc(100% + 22px); width:0; height:26px; margin-top:-13px; transform-origin:left center; will-change:width,transform;">
+          <!-- beam -->
+          <div style="position:absolute; left:14px; right:14px; top:5px; height:16px; border-radius:9px; background:linear-gradient(180deg,#eef4f6,#a7c0ca 46%,#5f8494); box-shadow:0 4px 10px rgba(10,48,66,0.3);"></div>
+          <div style="position:absolute; left:14px; right:14px; top:9px; height:3px; background:rgba(255,255,255,0.55); border-radius:2px;"></div>
+          <!-- shoulder joint -->
+          <div style="position:absolute; left:-6px; top:50%; width:40px; height:40px; margin-top:-20px; border-radius:50%; background:radial-gradient(circle at 35% 30%,#eef4f6,#5f8494); box-shadow:0 4px 12px rgba(10,48,66,0.4); border:3px solid #cfe0e6;"></div>
+          <div style="position:absolute; left:6px; top:50%; width:14px; height:14px; margin-top:-7px; border-radius:50%; background:#049fd9; box-shadow:0 0 8px #049fd9;"></div>
+          <!-- wrist joint -->
+          <div style="position:absolute; right:-4px; top:50%; width:22px; height:22px; margin-top:-11px; border-radius:50%; background:radial-gradient(circle at 35% 30%,#eef4f6,#5f8494); border:2px solid #cfe0e6;"></div>
+        </div>
+      </div>
+
+      <!-- ===== HUD ===== -->
+      <div style="position:absolute; inset:0; pointer-events:none;">
+        <!-- scanlines -->
+        <div style="position:absolute; inset:0; background:repeating-linear-gradient(0deg, rgba(15,66,86,0.05) 0px, rgba(15,66,86,0.05) 1px, transparent 2px, transparent 4px); mix-blend-mode:multiply;"></div>
+        <!-- frame corners -->
+        <div style="position:absolute; top:76px; left:24px; width:44px; height:44px; border-left:3px solid rgba(15,66,86,0.5); border-top:3px solid rgba(15,66,86,0.5);"></div>
+        <div style="position:absolute; top:76px; right:24px; width:44px; height:44px; border-right:3px solid rgba(15,66,86,0.5); border-top:3px solid rgba(15,66,86,0.5);"></div>
+        <div style="position:absolute; bottom:24px; left:24px; width:44px; height:44px; border-left:3px solid rgba(15,66,86,0.5); border-bottom:3px solid rgba(15,66,86,0.5);"></div>
+        <div style="position:absolute; bottom:24px; right:24px; width:44px; height:44px; border-right:3px solid rgba(15,66,86,0.5); border-bottom:3px solid rgba(15,66,86,0.5);"></div>
+
+        <!-- depth -->
+        <div style="position:absolute; top:88px; left:80px; font-size:14px; font-weight:600; letter-spacing:0.12em; color:#0f4256; font-variant-numeric:tabular-nums;">DEPTH 4,012 m &nbsp;·&nbsp; {{ clock }}</div>
+        <!-- counter -->
+        <div style="position:absolute; top:84px; right:80px; text-align:right;">
+          <div style="font-size:14px; font-weight:600; letter-spacing:0.12em; color:#0f4256; white-space:nowrap;">COLLECTED <b style="font-size:20px; color:#14586f;">{{ collected }}</b>&nbsp;/&nbsp;{{ oreTotal }}</div>
+          <div style="font-size:12px; color:#2f7f99;">fauna avoided: {{ skipped }}</div>
+        </div>
+
+        <!-- plume meter -->
+        <div style="position:absolute; bottom:40px; left:80px; width:230px;">
+          <div style="font-size:11px; font-weight:700; letter-spacing:0.14em; color:#0f4256; margin-bottom:6px;">SEDIMENT PLUME</div>
+          <div style="position:relative; height:10px; border-radius:999px; background:rgba(255,255,255,0.5); border:1px solid rgba(15,66,86,0.25); overflow:hidden;">
+            <div style="position:absolute; left:0; top:0; bottom:0; width:{{ plumePct }}%; background:{{ plumeColor }}; transition:width 0.2s;"></div>
+          </div>
+        </div>
+
+        <!-- signed telemetry ledger -->
+        <div style="position:absolute; bottom:40px; right:80px; width:300px; background:rgba(253,254,254,0.85); border:1px solid rgba(15,66,86,0.18); border-radius:10px; padding:11px 14px;">
+          <div style="display:flex; justify-content:space-between; white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:0.1em; color:#0f4256; margin-bottom:7px;"><span>SIGNED TELEMETRY</span><span style="color:#049fd9;">SPLUNK</span></div>
+          <sc-for list="{{ ledger }}" as="l" hint-placeholder-count="0">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:14px; color:#2f7f99; line-height:1.55;"><span>{{ l.text }}</span><b style="color:#1f9d6b; font-size:13px; white-space:nowrap;">✓ SIGNED</b></div>
+          </sc-for>
+        </div>
+
+        <!-- reticle / claw -->
+        <div ref="{{ reticleRef }}" style="position:absolute; left:0; top:0; width:52px; height:52px; margin:-26px 0 0 -26px; will-change:transform;">
+          <div style="position:absolute; inset:6px; border:2px solid rgba(15,66,86,0.5); border-radius:50%;"></div>
+          <!-- claw prongs -->
+          <div style="position:absolute; left:2px; top:14px; width:22px; height:12px; border-radius:8px 0 0 8px; background:linear-gradient(90deg,#5f8494,#a7c0ca); transform:rotate(-24deg); transform-origin:right center;"></div>
+          <div style="position:absolute; right:2px; top:14px; width:22px; height:12px; border-radius:0 8px 8px 0; background:linear-gradient(270deg,#5f8494,#a7c0ca); transform:rotate(24deg); transform-origin:left center;"></div>
+          <div style="position:absolute; left:2px; bottom:14px; width:22px; height:12px; border-radius:8px 0 0 8px; background:linear-gradient(90deg,#5f8494,#a7c0ca); transform:rotate(24deg); transform-origin:right center;"></div>
+          <div style="position:absolute; right:2px; bottom:14px; width:22px; height:12px; border-radius:0 8px 8px 0; background:linear-gradient(270deg,#5f8494,#a7c0ca); transform:rotate(-24deg); transform-origin:left center;"></div>
+          <!-- target dot -->
+          <div style="position:absolute; left:50%; top:50%; width:8px; height:8px; margin:-4px 0 0 -4px; border-radius:50%; background:#049fd9; box-shadow:0 0 8px #049fd9;"></div>
+        </div>
+
+        <!-- banner -->
+        <sc-if value="{{ bannerText }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute; left:50%; top:34%; transform:translateX(-50%); padding:12px 30px; border-radius:999px; background:{{ bannerBg }}; color:#fff; font-size:17px; font-weight:700; letter-spacing:0.1em; box-shadow:0 12px 30px rgba(10,48,66,0.35);">{{ bannerText }}</div>
+        </sc-if>
+
+        <!-- hint -->
+        <sc-if value="{{ showHint }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute; bottom:96px; left:50%; transform:translateX(-50%); font-size:13px; letter-spacing:0.1em; color:#0f4256; background:rgba(253,254,254,0.7); padding:7px 18px; border-radius:999px;">aim the arm with your cursor · click an <b>ore nodule</b> to collect · skip protected habitat</div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ STAGE C — SOLUTION SURFACES ============ -->
+  <sc-if value="{{ isComplete }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(210,232,240,0.55); backdrop-filter:blur(3px);">
+      <div style="width:720px; max-width:86%; background:rgba(253,254,254,0.94); border:1px solid #cfe4ea; border-radius:22px; padding:46px 54px; text-align:center; box-shadow:0 40px 90px rgba(10,48,66,0.35); animation:rc-surface 0.7s ease;">
+        <div style="font-size:13px; font-weight:700; letter-spacing:0.26em; color:#4b9ab8; margin-bottom:6px;">PROBLEM 02 · SOLVED</div>
+        <h1 style="margin:0 0 14px; font-size:40px; font-weight:500; color:#14586f; line-height:1.12;">Eyes <span style="font-style:italic; color:#4b9ab8;">and</span> a voice.</h1>
+        <p style="margin:0 auto 30px; max-width:520px; font-size:17px; line-height:1.5; color:#2e7d9c;">Sight so machines avoid life — and a signed voice so every harvest decision is provable on the tamper-proof ledger.</p>
+        <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+          <button onClick="{{ replay }}" style="padding:13px 30px; border:1px solid #256e80; border-radius:999px; background:transparent; color:#256e80; font-family:'Quicksand',sans-serif; font-size:15px; font-weight:600; letter-spacing:0.04em; cursor:pointer;">↺ Replay demo</button>
+          <button onClick="{{ nextSection }}" style="padding:13px 34px; border:none; border-radius:999px; background:#14586f; color:#fff; font-family:'Quicksand',sans-serif; font-size:15px; font-weight:700; letter-spacing:0.04em; cursor:pointer; box-shadow:0 12px 30px rgba(10,48,66,0.3);">Next problem →</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ CONTROL BAR ============ -->
+  <sc-if value="{{ isExterior }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute; bottom:40px; left:50%; transform:translateX(-50%); z-index:40; display:flex; gap:14px; align-items:center;">
+      <sc-if value="{{ moreCallouts }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ revealNext }}" style="padding:14px 30px; border:none; border-radius:999px; background:#256e80; color:#fff; font-family:'Quicksand',sans-serif; font-size:16px; font-weight:600; letter-spacing:0.04em; cursor:pointer; box-shadow:0 12px 30px rgba(10,48,66,0.3);">Reveal next system · {{ calloutStep }}/4</button>
+      </sc-if>
+      <sc-if value="{{ calloutsDone }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ enterFpv }}" style="padding:14px 34px; border:none; border-radius:999px; background:#14586f; color:#fff; font-family:'Quicksand',sans-serif; font-size:16px; font-weight:700; letter-spacing:0.04em; cursor:pointer; box-shadow:0 12px 30px rgba(10,48,66,0.35);">Dive into first-person view →</button>
+      </sc-if>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:720}}">
+class Component extends DCLogic {
+  reticleRef = React.createRef();
+  armRef = React.createRef();
+
+  state = {
+    stage: 'exterior',   // exterior | fpv | complete
+    calloutStep: 0,
+    rocks: [],
+    collected: 0,
+    skipped: 0,
+    plume: 0,
+    throttled: false,
+    banner: null,
+    bigOre: false,
+    ledger: [],
+    missionSec: 7*3600 + 41*60 + 50,
+    firstAim: true,
+  };
+
+  SPEED = 0.13;
+  SPAWN_GAP = 2.05;
+  ORE_TOTAL = 6;
+
+  QUEUE = [
+    { kind:'ore',   lane:-0.55 },
+    { kind:'fauna', lane: 0.5,  animal:'Sea sponge',   creature:'sponge' },
+    { kind:'ore',   lane: 0.15 },
+    { kind:'fauna', lane:-0.62, animal:'Brittle star', creature:'star' },
+    { kind:'ore',   lane: 0.62 },
+    { kind:'fauna', lane:-0.15, animal:'Octopus',      creature:'octo' },
+    { kind:'ore',   lane: 0.42 },
+    { kind:'ore',   lane:-0.32 },
+    { kind:'fauna', lane: 0.55, animal:'Sea sponge',   creature:'sponge' },
+    { kind:'ore',   lane: 0.05 },
+    { kind:'fauna', lane:-0.48, animal:'Brittle star', creature:'star' },
+    { kind:'ore',   lane: 0.38 },
+  ];
+
+  fmtClock(){
+    const s=Math.floor(this.state.missionSec);
+    const p=(x)=>String(x).padStart(2,'0');
+    return `${p(Math.floor(s/3600)%24)}:${p(Math.floor(s/60)%60)}:${p(s%60)}Z`;
+  }
+
+  onMove = (e) => {
+    const rect=e.currentTarget.getBoundingClientRect();
+    const cx=e.clientX-rect.left, cy=e.clientY-rect.top;
+    const rt=this.reticleRef.current;
+    if(rt) rt.style.transform=`translate(${cx}px, ${cy}px)`;
+    // robot arm reaches from bottom-center toward the cursor
+    const arm=this.armRef.current;
+    if(arm){
+      const sx=rect.width/2, sy=rect.height+22;
+      const dx=cx-sx, dy=cy-sy;
+      const len=Math.hypot(dx,dy);
+      const ang=Math.atan2(dy,dx);
+      arm.style.width=len+'px';
+      arm.style.transform=`rotate(${ang}rad)`;
+    }
+    if(this.state.firstAim) this.setState({firstAim:false});
+  };
+
+  revealNext = () => this.setState(s=>({ calloutStep: Math.min(4, s.calloutStep+1) }));
+  revealPrev = () => this.setState(s=>({ calloutStep: Math.max(0, s.calloutStep-1) }));
+
+  // Single-clicker bridge: map arrow presses to this demo's own beat progression.
+  _veritasNav = (dir) => {
+    const st = this.state.stage;
+    if (dir > 0) {
+      if (st === 'exterior') { if (this.state.calloutStep < 4) this.revealNext(); else this.enterFpv(); }
+      else if (st === 'fpv') { this.finish(); }
+      else { this.nextSection(); }
+    } else {
+      if (st === 'exterior') {
+        if (this.state.calloutStep > 0) this.revealPrev();
+        else { try{ window.parent && window.parent.postMessage({ type:'veritas-demo-prev', demo:2 }, '*'); }catch(e){} }
+      } else { this.replay(); }
+    }
+  };
+  _onKey = (e) => { if(e.key==='ArrowRight'||e.key===' '){ e.preventDefault(); this._veritasNav(1); } else if(e.key==='ArrowLeft'){ e.preventDefault(); this._veritasNav(-1); } };
+  componentDidMount(){ window.addEventListener('keydown', this._onKey); }
+
+  enterFpv = () => {
+    this._pending = this.QUEUE.map((q,i)=>({ ...q, id:'rock-'+i }));
+    this._spawnAcc = this.SPAWN_GAP; // spawn first immediately
+    this._resolved = 0;
+    this._nid = 0;
+    this.setState({ stage:'fpv', rocks:[], collected:0, skipped:0, plume:0, throttled:false, banner:null, bigOre:false, ledger:[], firstAim:true });
+    this._last = performance.now();
+    this._running = true;
+    clearInterval(this._timer);
+    this._timer = setInterval(()=>this.tick(performance.now()), 33);
+  };
+
+  replay = () => {
+    this._running = false;
+    clearInterval(this._timer);
+    this.setState({ stage:'exterior', calloutStep:0 });
+  };
+
+  finish = () => {
+    this._running = false;
+    clearInterval(this._timer);
+    this.setState({ stage:'complete' });
+  };
+
+  nextSection = () => {
+    if(this.props.onNext){ this.props.onNext(); return; }
+    try{ window.parent && window.parent.postMessage({ type:'veritas-demo-next', demo:2 }, '*'); }catch(e){}
+  };
+
+  addLedger(text){
+    this.setState(s=>({ ledger:[{ time:this.fmtClock(), text }, ...s.ledger].slice(0,4) }));
+  }
+
+  setBanner(text, type){
+    this.setState({ banner:{ text, type } });
+    clearTimeout(this._bt);
+    this._bt=setTimeout(()=>this.setState(s=> s.banner && s.banner.text===text ? { banner:null } : {} ), 1400);
+  }
+
+  collect = (id) => {
+    const r=this.state.rocks.find(x=>x.id===id);
+    if(!r || r.state!=='field') return;
+    if(r.z < 0.5 || r.z > 0.94){ this.setBanner('OUT OF REACH','amber'); return; }
+    if(r.kind==='ore'){
+      r.state='grabbing'; r.grab=0;
+      this.setState(s=>({ collected:s.collected+1 }));
+      this.addLedger('Nodule collected');
+    } else {
+      r.state='grabbing'; r.grab=0;
+      this.setState(s=>({ skipped:s.skipped+1 }));
+      this.setBanner('PROTECTED — SKIPPED','red');
+      this.addLedger('Fauna avoided');
+    }
+  };
+
+  tick = (now) => {
+    if(!this._running){ return; }
+    let dt=(now-this._last)/1000; this._last=now;
+    if(dt>0.05) dt=0.05;
+
+    // spawn
+    this._spawnAcc += dt;
+    let rocks=this.state.rocks.slice();
+    if(this._pending.length && this._spawnAcc>=this.SPAWN_GAP){
+      this._spawnAcc=0;
+      const q=this._pending.shift();
+      rocks.push({ ...q, z:0, state:'field', grab:0 });
+    }
+
+    // advance
+    const sp=this.SPEED;
+    let resolved=this._resolved;
+    rocks=rocks.filter(r=>{
+      if(r.state==='grabbing'){ r.grab+=dt*2.2; if(r.grab>=1){ resolved++; return false; } return true; }
+      r.z += dt*sp;
+      if(r.z>=1.14){ resolved++; return false; }
+      return true;
+    });
+    this._resolved=resolved;
+
+    // sediment plume accumulates as the run progresses — fills to full by the end, even if some are missed
+    const plume=Math.min(1, resolved/this.QUEUE.length);
+
+    // finale
+    let bigOre=this.state.bigOre;
+    if(!bigOre && this._pending.length===0 && rocks.length===0){ bigOre=true; }
+
+    this.setState({ rocks, plume, bigOre, missionSec:this.state.missionSec+dt });
+  };
+
+  componentWillUnmount(){ clearInterval(this._timer); clearTimeout(this._bt); window.removeEventListener('keydown', this._onKey); }
+
+  renderVals(){
+    const s=this.state;
+
+    // callouts (exterior)
+    const cdefs=[
+      { tag:'PERCEPTION',  text:'Vision pod — stereo camera + LED array', side:'left',  y:30, ax:47.5, ay:47, cisco:false },
+      { tag:'CISCO CURWB', text:'Surface link — antenna to ship & buoys', side:'right', y:27, ax:47.5, ay:29, cisco:true },
+      { tag:'INTEGRITY',   text:'Signing module — telemetry to tamper-proof ledger', side:'left',  y:66, ax:41.5, ay:50, cisco:false },
+      { tag:'CISCO UCS',   text:'Edge-AI rack — on-board inference in milliseconds', side:'right', y:66, ax:54, ay:48, cisco:true },
+    ];
+    const callouts=cdefs.map((c,i)=>{
+      const chipX = c.side==='left' ? 17 : 83;
+      return { ...c, chipX, lx:chipX, op:(i<s.calloutStep?1:0),
+        border: c.cisco?'#bfe3f2':'#cfe4ea',
+        tagColor: c.cisco?'#049fd9':'#4b9ab8',
+        stroke: c.cisco?'#049fd9':'#4b9ab8' };
+    });
+
+    // rocks (fpv)
+    const rocks=s.rocks.map(r=>{
+      const z=r.z;
+      const grabScale = r.state==='grabbing' ? (1-r.grab*0.85) : 1;
+      const scale=(0.3 + z*1.25)*grabScale;
+      const top=(30 + z*58).toFixed(1);
+      const left=(50 + r.lane*(6 + z*40)).toFixed(1);
+      const op = r.state==='grabbing' ? (1-r.grab).toFixed(2) : Math.min(1, z*5).toFixed(2);
+      const zi=Math.round(z*100);
+      const inRange = r.state==='field' && z>0.5 && z<0.94;
+      return {
+        id:r.id, isOre:r.kind==='ore', isFauna:r.kind==='fauna', animal:r.animal,
+        isSponge:r.creature==='sponge', isStar:r.creature==='star', isOcto:r.creature==='octo',
+        showBox:inRange,
+        boxColor: r.kind==='fauna' ? '#c0475a' : '#1f9d6b',
+        boxBg: r.kind==='fauna' ? 'rgba(251,233,236,0.85)' : 'rgba(228,246,238,0.85)',
+        boxTitle: r.kind==='fauna' ? 'PROTECTED HABITAT' : 'BARE NODULE',
+        boxSub: r.kind==='fauna' ? (r.animal+' detected · SKIP') : 'ore-bearing · COLLECT',
+        onClick:()=>this.collect(r.id),
+        style:`position:absolute; left:${left}%; top:${top}%; transform:translate(-50%,-50%) scale(${scale.toFixed(3)}); z-index:${zi}; opacity:${op}; cursor:pointer; border:none; background:transparent; padding:0;`,
+      };
+    });
+
+    const bannerType = s.banner?s.banner.type:null;
+    const bannerText = s.banner?s.banner.text:null;
+    const bannerBg = bannerType==='red' ? '#c0475a' : (bannerType==='amber' ? '#d98c2b' : '#256e80');
+
+    return {
+      stageLabel: s.stage==='exterior' ? '360° EXTERIOR INSPECTION' : (s.stage==='complete'?'FROZEN · SOLUTION':'FIRST-PERSON · ROBOT CAM'),
+      isExterior: s.stage==='exterior',
+      isFpv: s.stage!=='exterior',
+      isComplete: s.stage==='complete',
+      notComplete: s.stage!=='complete',
+      sceneFilter: s.stage==='complete' ? 'grayscale(0.5) brightness(0.92)' : 'none',
+
+      callouts,
+      calloutStep: s.calloutStep,
+      moreCallouts: s.calloutStep<4,
+      calloutsDone: s.calloutStep>=4,
+      revealNext:this.revealNext,
+      enterFpv:this.enterFpv,
+
+      rocks,
+      bigOre: s.bigOre,
+      finish:this.finish,
+      replay:this.replay,
+      nextSection:this.nextSection,
+      onMove:this.onMove,
+      reticleRef:this.reticleRef,
+      armRef:this.armRef,
+
+      collected:s.collected,
+      skipped:s.skipped,
+      oreTotal:this.ORE_TOTAL,
+      plumePct:(s.plume*100).toFixed(0),
+      plumeColor: s.plume>0.7 ? '#d98c2b' : 'linear-gradient(90deg,#4b9ab8,#2f8ba6)',
+      clock:this.fmtClock(),
+      ledger:s.ledger,
+      bannerText, bannerBg,
+      showHint: s.stage==='fpv' && !s.bigOre && s.firstAim,
+    };
+  }
+}
+</script>
+</body>
+</html>

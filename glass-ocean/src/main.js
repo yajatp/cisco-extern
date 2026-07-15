@@ -3,73 +3,53 @@ import { Stage } from './stage.js'
 import { createSlides } from './slides.js'
 import { SEQUENCE } from './sequence.js'
 import { Deck } from './deck.js'
-import { createBridgeSim } from './sims/bridge.js'
-import { createRobotSim } from './sims/robot.js'
-import { createSharksSim } from './sims/sharks.js'
+import { createDemos } from './demos.js'
+import { createBubbles } from './bubbles.js'
 
-const stage = new Stage(document.getElementById('canvas-host'))
+// Ambient "deep water + marine snow" background painted behind the slides.
+new Stage(document.getElementById('canvas-host'))
 
-const sims = {
-  bridge: createBridgeSim({ stage, overlayEl: document.getElementById('overlay-bridge') }),
-  robot: createRobotSim({ stage, overlayEl: document.getElementById('overlay-robot') }),
-  sharks: createSharksSim({ stage, overlayEl: document.getElementById('overlay-sharks') }),
+const slides = createSlides(document.getElementById('slide-layer'))
+const demos = createDemos()
+const bubbles = createBubbles()
+
+const deck = new Deck({
+  slides,
+  demos,
+  bubbles,
+  sequence: SEQUENCE,
+  dotsEl: document.getElementById('dots'),
+})
+deck.start()
+
+// Dev-only probes for headless capture.
+const params = new URLSearchParams(location.search)
+if (params.get('bubbles') === 'preview') {
+  setTimeout(() => bubbles.preview(), 2600)
 }
-for (const sim of Object.values(sims)) stage.resizeHandlers.push(sim.resize)
-
-const route = location.hash.match(/^#\/(bridge|robot|sharks)/)?.[1]
-window.addEventListener('hashchange', () => location.reload())
-
-if (route) {
-  startStandalone(route)
-} else {
-  const slides = createSlides(document.getElementById('slide-layer'))
-  const deck = new Deck({
-    stage,
-    slides,
-    sims,
-    sequence: SEQUENCE,
-    dotsEl: document.getElementById('dots'),
-  })
-  deck.start()
-}
-
-/* ---------- standalone sim routes (hands-on laptop time) ---------- */
-function startStandalone(id) {
-  const sim = sims[id]
-  const hint = document.getElementById('hint')
-  hint.classList.remove('hidden')
-  sim.enter({ standalone: true })
-  sim.descend.y = 0
-  stage.setSim(sim)
-  sim.overlayEl.classList.add('visible')
-
-  if (id === 'robot') {
-    // loop Stage B endlessly for judges
-    sim.setStage(5)
-    hint.textContent = 'aim: mouse · collect: click / Enter · boost: hold W · restart: R'
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'r' || e.key === 'R') sim.restart()
-    })
-  } else {
-    let s = 0
-    sim.setStage(0)
-    const count = sim.stageCount
-    hint.textContent = '→ / space: next beat · ← : previous · R: restart'
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
-        e.preventDefault()
-        s = (s + 1) % count
-        if (s === 0) sim.enter({ standalone: true })
-        sim.setStage(s)
-      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
-        e.preventDefault()
-        s = Math.max(0, s - 1)
-        sim.setStage(s)
-      } else if (e.key === 'r' || e.key === 'R') {
-        s = 0
-        sim.enter({ standalone: true })
-        sim.setStage(0)
-      }
-    })
+const cue = params.get('cue')
+if (cue != null) {
+  // Jump straight to a cue's resting state (no transition pile-up).
+  setTimeout(() => deck.goTo(parseInt(cue, 10), { instant: true }), 1800)
+  // ?cue=N&keys=M then fires M real ArrowRight presses to exercise the live wiring.
+  const keys = parseInt(params.get('keys') || '0', 10)
+  if (keys > 0) {
+    let k = keys
+    const press = () => {
+      if (k-- <= 0) return
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }))
+      setTimeout(press, 1000)
+    }
+    setTimeout(press, 3500)
   }
+}
+const auto = params.get('advance')
+if (auto) {
+  let n = parseInt(auto, 10)
+  const tick = () => {
+    if (n-- <= 0) return
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }))
+    setTimeout(tick, 900)
+  }
+  setTimeout(tick, 1800)
 }

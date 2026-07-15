@@ -1,25 +1,21 @@
-import { lerp, easeInOut, easeIn } from './util.js'
 import { chapters } from './sequence.js'
-
-const DESCEND_HEIGHT = 26 // world units the camera rig sinks through on enter
-const DESCEND_TIME = 1.8
-const SURFACE_TIME = 1.6
-const FAST_TIME = 0.28
 
 /**
  * Deck drives the whole show off the flat cue SEQUENCE.
- * Every sim exposes: scene, camera, descend {y}, overlayEl,
- * enter(), exit(), setStage(n), update(dt), and optionally freeze()/unfreeze().
+ * A cue is either { slide } or { demo:n }. Slides are PNG layers; demos are
+ * pre-warmed iframes. Entering a demo SINKS the slide out and raises the demo;
+ * leaving a demo SURFACES the next slide up over it. While a demo is live it
+ * owns the clicker — the deck forwards arrows into it and only advances slides
+ * again when the demo signals a boundary (veritas-demo-next / -prev).
  */
 export class Deck {
-  constructor({ stage, slides, sims, sequence, dotsEl }) {
-    this.stage = stage
+  constructor({ slides, demos, bubbles, sequence, dotsEl }) {
     this.slides = slides
-    this.sims = sims
+    this.demos = demos
+    this.bubbles = bubbles
     this.sequence = sequence
     this.index = -1
-    this.activeSim = null // sim currently live on the canvas
-    this.frozenSim = null // sim frozen behind an overlay slide
+    this.activeDemo = null // demo number currently live on screen, or null
     const { ids, cueChapter } = chapters(sequence)
     this.cueChapter = cueChapter
     this.dots = ids.map(() => {
@@ -29,6 +25,7 @@ export class Deck {
       return d
     })
     this.bindKeys()
+    this.bindMessages()
   }
 
   start() {
@@ -38,6 +35,29 @@ export class Deck {
   bindKeys() {
     window.addEventListener('keydown', (e) => {
       if (e.repeat) return
+
+      // Global hatches work everywhere.
+      if (e.key === 'Home') {
+        e.preventDefault()
+        return this.goTo(0, { instant: true })
+      }
+      if (e.key === 's' || e.key === 'S') {
+        e.preventDefault()
+        return this.skipDemo()
+      }
+
+      // While a demo is live it owns the beats: forward the press into it and
+      // never navigate slides ourselves (avoids double-navigation at the seam).
+      if (this.activeDemo != null) {
+        if (['ArrowRight', ' ', 'PageDown', 'ArrowLeft', 'PageUp'].includes(e.key)) {
+          e.preventDefault()
+          const key =
+            e.key === 'PageDown' ? 'ArrowRight' : e.key === 'PageUp' ? 'ArrowLeft' : e.key
+          this.demos.forwardKey(this.activeDemo, key)
+        }
+        return
+      }
+
       switch (e.key) {
         case 'ArrowRight':
         case ' ':
@@ -50,18 +70,17 @@ export class Deck {
           e.preventDefault()
           this.prev()
           break
-        case 's':
-        case 'S':
-          this.skipSim()
-          break
-        case 'r':
-        case 'R':
-          if (this.activeSim === this.sims.robot) this.sims.robot.restart()
-          break
-        case 'Home':
-          this.goTo(0, { fast: true })
-          break
       }
+    })
+  }
+
+  /** Demos surface back to the deck by posting a boundary message. */
+  bindMessages() {
+    window.addEventListener('message', (e) => {
+      const d = e.data
+      if (!d || typeof d !== 'object' || this.activeDemo == null) return
+      if (d.type === 'veritas-demo-next') this.next()
+      else if (d.type === 'veritas-demo-prev') this.prev()
     })
   }
 
@@ -72,144 +91,51 @@ export class Deck {
     this.goTo(this.index - 1)
   }
 
-  /** S key: bail out of any simulation straight to the next slide cue. */
-  skipSim() {
-    const cur = this.sequence[this.index]
-    if (!cur?.sim) return
+  /** S key: bail out of the live demo straight to the slide after it. */
+  skipDemo() {
+    if (this.activeDemo == null) return
     let i = this.index + 1
-    while (i < this.sequence.length && this.sequence[i].sim) i++
-    if (i < this.sequence.length) this.goTo(i, { fast: true })
+    while (i < this.sequence.length && this.sequence[i].demo != null) i++
+    if (i < this.sequence.length) this.goTo(i)
   }
 
-  goTo(target, { fast = false, instant = false } = {}) {
+  goTo(target, { instant = false } = {}) {
     if (target < 0 || target >= this.sequence.length || target === this.index) return
-    this.stage.finishTweens()
+    const forward = target > this.index
     const to = this.sequence[target]
     this.index = target
-
-    if (to.sim) this.enterSimCue(to, fast)
-    else this.enterSlideCue(to, fast, instant)
+    if (to.demo != null) this.enterDemo(to.demo)
+    else this.enterSlide(to, instant, forward)
     this.updateDots()
   }
 
-  /* ---------- sim cues ---------- */
-  enterSimCue(to, fast) {
-    const sim = this.sims[to.sim]
-
-    // already live: just move between stages
-    if (this.activeSim === sim) {
-      sim.setStage(to.stage)
-      return
-    }
-
-    // stepping backward from the freeze-overlay slide into the frozen sim
-    if (this.frozenSim === sim) {
-      this.frozenSim = null
-      this.activeSim = sim
-      this.slides.hide('fade', true)
-      sim.unfreeze?.()
-      this.stage.setFrozen(false)
-      sim.overlayEl.classList.remove('frozen')
-      sim.setStage(to.stage)
-      return
-    }
-
-    // fresh entry: the signature sink transition
-    this.cleanupFrozen()
-    if (this.activeSim) this.detachSim(this.activeSim) // e.g. jumping sim→sim
-    this.slides.hide('sink', fast)
-    sim.enter()
-    sim.setStage(to.stage)
-    sim.descend.y = fast ? 0 : DESCEND_HEIGHT
-    this.stage.setSim(sim)
-    sim.overlayEl.classList.add('visible')
-    this.activeSim = sim
-    if (!fast) {
-      this.stage.addTween({
-        duration: DESCEND_TIME,
-        ease: easeInOut,
-        update: (e) => { sim.descend.y = lerp(DESCEND_HEIGHT, 0, e) },
-      })
-    }
+  /* ---------- demo cues ---------- */
+  enterDemo(n) {
+    if (this.activeDemo === n) return
+    // hand off any other live demo first (jumping demo→demo shouldn't happen,
+    // but keep it safe)
+    if (this.activeDemo != null) this.demos.hide(this.activeDemo)
+    this.slides.hide('sink')
+    this.demos.show(n)
+    this.activeDemo = n
   }
 
   /* ---------- slide cues ---------- */
-  enterSlideCue(to, fast, instant) {
-    // Sim-2 Stage C: freeze the sim and surface the slide IN FRONT of it
-    if (this.activeSim && to.freezeSim) {
-      const sim = this.activeSim
-      this.activeSim = null
-      this.frozenSim = sim
-      sim.freeze?.()
-      this.stage.setFrozen(true)
-      sim.overlayEl.classList.add('frozen')
-      this.slides.show(to.slide, 'surface', fast, to.build)
+  enterSlide(to, instant, forward) {
+    if (this.activeDemo != null) {
+      // surfacing up out of a demo: the slide rises over the demo, demo sinks away
+      this.demos.hide(this.activeDemo)
+      this.activeDemo = null
+      this.slides.show(to.slide, 'surface')
       return
     }
-
-    // normal exit from a live sim: camera surfaces while the slide comes into focus
-    if (this.activeSim) {
-      const sim = this.activeSim
-      this.activeSim = null
-      sim.overlayEl.classList.remove('visible')
-      const done = () => {
-        if (this.stage.sim === sim) this.stage.setSim(null)
-        sim.exit()
-      }
-      if (fast) {
-        done()
-      } else {
-        this.stage.addTween({
-          duration: SURFACE_TIME,
-          ease: easeIn,
-          update: (e) => { sim.descend.y = lerp(0, DESCEND_HEIGHT, e) },
-          complete: done,
-        })
-      }
-      this.slides.show(to.slide, 'surface', fast, to.build)
-      return
+    // A forward slide change washes in as a full-screen bubble curtain; the
+    // slide is swapped underneath once the bubbles cover it, hiding the cut.
+    if (forward && !instant && this.bubbles) {
+      this.bubbles.burst(() => this.slides.show(to.slide, 'none'))
+    } else {
+      this.slides.show(to.slide, instant ? 'none' : 'fade')
     }
-
-    // arriving at the freeze slide from the OTHER side (stepping backward from problem3):
-    // rebuild the frozen backdrop so the choreography still reads
-    if (to.freezeSim && !this.frozenSim) {
-      const sim = this.sims.robot
-      sim.enter()
-      sim.setStage(5)
-      sim.descend.y = 0
-      this.stage.setSim(sim)
-      sim.overlayEl.classList.add('visible', 'frozen')
-      this.frozenSim = sim
-      // let a couple of frames render before freezing the canvas on that frame
-      setTimeout(() => {
-        if (this.frozenSim === sim) {
-          sim.freeze?.()
-          this.stage.setFrozen(true)
-        }
-      }, 120)
-      this.slides.show(to.slide, 'fade', true, to.build)
-      return
-    }
-
-    // leaving the freeze-overlay slide onward: clean up the frozen backdrop
-    if (this.frozenSim && !to.freezeSim) this.cleanupFrozen()
-
-    this.slides.show(to.slide, instant ? 'none' : 'fade', fast, to.build)
-  }
-
-  cleanupFrozen() {
-    if (!this.frozenSim) return
-    const sim = this.frozenSim
-    this.frozenSim = null
-    this.stage.setFrozen(false)
-    this.detachSim(sim)
-  }
-
-  detachSim(sim) {
-    sim.overlayEl.classList.remove('visible', 'frozen')
-    if (this.stage.sim === sim) this.stage.setSim(null)
-    sim.unfreeze?.()
-    sim.exit()
   }
 
   updateDots() {

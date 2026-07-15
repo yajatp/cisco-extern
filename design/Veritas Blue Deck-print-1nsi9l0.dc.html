@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style data-omelette-print-defaults>
+@media print {
+  @page { margin: 0.5in; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid; }
+  figure, table, pre, blockquote, img, svg, tr, [class~="card" i] { break-inside: avoid; }
+  img, svg { max-width: 100%; }
+  p { orphans: 3; widows: 3; }
+}
+</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;family=Great+Vibes&amp;display=swap" rel="stylesheet">
+<script src="image-slot.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; background: #dfeaef; }
+  a { color: #256e80; text-decoration: none; }
+  a:hover { color: #14586f; }
+  :root {
+    --ink: #14586f; --body: #2e7d9c; --teal: #256e80; --lite: #4b9ab8;
+    --script: #2f8ba6; --line: #d8e8ee;
+    --t-script: 100px; --t-head: 66px; --t-sub: 40px; --t-body: 31px; --t-small: 26px; --t-tiny: 24px;
+    --pad-x: 110px; --pad-top: 92px; --pad-bottom: 96px;
+  }
+</style>
+</helmet>
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%" data-uneditable="">
+
+  <section data-label="Title" data-speaker-notes="Open on the whale-tail image. One line: we are Bat Bridge Partners, and this is Veritas Blue — a Cisco proposal for The Metals Company. Secure, transparent, sustainable." style="font-family:'Quicksand',sans-serif; background:url('assets/whale.jpg') center/cover; overflow:hidden;">
+    <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(210,228,236,0.35) 0%, rgba(160,196,212,0.12) 45%, rgba(20,60,80,0.22) 100%);"></div>
+    <div style="position:relative; height:100%; display:flex; align-items:center; justify-content:center;">
+      <div style="background:rgba(250,253,254,0.68); border:1px solid rgba(255,255,255,0.65); border-radius:8px; padding:78px 120px 66px; text-align:center; box-shadow:0 30px 80px rgba(10,50,70,0.25); backdrop-filter:blur(5px); display:flex; flex-direction:column; align-items:center; gap:26px;">
+        <div style="font-size:27px; font-weight:700; letter-spacing:0.34em; color:#2e7d9c; white-space:nowrap;"><span>CISCO</span><span style="color:#8ab4c4; margin:0 22px;">|</span><span>TMC — THE METALS COMPANY</span></div>
+        <h1 style="margin:0; font-size:150px; font-weight:500; letter-spacing:0.08em; line-height:1; color:#14586f;"><span>VERITAS</span> <span style="font-weight:300; color:#4b9ab8;">BLUE</span></h1>
+        <div style="width:520px; height:2px; background:linear-gradient(90deg, transparent, #4b9ab8, transparent);"></div>
+        <div style="font-size:28px; letter-spacing:0.38em; color:#4b9ab8; display:flex; gap:26px;">
+          <span>SECURE.</span><span style="color:#14586f; font-weight:700;">TRANSPARENT.</span><span>SUSTAINABLE.</span>
+        </div>
+        <div style="font-size:24px; letter-spacing:0.14em; color:#5b8ba0; margin-top:14px; white-space:nowrap;"><span>Bat Bridge Partners · Cisco HS Capstone 2026</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="Team" data-speaker-notes="Quick intro of the six of us and who owns which of the three problems." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <img src="assets/coral-tall.jpg" alt="" style="position:absolute; left:0; top:50%; transform:translateY(-50%); width:220px; height:520px; object-fit:cover; border-radius:0 999px 999px 0;">
+    <img src="assets/reef-wide.jpg" alt="" style="position:absolute; right:0; top:50%; transform:translateY(-50%); width:220px; height:520px; object-fit:cover; border-radius:999px 0 0 999px;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    
+    <div style="height: 100%; display: flex; flex-direction: column; align-items: center; padding: var(--pad-top) 300px var(--pad-bottom); left: -3px">
+      <div style="text-align:center; margin-bottom:56px;">
+        <div style="font-family:'Great Vibes',cursive; font-size:var(--t-script); color:var(--script); line-height:0.7;"><span>meet the</span></div>
+        <div style="font-size:78px; font-weight:600; letter-spacing:0.14em; color:var(--ink);"><span>TEAM</span></div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:44px 120px; width:100%; max-width:1240px;">
+        <div style="display:flex; align-items:center; gap:34px;"><image-slot id="team-harini" shape="circle" placeholder="headshot" style="width:140px;height:140px;flex:none;"></image-slot><div style="min-width:280px;"><div style="font-size:38px; font-weight:600; color:var(--ink);">Harini Kumar</div><div style="font-size:var(--t-tiny); color:var(--body);">Trust &amp; Data Expert</div><div style="font-size:var(--t-tiny); color:var(--body);"><br></div><p style="margin: 0">Trust &amp; Data</p></div></div>
+        <div style="display:flex; align-items:center; gap:34px;"><image-slot id="team-yajat" shape="circle" placeholder="headshot" style="width:140px;height:140px;flex:none;"></image-slot><div><div style="font-size:38px; font-weight:600; color:var(--ink);">Yajat Parmar</div><div style="font-size:var(--t-tiny); color:var(--body);">Cybersecurity Expert</div></div></div>
+        <div style="display:flex; align-items:center; gap:34px;"><image-slot id="team-naren" shape="circle" placeholder="headshot" style="width:140px;height:140px;flex:none;"></image-slot><div style="min-width:280px;"><div style="font-size:38px; font-weight:600; color:var(--ink);">Naren Mayilsamy</div><div style="font-size:var(--t-tiny); color:var(--body);">Cybersecurity Expert</div></div></div>
+        <div style="display:flex; align-items:center; gap:34px;"><image-slot id="team-advaith" shape="circle" placeholder="headshot" style="width:140px;height:140px;flex:none;"></image-slot><div><div style="font-size:38px; font-weight:600; color:var(--ink);">Advaith Ramanan</div><div style="font-size:var(--t-tiny); color:var(--body);">Mining Technology Experts</div></div></div>
+        <div style="display:flex; align-items:center; gap:34px;"><image-slot id="team-snikitha" shape="circle" placeholder="headshot" style="width:140px;height:140px;flex:none;"></image-slot><div style="min-width:280px;"><div style="font-size:38px; font-weight:600; color:var(--ink);">Snikitha Gaddam</div><div style="font-size:var(--t-tiny); color:var(--body);">Trust &amp; Data Expert</div></div></div>
+        <div style="display:flex; align-items:center; gap:34px;"><image-slot id="team-arushi" shape="circle" placeholder="headshot" style="width:140px;height:140px;flex:none;"></image-slot><div><div style="font-size:38px; font-weight:600; color:var(--ink);">Arushi Puri</div><div style="font-size:var(--t-tiny); color:var(--body);">Mining Technology Experts</div></div></div>
+      </div>
+    </div><div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>02/23</span></div>
+  </section>
+
+  <section data-label="The Client" data-speaker-notes="TMC mines polymetallic nodules at 4,000m — nickel, cobalt, copper, manganese, the metals batteries and data centers need. $320M loss in 2025, zero AI today, and their license depends entirely on environmental data. They're betting the company on AI modernization." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <img src="assets/reef-long.jpg" alt="" style="position:absolute; right:0; top:50%; transform:translateY(-50%); width:300px; height:640px; object-fit:cover; border-radius:999px 0 0 999px;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; justify-content:center; padding:var(--pad-top) 420px var(--pad-bottom) var(--pad-x); gap:40px;">
+      <div>
+        <div style="font-family:'Great Vibes',cursive; font-size:var(--t-script); color:var(--script); line-height:0.75;"><span>the client</span></div>
+        <div style="font-size:var(--t-head); font-weight:500; color:var(--ink); letter-spacing:0.02em;"><span>The Metals Company</span></div>
+      </div>
+      <ul style="list-style:none; margin:0; padding:0; font-size:var(--t-body); line-height:1.55; color:var(--body); max-width:1050px; display:flex; flex-direction:column; gap:22px;">
+        <li style="padding-left:38px; position:relative;"><span style="position:absolute; left:0; top:0.55em; width:11px; height:11px; border-radius:50%; background:var(--lite);"></span><span>The first company mining metal-rich rocks from the deep Pacific seafloor — 4,000&nbsp;m (2.5&nbsp;miles) down</span></li>
+        <li style="padding-left:38px; position:relative;"><span style="position:absolute; left:0; top:0.55em; width:11px; height:11px; border-radius:50%; background:var(--lite);"></span><span>Those rocks hold the metals that batteries and data centers need — nickel, cobalt, copper and manganese</span></li>
+        <li style="padding-left:38px; position:relative;"><span style="position:absolute; left:0; top:0.55em; width:11px; height:11px; border-radius:50%; background:var(--lite);"></span><span>Betting its future on new technology — yet it uses no AI at all today</span></li>
+      </ul>
+      <div style="display:flex; gap:26px; flex-wrap:wrap;">
+        <div style="border:2px solid var(--lite); border-radius:999px; padding:16px 36px; font-size:var(--t-small); color:var(--body);"><b style="color:var(--ink);">$320M</b><span>&nbsp; loss in 2025</span></div>
+        <div style="border:2px solid var(--lite); border-radius:999px; padding:16px 36px; font-size:var(--t-small); color:var(--body);"><b style="color:var(--ink);">0</b><span>&nbsp; AI tools used today</span></div>
+        <div style="border:2px solid var(--lite); border-radius:999px; padding:16px 36px; font-size:var(--t-small); color:var(--body);"><b style="color:var(--ink);">License</b><span>&nbsp; hinges on proving no harm</span></div>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>03/23</span></div>
+  </section>
+
+  <section data-label="Roadmap" data-speaker-notes="Our table of contents: three problems, three solutions, phased over time for a cash-poor client. Security starts on day zero and never stops; Glass Ocean goes public once the pilot proves out; the AI retrofit scales across the fleet. Every phase has an exit ramp." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; align-items:center; padding:72px var(--pad-x) var(--pad-bottom);">
+      <div style="text-align:center;">
+        <div style="font-family:'Great Vibes',cursive; font-size:80px; color:var(--script); line-height:0.7;"><span>our</span></div>
+        <div style="font-size:58px; font-weight:600; letter-spacing:0.14em; color:var(--ink);"><span>ROADMAP</span></div>
+        <div style="font-size:var(--t-tiny); letter-spacing:0.3em; color:var(--lite); margin-top:8px;"><span>TRUST&nbsp;·&nbsp;TRANSPARENCY&nbsp;·&nbsp;IMPACT</span></div>
+      </div>
+      <div style="position:relative; width:100%; max-width:1660px; margin-top:52px;">
+        <div style="position:absolute; top:37px; left:6%; right:6%; height:3px; background:linear-gradient(90deg,#bcd8e2, var(--lite), #bcd8e2); border-radius:2px;"></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:44px; align-items:start;">
+          <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+            <div style="width:76px; height:76px; border-radius:50%; background:#fff; border:3px solid var(--teal); color:var(--teal); font-size:32px; font-weight:700; display:flex; align-items:center; justify-content:center; position:relative; z-index:1;"><span>01</span></div>
+            <div style="font-size:31px; font-weight:700; letter-spacing:0.03em; color:var(--ink); margin-top:22px; min-height:86px; display:flex; align-items:flex-end; justify-content:center; line-height:1.15;"><span>Glass Ocean</span></div>
+            <div style="font-size:var(--t-tiny); font-style:italic; color:var(--lite); margin-top:6px; margin-bottom:16px;"><span>solves: nobody trusts them</span></div>
+            <div style="font-size:var(--t-small); line-height:1.5; color:var(--body); max-width:440px; min-height:120px;"><span>A record of ocean data that can’t be faked, shown live to the public — so regulators can watch instead of taking their word for it</span></div>
+            
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+            <div style="width:76px; height:76px; border-radius:50%; background:#fff; border:3px solid var(--teal); color:var(--teal); font-size:32px; font-weight:700; display:flex; align-items:center; justify-content:center; position:relative; z-index:1;"><span>02</span></div>
+            <div style="font-size:31px; font-weight:700; letter-spacing:0.03em; color:var(--ink); margin-top:22px; min-height:86px; display:flex; align-items:flex-end; justify-content:center; line-height:1.15;"><span>AI Selective Harvesting</span></div>
+            <div style="font-size:var(--t-tiny); font-style:italic; color:var(--lite); margin-top:6px; margin-bottom:16px;"><span>solves: the mining robots are blind</span></div>
+            <div style="font-size:var(--t-small); line-height:1.5; color:var(--body); max-width:440px; min-height:120px;"><span>Smart cameras added to the machines they already own — spot sea life and avoid it, slow down when they stir up too much mud</span></div>
+            
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+            <div style="width:76px; height:76px; border-radius:50%; background:#fff; border:3px solid var(--teal); color:var(--teal); font-size:32px; font-weight:700; display:flex; align-items:center; justify-content:center; position:relative; z-index:1;"><span>03</span></div>
+            <div style="font-size:31px; font-weight:700; letter-spacing:0.03em; color:var(--ink); margin-top:22px; min-height:86px; display:flex; align-items:flex-end; justify-content:center; line-height:1.15;"><span>Zero Trust Security</span></div>
+            <div style="font-size:var(--t-tiny); font-style:italic; color:var(--lite); margin-top:6px; margin-bottom:16px;"><span>solves: the whole system can be hacked</span></div>
+            <div style="font-size:var(--t-small); line-height:1.5; color:var(--body); max-width:440px; min-height:120px;"><span>Lock the ship’s systems into sealed sections so a hacker can’t get in or change the records</span></div>
+            
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:56px; width:100%; max-width:1500px; border-top:1px solid rgba(75,154,184,0.4); padding-top:28px; display:flex; justify-content:center; gap:90px;">
+        <div style="display:flex; align-items:center; gap:20px;"><div style="width:56px; height:56px; flex:none; border-radius:50%; background:var(--teal); color:#fff; font-size:24px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>T</span></div><div style="text-align:left;"><div style="font-size:var(--t-tiny); font-weight:700; letter-spacing:0.1em; color:var(--ink);">BUILD TRUST</div><div style="font-size:var(--t-tiny); color:var(--body);">data becomes proof anyone can check</div></div></div>
+        <div style="display:flex; align-items:center; gap:20px;"><div style="width:56px; height:56px; flex:none; border-radius:50%; background:var(--teal); color:#fff; font-size:24px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>O</span></div><div style="text-align:left;"><div style="font-size:var(--t-tiny); font-weight:700; letter-spacing:0.1em; color:var(--ink);">PROTECT THE OCEAN</div><div style="font-size:var(--t-tiny); color:var(--body);">mine carefully and watch the impact</div></div></div>
+        <div style="display:flex; align-items:center; gap:20px;"><div style="width:56px; height:56px; flex:none; border-radius:50%; background:var(--teal); color:#fff; font-size:24px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>V</span></div><div style="text-align:left;"><div style="font-size:var(--t-tiny); font-weight:700; letter-spacing:0.1em; color:var(--ink);">DRIVE VALUE</div><div style="font-size:var(--t-tiny); color:var(--body);">win permits, insurance and investment</div></div></div>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>04/23</span></div>
+  </section>
+
+  <section data-label="Implementation" data-speaker-notes="This is our implementation and risk answer — the category we score weakest on, so we make it concrete. Phased pilot: we start with security (Phase 0) because it has zero mining dependency, so a slipped NOAA decision (final determination expected Q1 2027) doesn't block us; then a single-vessel Glass Ocean pilot; then scale AI harvesting across the fleet. Cost: a single-vessel pilot is low seven figures — edge compute, network, sensor integration and Splunk — and it rides on hardware Allseas has already funded, so we're adding a software and networking layer, not new capex. Risks we name before judges do: underwater bandwidth is tiny (acoustic links are a few kbps), so we run AI at the edge on the vessel and only send verified summaries up; sensors can fail or be tampered with, so Cyber Vision flags them and the one-way ledger stays intact; and the regulatory timeline can slip, which is exactly why Phase 0 needs no mine. All figures are order-of-magnitude estimates." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; justify-content:center; padding:72px var(--pad-x) var(--pad-bottom); gap:40px;">
+      <div>
+        <div style="font-family:'Great Vibes',cursive; font-size:80px; color:var(--script); line-height:0.72;"><span>how we get there</span></div>
+        <div style="font-size:var(--t-sub); font-weight:500; color:var(--lite); margin-top:8px;"><span>Implementation &amp; risk</span></div>
+      </div>
+      <div style="display:grid; grid-template-columns:1.15fr 0.85fr 1.15fr; gap:34px; align-items:stretch;">
+        <div style="background:#fff; border:1px solid var(--line); border-radius:18px; padding:38px 40px; display:flex; flex-direction:column; gap:20px; box-shadow:0 10px 30px rgba(20,88,111,0.07);">
+          <div style="font-size:30px; font-weight:700; color:var(--ink);">Phased pilot</div>
+          <div style="display:flex; align-items:flex-start; gap:18px;"><div style="flex:none; font-size:var(--t-tiny); font-weight:700; color:#fff; background:var(--teal); border-radius:8px; padding:6px 12px; white-space:nowrap;">0–6 mo</div><div style="font-size:var(--t-tiny); line-height:1.4; color:var(--body);"><b style="color:var(--ink);">Secure the ship first</b> — Zero Trust rollout, no mining dependency</div></div>
+          <div style="display:flex; align-items:flex-start; gap:18px;"><div style="flex:none; font-size:var(--t-tiny); font-weight:700; color:#fff; background:var(--teal); border-radius:8px; padding:6px 12px; white-space:nowrap;">6–12 mo</div><div style="font-size:var(--t-tiny); line-height:1.4; color:var(--body);"><b style="color:var(--ink);">Glass Ocean pilot</b> on one collector — prove the tamper-proof ledger</div></div>
+          <div style="display:flex; align-items:flex-start; gap:18px;"><div style="flex:none; font-size:var(--t-tiny); font-weight:700; color:#fff; background:var(--teal); border-radius:8px; padding:6px 12px; white-space:nowrap;">12–24 mo</div><div style="font-size:var(--t-tiny); line-height:1.4; color:var(--body);"><b style="color:var(--ink);">Scale AI harvesting</b> across the fleet</div></div>
+        </div>
+        <div style="background:var(--teal); border-radius:18px; padding:38px 40px; display:flex; flex-direction:column; gap:14px; box-shadow:0 10px 30px rgba(20,88,111,0.14);">
+          <div style="font-size:30px; font-weight:700; color:#fff;">Cost ballpark</div>
+          <div style="font-size:64px; font-weight:700; color:#fff; line-height:1;">~$3–5M</div>
+          <div style="font-size:var(--t-tiny); line-height:1.45; color:#dcecf1;">single-vessel pilot — edge compute, network, sensors &amp; Splunk</div>
+          <div style="font-size:var(--t-tiny); line-height:1.45; color:#dcecf1; border-top:1px solid rgba(255,255,255,0.3); padding-top:14px;">Rides on hardware <b style="color:#fff;">Allseas already funds</b> — a software layer, not new capex</div>
+        </div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:18px; padding:38px 40px; display:flex; flex-direction:column; gap:18px; box-shadow:0 10px 30px rgba(20,88,111,0.07);">
+          <div style="font-size:30px; font-weight:700; color:var(--ink);">What could go wrong</div>
+          <div><div style="font-size:var(--t-tiny); font-weight:700; color:var(--ink);">Tiny underwater bandwidth</div><div style="font-size:var(--t-tiny); line-height:1.4; color:var(--body);">→ run AI at the edge, send only verified summaries up</div></div>
+          <div><div style="font-size:var(--t-tiny); font-weight:700; color:var(--ink);">Sensor failure or tampering</div><div style="font-size:var(--t-tiny); line-height:1.4; color:var(--body);">→ Cyber Vision flags it; the one-way ledger stays intact</div></div>
+          <div><div style="font-size:var(--t-tiny); font-weight:700; color:var(--ink);">Regulatory timeline slips</div><div style="font-size:var(--t-tiny); line-height:1.4; color:var(--body);">→ Phase 0 needs no mine, so we start regardless</div></div>
+        </div>
+      </div>
+      <div style="font-size:var(--t-tiny); font-style:italic; color:var(--lite);"><span>Figures are order-of-magnitude estimates; the pilot scales linearly per vessel.</span></div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>05/23</span></div>
+  </section>
+
+  <section data-label="Trust Problem" data-speaker-notes="Problem 1. Their pre-feasibility study was written by their own employees. The zero-waste claim excludes discharged sediment water. Greenpeace, EJF, MiningWatch and the ISA have all attacked their credibility. Key line: TMC doesn't have a mining problem, it has a proof problem." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="position:absolute; left:-60px; bottom:-40px; width:280px; height:280px; border-radius:44px; background:rgba(75,154,184,0.14); transform:rotate(18deg);"></div>
+    <div style="position:absolute; left:180px; bottom:60px; width:150px; height:150px; border-radius:30px; background:rgba(75,154,184,0.1); transform:rotate(-14deg);"></div>
+    <div style="position:absolute; right:-40px; top:120px; width:210px; height:210px; border-radius:40px; background:rgba(75,154,184,0.12); transform:rotate(24deg);"></div>
+    <div style="height:100%; display:flex; align-items:center; gap:110px; padding:var(--pad-top) var(--pad-x) var(--pad-bottom);">
+      <div style="flex:none; width:460px;">
+        <div style="font-family:'Great Vibes',cursive; font-size:130px; color:var(--script); line-height:0.8;"><span>glass</span></div>
+        <div style="font-size:88px; font-weight:300; letter-spacing:0.08em; color:var(--lite); margin-left:70px; line-height:1;"><span>ocean</span></div>
+        <div style="display:inline-block; background:var(--teal); color:#fff; font-size:var(--t-small); font-weight:700; letter-spacing:0.24em; padding:16px 52px; border-radius:999px; margin-top:44px;"><span>OUR&nbsp;PROBLEM</span></div>
+      </div>
+      <ul style="list-style:none; margin:0; padding:0; font-size:var(--t-body); line-height:1.55; color:var(--body); display:flex; flex-direction:column; gap:34px; max-width:1000px;">
+        <li style="padding-left:38px; position:relative;"><span style="position:absolute; left:0; top:0.55em; width:11px; height:11px; border-radius:50%; background:var(--lite);"></span><span>No one believes TMC's claim that its mining is safe — not regulators, scientists, or investors</span></li>
+        <li style="padding-left:38px; position:relative;"><span style="position:absolute; left:0; top:0.55em; width:11px; height:11px; border-radius:50%; background:var(--lite);"></span><span>They can't prove otherwise, because their current data could be edited or faked</span></li>
+        <li style="padding-left:38px; position:relative;"><span style="position:absolute; left:0; top:0.55em; width:11px; height:11px; border-radius:50%; background:var(--lite);"></span><span>No trust means no permits, hesitant investors, and lost money</span></li>
+        <li style="padding-left:38px; position:relative; font-weight:600; font-style:italic; color:var(--script); font-size:34px;"><span style="position:absolute; left:0; top:0.55em; width:11px; height:11px; border-radius:50%; background:var(--script);"></span><span>TMC doesn't have a mining problem — it has a proof problem.</span></li>
+      </ul>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>06/23</span></div>
+  </section>
+
+  <section data-label="Glass Ocean" data-speaker-notes="Solution 1. Sensors on the seafloor feed the ship; every reading is signed and hash-chained into Splunk the moment it arrives; the architecture is one-way so nobody — not even TMC — can write into it; and it publishes to a public dashboard. Instead of 'trust us,' the ocean proves it." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <img src="assets/reef-wide.jpg" alt="" style="position:absolute; left:0; top:50%; transform:translateY(-50%); width:250px; height:560px; object-fit:cover; border-radius:0 999px 999px 0;">
+    <img src="assets/coral-tall.jpg" alt="" style="position:absolute; right:0; top:50%; transform:translateY(-50%); width:250px; height:560px; object-fit:cover; border-radius:999px 0 0 999px;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:var(--pad-top) 340px var(--pad-bottom); gap:44px;">
+      <div style="text-align:center;">
+        <div style="font-family:'Great Vibes',cursive; font-size:var(--t-script); color:var(--script); line-height:0.75;"><span>glass ocean</span></div>
+        <div style="display:inline-block; background:var(--teal); color:#fff; font-size:var(--t-small); font-weight:700; letter-spacing:0.24em; padding:14px 48px; border-radius:999px; margin-top:22px;"><span>OUR&nbsp;SOLUTION</span></div>
+      </div>
+      <ul style="list-style:none; margin:0; padding:0; font-size:var(--t-body); line-height:1.55; color:var(--body); display:flex; flex-direction:column; gap:26px; max-width:1060px;">
+        <li style="padding-left:38px; position:relative;"><span style="position:absolute; left:0; top:0.55em; width:11px; height:11px; border-radius:50%; background:var(--lite);"></span><span>Sensors watch the ocean around the clock — mud clouds, currents, and sea life</span></li>
+        <li style="padding-left:38px; position:relative;"><span style="position:absolute; left:0; top:0.55em; width:11px; height:11px; border-radius:50%; background:var(--lite);"></span><span>Each reading is locked the instant it's taken, so it can never be changed later</span></li>
+        <li style="padding-left:38px; position:relative;"><span style="position:absolute; left:0; top:0.55em; width:11px; height:11px; border-radius:50%; background:var(--lite);"></span><span>Data only flows out, never in — so not even TMC can edit it</span></li>
+        <li style="padding-left:38px; position:relative;"><span style="position:absolute; left:0; top:0.55em; width:11px; height:11px; border-radius:50%; background:var(--lite);"></span><span>Anyone — regulators, scientists, the public — can see the real data</span></li>
+        <li style="padding-left:38px; position:relative; font-weight:600; font-style:italic; color:var(--script); font-size:34px;"><span style="position:absolute; left:0; top:0.55em; width:11px; height:11px; border-radius:50%; background:var(--script);"></span><span>Turns “trust us” into “the ocean proves it.”</span></li>
+      </ul>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>07/23</span></div>
+  </section>
+
+  <section data-label="Cisco Tech 1" data-speaker-notes="Splunk is Cisco-owned — most teams won't know that. It's the tamper-evident record book. Catalyst IE is the rugged shipboard network. ThousandEyes watches the satellite path so an outage is provably fault vs foul play. Webex runs the regulator observation room." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; justify-content:center; padding:var(--pad-top) var(--pad-x) var(--pad-bottom); gap:52px;">
+      <div style="display:flex; align-items:baseline; gap:44px;">
+        <div style="font-family:'Great Vibes',cursive; font-size:var(--t-script); color:var(--script); line-height:0.8;"><span>glass ocean</span></div>
+        <div style="display:inline-block; background:var(--teal); color:#fff; font-size:var(--t-small); font-weight:700; letter-spacing:0.24em; padding:14px 48px; border-radius:999px;"><span>CISCO&nbsp;TECH</span></div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:34px;">
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:36px 42px; display:flex; align-items:center; gap:32px; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="width:78px; height:78px; flex:none; border-radius:50%; background:var(--teal); color:#fff; font-size:24px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>SPL</span></div><div><div style="font-size:34px; font-weight:600; color:var(--ink);">Splunk</div><div style="font-size:var(--t-tiny); line-height:1.45; color:var(--body);">the record book that reveals if anyone tried to change the data</div></div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:36px 42px; display:flex; align-items:center; gap:32px; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="width:78px; height:78px; flex:none; border-radius:50%; background:var(--teal); color:#fff; font-size:24px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>IE</span></div><div><div style="font-size:34px; font-weight:600; color:var(--ink);">Catalyst Industrial Ethernet</div><div style="font-size:var(--t-tiny); line-height:1.45; color:var(--body);">the tough shipboard wiring that carries the data once it reaches the surface</div></div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:36px 42px; display:flex; align-items:center; gap:32px; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="width:78px; height:78px; flex:none; border-radius:50%; background:var(--teal); color:#fff; font-size:24px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>TE</span></div><div><div style="font-size:34px; font-weight:600; color:var(--ink);">ThousandEyes</div><div style="font-size:var(--t-tiny); line-height:1.45; color:var(--body);">watches the ship-to-shore link, so an outage can be proven an accident, not sabotage</div></div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:36px 42px; display:flex; align-items:center; gap:32px; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="width:78px; height:78px; flex:none; border-radius:50%; background:var(--teal); color:#fff; font-size:24px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>WBX</span></div><div><div style="font-size:34px; font-weight:600; color:var(--ink);">Webex</div><div style="font-size:var(--t-tiny); line-height:1.45; color:var(--body);">the video link that lets regulators and scientists watch live, not months later</div></div></div>
+      </div>
+      <div style="font-size:var(--t-tiny); font-style:italic; color:var(--lite);"></div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>08/23</span></div>
+  </section>
+
+  <section data-label="Demo: Bridge" data-speaker-notes="Cue slide — switch to the interactive site. Walk the glass bridge, stamp a reading into the ledger, then show a tampered reading shattering. The 'verify this data' moment is the money shot." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <img src="assets/fish-school.jpg" alt="" style="position:absolute; right:0; bottom:0; width:420px; height:420px; object-fit:cover; border-radius:999px 0 0 0;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:34px; padding:var(--pad-top) var(--pad-x) var(--pad-bottom); text-align:center;">
+      <div style="font-family:'Great Vibes',cursive; font-size:150px; color:var(--script); line-height:0.85;"><span>live demo</span></div>
+      <div style="display:inline-block; background:var(--teal); color:#fff; font-size:32px; font-weight:700; letter-spacing:0.26em; padding:20px 64px; border-radius:999px;"><span>THE&nbsp;GLASS&nbsp;BRIDGE</span></div>
+      <div style="font-size:var(--t-body); line-height:1.5; color:var(--body); max-width:900px;"><span>Look down through the glass floor — watch a reading get locked into the record, then watch a faked one shatter.</span></div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>09/23</span></div>
+  </section>
+
+  <section data-label="Mining Problem" data-speaker-notes="Problem 2. The collector vehicles are 1960s-era: blind — can't tell bare rock from living habitat, and they kick up sediment plumes — the two harms critics cite most. And mute — no trustworthy record of what they did, even when they operate cleanly." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; align-items:center; gap:100px; padding:var(--pad-top) var(--pad-x) var(--pad-bottom);">
+      <div style="flex:none; width:640px; display:flex; flex-direction:column; gap:34px;">
+        <img src="assets/turtle.jpg" alt="Sea turtle" style="width:640px; height:290px; object-fit:cover; border-radius:999px;">
+        <img src="assets/coral-pill.jpg" alt="Coral reef" style="width:640px; height:290px; object-fit:cover; border-radius:999px;">
+      </div>
+      <div style="display:flex; flex-direction:column; gap:40px;">
+        <div>
+          <div style="font-size:var(--t-head); font-weight:400; color:var(--lite); line-height:1.05;"><span>Mining in the Dark</span></div>
+          <div style="display:inline-block; background:var(--teal); color:#fff; font-size:var(--t-small); font-weight:700; letter-spacing:0.24em; padding:14px 48px; border-radius:999px; margin-top:26px;"><span>OUR&nbsp;PROBLEM</span></div>
+        </div>
+        <ul style="list-style:none; margin:0; padding:0; font-size:var(--t-body); line-height:1.5; color:var(--body); display:flex; flex-direction:column; gap:34px; max-width:880px;">
+          <li style="padding-left:38px; position:relative;"><span style="position:absolute; left:0; top:0.5em; width:11px; height:11px; border-radius:50%; background:var(--lite);"></span><span><b style="color:var(--ink);">TMC mining technology has limitations</b></span></li>
+          <li style="padding-left:38px; position:relative;"><span style="position:absolute; left:0; top:0.5em; width:11px; height:11px; border-radius:50%; background:var(--lite);"></span><span style="color: #14586F"><b style="color:var(--ink);">Habitat destruction</b> + <b style="color:var(--ink);">sediment plumes</b></span></li>
+          <li style="padding-left:38px; position:relative;"><span style="position:absolute; left:0; top:0.5em; width:11px; height:11px; border-radius:50%; background:var(--lite);"></span><span><b style="color: #14586F">Lack of trustworthy data which risks <span data-om-id="7e50571d:315" style="color: var(--ink);">licensing loss</span></b></span></li>
+        </ul>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>10/23</span></div>
+  </section>
+
+  <section data-label="AI Harvesting" data-speaker-notes="Solution 2 — a retrofit, not a replacement, like adding driver-assist to a truck fleet. Vision classifies nodules in real time; a second model throttles on plume density. The Sentinel Network watches the surrounding water and its own sensors. Why AI: rule-based systems can't distinguish camouflage or subtle shapes, and AI improves with data." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>11/23</span></div><div style="height:100%; display:flex; flex-direction:column; justify-content:center; padding:var(--pad-top) var(--pad-x) var(--pad-bottom); gap:44px;">
+      <div style="display:flex; align-items:baseline; gap:44px;">
+        <div style="font-size:var(--t-head); font-weight:400; color:var(--lite);"><span>Mining in the Dark</span></div>
+        <div style="display:inline-block; background:var(--teal); color:#fff; font-size:var(--t-small); font-weight:700; letter-spacing:0.24em; padding:14px 48px; border-radius:999px;"><span>OUR&nbsp;SOLUTION</span></div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:34px;">
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:40px 48px; box-shadow:0 10px 30px rgba(20,88,111,0.07);">
+          <div style="font-size:34px; font-weight:700; color:var(--ink); margin-bottom:22px;">Selective Harvesting</div>
+          <ul style="list-style:none; margin:0; padding:0; font-size:var(--t-small); line-height:1.5; color:var(--body); display:flex; flex-direction:column; gap:16px;">
+            
+            <li style="padding-left:32px; position:relative;"><span style="position:absolute; left:0; top:0.55em; width:9px; height:9px; border-radius:50%; background:var(--lite);"></span><span>Add smart cameras to the machines</span></li><li style="padding-left:32px; position:relative;"><span style="position:absolute; left:0; top:0.55em; width:9px; height:9px; border-radius:50%; background:var(--lite);"></span><span>Train AI models for identification</span></li>
+            <li style="padding-left:32px; position:relative;"><span style="position:absolute; left:0; top:0.55em; width:9px; height:9px; border-radius:50%; background:var(--lite);"></span><span>Each decision logged on Cisco Splunk</span></li>
+          </ul>
+        </div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:40px 48px; box-shadow:0 10px 30px rgba(20,88,111,0.07);">
+          <div style="font-size:34px; font-weight:700; color:var(--ink); margin-bottom:22px;">Sentinel Network</div>
+          <ul style="list-style:none; margin:0; padding:0; font-size:var(--t-small); line-height:1.5; color:var(--body); display:flex; flex-direction:column; gap:16px;">
+            <li style="padding-left:32px; position:relative;"><span style="position:absolute; left:0; top:0.55em; width:9px; height:9px; border-radius:50%; background:var(--lite);"></span><span><span class="a_GcMg font-feature-liga-off font-feature-clig-off font-feature-calt-off text-decoration-none text-strikethrough-none" style="color: rgba(42,116,141,var(--O42jJQ,1)); caret-color: rgb(42, 116, 141); --Ys-XuQ: none; font-kerning: normal;">Underwater Sensors for monitoring</span></span></li>
+            <li style="padding-left:32px; position:relative;"><span style="position: absolute; left: 0px; top: 0.55em; width: 9px; height: 9px; border-radius: 50%; background: var(--lite);"></span><span class="a_GcMg font-feature-liga-off font-feature-clig-off font-feature-calt-off text-decoration-none text-strikethrough-none" style="color: rgba(42,116,141,var(--O42jJQ,1)); caret-color: rgb(42, 116, 141); --Ys-XuQ: none; font-kerning: normal;">Cisco Cyber Vision ensures sensor safety</span></li>
+            <li style="padding-left:32px; position:relative;"><span style="position:absolute; left:0; top:0.55em; width:9px; height:9px; border-radius:50%; background:var(--lite);"></span><span>Automatically spots broken or hacked sensors</span></li>
+          </ul>
+        </div>
+      </div>
+      <div style="background:var(--teal); border-radius:16px; padding:32px 48px; display:flex; align-items:center; gap:40px;">
+        <div style="font-size:34px; font-weight:700; color:#fff; flex:none;">Why AI?</div>
+        <div style="font-size:var(--t-small); line-height:1.5; color:#e3f2f6;"><span>It can identify nuance and has the ability to improve over time, unlike static systems.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="Cisco Tech 2" data-speaker-notes="UCS AI POD is the shipboard brain — not enough satellite bandwidth to stream video to a cloud, and a 700ms round trip is useless for millisecond decisions. CURWB links vessel, boats, buoys and drones — its actual designed use case. Volunteer the honesty note before judges ask." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; justify-content:center; padding:var(--pad-top) var(--pad-x) var(--pad-bottom); gap:52px;">
+      <div style="display:flex; align-items:baseline; gap:44px;">
+        <div style="font-size:var(--t-head); font-weight:400; color:var(--lite);"><span>Mining in the Dark</span></div><div style="display:inline-block; background:var(--teal); color:#fff; font-size:var(--t-small); font-weight:700; letter-spacing:0.24em; padding:14px 48px; border-radius:999px;"><span>CISCO&nbsp;TECH</span></div>
+        
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:34px;">
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:40px; display:flex; flex-direction:column; gap:20px; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="width:78px; height:78px; border-radius:50%; background:var(--teal); color:#fff; font-size:24px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>UCS</span></div><div style="font-size:34px; font-weight:600; color:var(--ink);">UCS — AI POD</div><div style="font-size:var(--t-tiny); line-height:1.5; color:var(--body);">the AI brain on the ship — it decides in milliseconds, because sending video to the cloud and back is far too slow</div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:40px; display:flex; flex-direction:column; gap:20px; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="width:78px; height:78px; border-radius:50%; background:var(--teal); color:#fff; font-size:24px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>CW</span></div><div style="font-size:34px; font-weight:600; color:var(--ink);">CURWB</div><div style="font-size:var(--t-tiny); line-height:1.5; color:var(--body);">rock-solid wireless connecting the ship, boats, buoys and drones — built for things that move</div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:40px; display:flex; flex-direction:column; gap:20px; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="width:78px; height:78px; border-radius:50%; background:var(--teal); color:#fff; font-size:24px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>IE</span></div><div style="font-size:34px; font-weight:600; color:var(--ink);">Catalyst Industrial Ethernet</div><div style="font-size:var(--t-tiny); line-height:1.5; color:var(--body);">carries the camera feeds and records across the ship's network</div></div>
+      </div>
+      
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>12/23</span></div>
+  </section>
+
+  <section data-label="Partners" data-speaker-notes="Deliberate credibility move. We are NOT claiming Cisco does everything front to back — that would be an easy claim for a judge to puncture. Underwater, radio doesn't work, so the raw seafloor data travels over partner-provided acoustic modems and a tethered umbilical to the support vessel; the sensors and collector cameras are partner hardware too. Cisco's scope begins the moment that data breaks the surface: UCS reads the feeds and decides at the edge, Catalyst and CURWB move it across the ship, Splunk locks it into a tamper-proof record. Volunteer this BEFORE a judge asks 'how does this talk to the surface?' — naming what isn't ours is exactly how we earn trust in what is." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; justify-content:center; padding:56px var(--pad-x) var(--pad-bottom); gap:18px;">
+      <div>
+        <div style="display:flex; align-items:baseline; gap:44px;">
+          <div style="font-size:var(--t-head); font-weight:400; color:var(--lite);"><span>Mining in the Dark</span></div>
+          <div style="display:inline-block; background:var(--teal); color:#fff; font-size:var(--t-small); font-weight:700; letter-spacing:0.24em; padding:14px 48px; border-radius:999px;"><span>WHERE&nbsp;CISCO&nbsp;STARTS</span></div>
+        </div>
+        <div style="font-size:var(--t-small); line-height:1.5; color:var(--body); margin-top:18px; max-width:1400px;"><span>Below the surface, <b style="color: var(--ink);">integral partners</b> carry the data where Cisco can't — Cisco takes over the moment it surfaces.</span></div>
+      </div>
+      <div style="display:flex; align-items:stretch; gap:0;">
+        <div style="flex:1; padding-right:86px; display:flex; flex-direction:column; gap:24px;">
+          <div style="display:flex; align-items:center; gap:18px;"><div style="width:60px; height:60px; flex:none; border-radius:50%; background:rgba(75,154,184,0.14); display:flex; align-items:center; justify-content:center;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#4b9ab8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2 2 2 4 2"></path><path d="M2 14c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2 2 2 4 2"></path></svg></div><div><div style="font-size:var(--t-tiny); font-weight:700; letter-spacing:0.12em; white-space:nowrap; color:var(--lite);">BELOW THE SURFACE</div><div style="font-size:30px; font-weight:700; color:var(--ink);">Partner-provided</div></div></div>
+          <div style="background:#fff; border:2px dashed rgba(75,154,184,0.55); border-radius:14px; padding:20px 30px;"><div style="font-size:var(--t-small); font-weight:700; color:var(--ink);">Subsea sensors &amp; cameras</div><div style="font-size:var(--t-tiny); color:var(--body); line-height:1.4; margin-top:4px;">capture the raw seafloor data</div></div>
+          <div style="background:#fff; border:2px dashed rgba(75,154,184,0.55); border-radius:14px; padding:20px 30px;"><div style="font-size:var(--t-small); font-weight:700; color:var(--ink);">Acoustic modems</div><div style="font-size:var(--t-tiny); color:var(--body); line-height:1.4; margin-top:4px;">move data through water, where radio can't</div></div>
+          <div style="background:#fff; border:2px dashed rgba(75,154,184,0.55); border-radius:14px; padding:20px 30px;"><div style="font-size:var(--t-small); font-weight:700; color:var(--ink);">Tethered umbilical</div><div style="font-size:var(--t-tiny); color:var(--body); line-height:1.4; margin-top:4px;">hard-wired link from robot to vessel</div></div>
+        </div>
+        <div style="flex:none; width:2px; position:relative; background:repeating-linear-gradient(180deg, var(--lite) 0 10px, transparent 10px 20px);">
+          <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:var(--teal); color:#fff; font-size:18px; font-weight:700; letter-spacing:0.12em; padding:10px 16px; border-radius:999px; white-space:nowrap; box-shadow:0 8px 22px rgba(20,88,111,0.28);">THE&nbsp;SURFACE</div>
+        </div>
+        <div style="flex:1; padding-left:86px; display:flex; flex-direction:column; gap:24px;">
+          <div style="display:flex; align-items:center; gap:18px;"><div style="width:60px; height:60px; flex:none; border-radius:50%; background:var(--teal); display:flex; align-items:center; justify-content:center;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"></path><path d="M6 20v-5"></path><path d="M18 20v-8"></path><path d="M4 8l8-5 8 5"></path></svg></div><div><div style="font-size:var(--t-tiny); font-weight:700; letter-spacing:0.12em; white-space:nowrap; color:var(--teal);">AT THE SURFACE &amp; UP</div><div style="font-size:30px; font-weight:700; color:var(--ink);">Cisco</div></div></div>
+          <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px 30px; border-left:5px solid var(--teal);"><div style="font-size:var(--t-small); font-weight:700; color:var(--ink);">UCS AI POD</div><div style="font-size:var(--t-tiny); color:var(--body); line-height:1.4; margin-top:4px;">reads the feeds, decides in milliseconds</div></div>
+          <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px 30px; border-left:5px solid var(--teal);"><div style="font-size:var(--t-small); font-weight:700; color:var(--ink);">Catalyst IE + CURWB</div><div style="font-size:var(--t-tiny); color:var(--body); line-height:1.4; margin-top:4px;">the shipboard network</div></div>
+          <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px 30px; border-left:5px solid var(--teal);"><div style="font-size:var(--t-small); font-weight:700; color:var(--ink);">Splunk</div><div style="font-size:var(--t-tiny); color:var(--body); line-height:1.4; margin-top:4px;">locks each decision into a tamper-proof log</div></div>
+        </div>
+      </div>
+      <div style="font-size:var(--t-small); font-style:italic; color:var(--script); font-weight:600; text-align:center;"><span>We name what isn't ours — that's how we earn trust in what is.</span></div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>13/23</span></div>
+  </section>
+
+  <section data-label="Demo: Robot" data-speaker-notes="Cue slide — the interactive demo. First the robot from outside with Cisco tech callouts, then first-person: green box = collect, red box = life, skip. A judge picks up a nodule; the sim freezes and we keep talking." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <img src="assets/turtle.jpg" alt="" style="position:absolute; right:0; bottom:0; width:420px; height:420px; object-fit:cover; border-radius:999px 0 0 0;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:34px; padding:var(--pad-top) var(--pad-x) var(--pad-bottom); text-align:center;">
+      <div style="font-family:'Great Vibes',cursive; font-size:150px; color:var(--script); line-height:0.85;"><span>live demo</span></div>
+      <div style="display:inline-block; background:var(--teal); color:#fff; font-size:32px; font-weight:700; letter-spacing:0.26em; padding:20px 64px; border-radius:999px;"><span>THE&nbsp;ROBOT&nbsp;CAM</span></div>
+      <div style="font-size:var(--t-body); line-height:1.5; color:var(--body); max-width:940px;"><span>See through the machine's eyes — green means grab it, red means sea life, skip. Then try picking up a rock yourself.</span></div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>14/23</span></div>
+  </section>
+
+  <section data-label="Cyber Problem" data-speaker-notes="Problem 3. A floating industrial plant, almost all OT, under a permit the ISA calls unlawful — nation-states, activists and competitors all have motive. Three nightmare scenarios: data poisoning (an attack on the data IS an attack on the company), ransomware at sea (Ascension: one download, 7 servers took down 25,000), vessel spoofing (Baltic 2024–25, attribution failed)." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; justify-content:center; padding:var(--pad-top) var(--pad-x) var(--pad-bottom); gap:40px;">
+      <div>
+        <div style="display:flex; align-items:baseline; gap:44px;">
+          <div><span style="font-family:'Great Vibes',cursive; font-size:var(--t-script); color:var(--script); line-height:0.8;">zero trust</span></div>
+          <div style="display:inline-block; background:var(--teal); color:#fff; font-size:var(--t-small); font-weight:700; letter-spacing:0.24em; padding:14px 48px; border-radius:999px;"><span>OUR&nbsp;PROBLEM</span></div>
+        </div>
+        <div style="font-size:var(--t-head); font-weight:400; color:var(--lite); margin-top:14px;"><span>The Ocean's Attack Surface</span></div>
+      </div>
+      <div style="font-size:var(--t-small); line-height:1.55; color:var(--body); max-width:1500px;"><span>{{ cyberIntro }}</span></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:34px;">
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:40px; display:flex; flex-direction:column; gap:18px; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="width:70px; height:70px; border-radius:50%; background:#1d5b74; color:#fff; font-size:24px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>DP</span></div><div style="font-size:32px; font-weight:700; color:var(--ink);">Data Poisoning</div><div style="font-size:var(--t-tiny); line-height:1.5; color:var(--body);">secretly change the ocean data to fake or hide a problem — an attack on the data is an attack on the company.</div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:40px; display:flex; flex-direction:column; gap:18px; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="width:70px; height:70px; border-radius:50%; background:#1d5b74; color:#fff; font-size:24px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>RW</span></div><div style="font-size:32px; font-weight:700; color:var(--ink);">Ransomware at Sea</div><div style="font-size:var(--t-tiny); line-height:1.5; color:var(--body);">hackers lock the controls mid-operation, hundreds of miles from help — one bad download once took down 25,000 servers.</div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:40px; display:flex; flex-direction:column; gap:18px; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="width:70px; height:70px; border-radius:50%; background:#1d5b74; color:#fff; font-size:24px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>VS</span></div><div style="font-size:32px; font-weight:700; color:var(--ink);">Vessel Spoofing</div><div style="font-size:var(--t-tiny); line-height:1.5; color:var(--body);">faking a ship’s location to cause crashes or spread lies — as in the 2024–25 Baltic cable attacks nobody could pin down.</div></div>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>15/23</span></div>
+  </section>
+
+  <section data-label="Zero Trust" data-speaker-notes="Solution 3. Zero Trust in one sentence: nobody and nothing is trusted by default — every person, device and connection proves itself, every time. Four moves. The one-way rule is the load-bearing wall: it's WHY 'tamper-proof' is an architectural fact, not a policy promise." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; justify-content:center; padding:var(--pad-top) var(--pad-x) var(--pad-bottom); gap:40px;">
+      <div>
+        <div style="display:flex; align-items:baseline; gap:44px;">
+          <div><span style="font-family:'Great Vibes',cursive; font-size:var(--t-script); color:var(--script); line-height:0.8;">zero trust</span></div>
+          <div style="display:inline-block; background:var(--teal); color:#fff; font-size:var(--t-small); font-weight:700; letter-spacing:0.24em; padding:14px 48px; border-radius:999px;"><span>OUR&nbsp;SOLUTION</span></div>
+        </div>
+        <div style="font-size:var(--t-small); font-style:italic; color:var(--body); margin-top:16px;"><span>Nobody and nothing is trusted by default — every person, device &amp; connection must prove itself, every time.</span></div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:34px;">
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:36px 44px; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="display:flex; align-items:center; gap:24px; margin-bottom:16px;"><div style="width:58px; height:58px; flex:none; border-radius:50%; background:var(--teal); color:#fff; font-size:26px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>1</span></div><div><div style="font-size:32px; font-weight:700; color:var(--ink);">Identity First</div><div style="font-size:var(--t-tiny); font-style:italic; color:var(--lite);">Duo + Secure Access</div></div></div><div style="font-size:var(--t-tiny); line-height:1.5; color:var(--body);">everyone proves who they are with a phone tap that can't be faked</div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:36px 44px; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="display:flex; align-items:center; gap:24px; margin-bottom:16px;"><div style="width:58px; height:58px; flex:none; border-radius:50%; background:var(--teal); color:#fff; font-size:26px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>2</span></div><div><div style="font-size:32px; font-weight:700; color:var(--ink);">Segmentation</div><div style="font-size:var(--t-tiny); font-style:italic; color:var(--lite);">ISE + industrial firewalls</div></div></div><div style="font-size:var(--t-tiny); line-height:1.5; color:var(--body);">four sealed ship sections, so a hacked laptop can't reach the mining machines</div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:36px 44px; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="display:flex; align-items:center; gap:24px; margin-bottom:16px;"><div style="width:58px; height:58px; flex:none; border-radius:50%; background:var(--teal); color:#fff; font-size:26px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>3</span></div><div><div style="font-size:32px; font-weight:700; color:var(--ink);">The One-Way Rule</div><div style="font-size:var(--t-tiny); font-style:italic; color:var(--lite);">data diode pattern</div></div></div><div style="font-size:var(--t-tiny); line-height:1.5; color:var(--body);">sensor data can only leave, never be sent back in — not even by TMC</div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:36px 44px; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="display:flex; align-items:center; gap:24px; margin-bottom:16px;"><div style="width:58px; height:58px; flex:none; border-radius:50%; background:var(--teal); color:#fff; font-size:26px; font-weight:700; display:flex; align-items:center; justify-content:center;"><span>4</span></div><div><div style="font-size:32px; font-weight:700; color:var(--ink);">Watch Everything</div><div style="font-size:var(--t-tiny); font-style:italic; color:var(--lite);">Cyber Vision + Umbrella + XDR + Splunk</div></div></div><div style="font-size:var(--t-tiny); line-height:1.5; color:var(--body);">every device, download and event tracked and logged where it can't be changed</div></div>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>16/23</span></div>
+  </section>
+
+  <section data-label="Cisco Tech 3" data-speaker-notes="Four flagship products, one per Zero Trust pillar: Duo (identity), ISE (segmentation), Cyber Vision (monitoring), Splunk (tamper-proof log). Coordinate on Splunk with Team 1: they explain WHAT it proves, we explain HOW it can't be tampered with." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <div style="position:absolute; right:-70px; top:90px; width:240px; height:240px; border-radius:44px; background:rgba(75,154,184,0.12); transform:rotate(20deg);"></div>
+    <div style="position:absolute; left:-60px; bottom:-50px; width:220px; height:220px; border-radius:40px; background:rgba(75,154,184,0.1); transform:rotate(-16deg);"></div>
+    <img src="assets/coral-pill.jpg" alt="" style="position:absolute; right:64px; bottom:56px; width:300px; height:120px; object-fit:cover; border-radius:999px; opacity:0.9; box-shadow:0 12px 30px rgba(20,88,111,0.18);">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; justify-content:center; padding:var(--pad-top) var(--pad-x) var(--pad-bottom); gap:44px;">
+      <div style="display:flex; align-items:baseline; gap:44px;">
+        <div><span style="font-family:'Great Vibes',cursive; font-size:var(--t-script); color:var(--script); line-height:0.8;">zero trust</span></div>
+        <div style="display:inline-block; background:var(--teal); color:#fff; font-size:var(--t-small); font-weight:700; letter-spacing:0.24em; padding:14px 48px; border-radius:999px;"><span>CISCO&nbsp;TECH</span></div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:34px;">
+        <div style="background:#fff; border:1px solid var(--line); border-radius:20px; padding:48px 40px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:26px; box-shadow:0 14px 36px rgba(20,88,111,0.09);"><div style="width:104px; height:104px; border-radius:50%; background:rgba(37,110,128,0.1); display:flex; align-items:center; justify-content:center;"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#256e80" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 5.5v6c0 5 3.4 8.2 8 10 4.6-1.8 8-5 8-10v-6L12 2.5Z"></path><path d="m8.7 11.8 2.3 2.3 4.3-4.6"></path></svg></div><div style="font-size:34px; font-weight:700; color:var(--ink);">Duo</div><div style="font-size:var(--t-small); line-height:1.45; color:var(--body);">everyone proves who they are</div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:20px; padding:48px 40px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:26px; box-shadow:0 14px 36px rgba(20,88,111,0.09);"><div style="width:104px; height:104px; border-radius:50%; background:rgba(37,110,128,0.1); display:flex; align-items:center; justify-content:center;"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#256e80" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg></div><div style="font-size:34px; font-weight:700; color:var(--ink);">ISE</div><div style="font-size:var(--t-small); line-height:1.45; color:var(--body);">seals the ship into locked zones</div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:20px; padding:48px 40px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:26px; box-shadow:0 14px 36px rgba(20,88,111,0.09);"><div style="width:104px; height:104px; border-radius:50%; background:rgba(37,110,128,0.1); display:flex; align-items:center; justify-content:center;"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#256e80" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg></div><div style="font-size:34px; font-weight:700; color:var(--ink);">Cyber Vision</div><div style="font-size:var(--t-small); line-height:1.45; color:var(--body);">watches how every machine behaves</div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:20px; padding:48px 40px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:26px; box-shadow:0 14px 36px rgba(20,88,111,0.09);"><div style="width:104px; height:104px; border-radius:50%; background:rgba(37,110,128,0.1); display:flex; align-items:center; justify-content:center;"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#256e80" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"></rect><path d="M8 8h8M8 12h8M8 16h5"></path><circle cx="16.5" cy="15.5" r="3.2" fill="#fff"></circle><path d="M15.2 15.5v-1a1.3 1.3 0 0 1 2.6 0v1"></path><rect x="14.8" y="15.3" width="3.4" height="2.6" rx="0.6"></rect></svg></div><div style="font-size:34px; font-weight:700; color:var(--ink);">Splunk</div><div style="font-size:var(--t-small); line-height:1.45; color:var(--body);">the record book that can’t be faked</div></div>
+      </div>
+      <div style="font-size:var(--t-tiny); font-style:italic; color:var(--lite);"><span>Splunk is shared with Glass Ocean — they show <b>what</b> it proves, we show <b>why</b> it can't be faked.</span></div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>17/23</span></div>
+  </section>
+
+  <section data-label="Demo: Sharks" data-speaker-notes="Cue slide — the shark visualization. Phishing shark vs the Duo gate (MGM), ransomware shark vs the ISE walls (Ascension), data-poisoning shark vs the one-way valve (Baltic). One self-aware line — the sharks down here don't have fins — then move on." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <img src="assets/reef-wide.jpg" alt="" style="position:absolute; right:0; bottom:0; width:420px; height:420px; object-fit:cover; border-radius:999px 0 0 0;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:34px; padding:var(--pad-top) var(--pad-x) var(--pad-bottom); text-align:center;">
+      <div style="font-family:'Great Vibes',cursive; font-size:150px; color:var(--script); line-height:0.85;"><span>live demo</span></div>
+      <div style="display:inline-block; background:var(--teal); color:#fff; font-size:32px; font-weight:700; letter-spacing:0.26em; padding:20px 64px; border-radius:999px;"><span>THE&nbsp;SHARK&nbsp;ATTACK</span></div>
+      <div style="font-size:var(--t-body); line-height:1.5; color:var(--body); max-width:980px;"><span>Three “sharks” — three kinds of cyberattack — each one blocked by a labeled Cisco defense.</span></div>
+      <div style="font-size:var(--t-tiny); font-style:italic; color:var(--lite);"><span>(the sharks down here don't have fins)</span></div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>18/23</span></div>
+  </section>
+
+  <section data-label="Value" data-speaker-notes="The honest framing: this doesn't make a marginal mine profitable — it makes an unlicensable operation licensable and an uninsurable one insurable. Analogies for downtime cost: CommonSpirit ~$160M, Ascension ~$1.1B. Say openly that several metrics are risk-avoidance values." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:var(--pad-top) var(--pad-x) 120px; gap:40px;">
+      <div style="text-align:center;">
+        <div style="font-family:'Great Vibes',cursive; font-size:86px; color:var(--script); line-height:0.72;"><span>value &amp; metrics</span></div>
+        <div style="font-size:var(--t-sub); font-weight:500; color:var(--lite); margin-top:12px;"><span>What trusted data is worth</span></div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:32px; width:100%; max-width:1660px;">
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:44px 32px; text-align:center; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="font-size:76px; font-weight:700; color:var(--teal); line-height:1;">&gt;90%</div><div style="font-size: 27px; line-height: 1.45; color: var(--body); margin-top: 18px">of sea life spotted and avoided — pilot goal</div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:44px 32px; text-align:center; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="font-size:76px; font-weight:700; color:var(--teal); line-height:1;">→ 0</div><div style="font-size: 27px; line-height: 1.45; color: var(--body); margin-top: 18px">times the mud limit is crossed, by slowing down early</div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:44px 32px; text-align:center; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="font-size:76px; font-weight:700; color:var(--teal); line-height:1;">Minutes</div><div style="font-size: 27px; line-height: 1.45; color: var(--body); margin-top: 18px">to catch a system problem — instead of never</div></div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:44px 32px; text-align:center; box-shadow:0 10px 30px rgba(20,88,111,0.07);"><div style="font-size:76px; font-weight:700; color:var(--teal); line-height:1;">100%</div><div style="font-size: 27px; line-height: 1.45; color: var(--body); margin-top: 18px">of data disputes settled by tamper-proof records</div></div>
+      </div>
+      <div style="font-size:var(--t-small); line-height:1.55; color:var(--body); max-width:1400px; text-align:center;"><span></span></div>
+      <div style="font-size:var(--t-tiny); font-style:italic; color:var(--lite);"></div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>19/23</span></div>
+  </section>
+
+  <section data-label="Scalability" data-speaker-notes="Read the rings from the inside out. Core is Glass Ocean + the two AI uses, built for TMC. Ring 1 SafeDepth and Ring 2 Abyssal Weather each reuse that same architecture for a new market — the next two slides go deeper on each. Headline: one architecture, three markets, no rebuild." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; align-items:center; gap:110px; padding:var(--pad-top) var(--pad-x) var(--pad-bottom);">
+      <div style="flex:none; width:640px; height:640px; position:relative;">
+        <div style="position:absolute; inset:0; border:2px solid rgba(75,154,184,0.45); border-radius:50%;"></div>
+        <div style="position:absolute; top:-4px; left:50%; transform:translate(-50%,-50%); background:#eaf3f7; border:2px solid rgba(75,154,184,0.45); color:var(--lite); font-size:var(--t-tiny); font-weight:700; letter-spacing:0.12em; padding:8px 26px; border-radius:999px; white-space:nowrap;"><span>ABYSSAL&nbsp;WEATHER</span></div>
+        <div style="position:absolute; inset:105px; border:2px solid rgba(37,110,128,0.55); border-radius:50%;"></div>
+        <div style="position:absolute; top:101px; left:50%; transform:translate(-50%,-50%); background:#eaf3f7; border:2px solid rgba(37,110,128,0.55); color:var(--teal); font-size:var(--t-tiny); font-weight:700; letter-spacing:0.12em; padding:8px 26px; border-radius:999px; white-space:nowrap;"><span>SAFEDEPTH</span></div>
+        <div style="position:absolute; inset:210px; border-radius:50%; background:radial-gradient(circle, rgba(37,110,128,0.92), rgba(20,88,111,0.98)); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:8px; box-shadow:0 16px 44px rgba(20,88,111,0.35);">
+          <div style="font-size:32px; font-weight:700; letter-spacing:0.08em; color:#fff;">GLASS OCEAN</div>
+          <div style="font-size:var(--t-tiny); color:#cfe6ee;">+ 2 AI uses</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:44px;">
+        <div>
+          <div style="font-family:'Great Vibes',cursive; font-size:var(--t-script); color:var(--script); line-height:0.75;"><span>scalability</span></div>
+          <div style="font-size:var(--t-sub); font-weight:500; color:var(--lite); margin-top:10px;"><span>One architecture, three markets</span></div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:30px; max-width:860px;">
+          <div style="display:flex; align-items:flex-start; gap:24px;"><div style="width:30px; height:30px; flex:none; margin-top:4px; border-radius:8px; background:radial-gradient(circle, rgba(37,110,128,0.95), rgba(20,88,111,0.98));"></div><div><div style="font-size:var(--t-body); font-weight:700; color:var(--ink);">Core — Glass Ocean + 2 AI uses</div><div style="font-size:var(--t-small); color:var(--body);">Built for TMC today</div></div></div>
+          <div style="display:flex; align-items:flex-start; gap:24px;"><div style="width:30px; height:30px; flex:none; margin-top:4px; border-radius:8px; border:3px solid var(--teal);"></div><div><div style="font-size:var(--t-body); font-weight:700; color:var(--ink);">Ring 1 · SafeDepth</div><div style="font-size:var(--t-small); color:var(--body);">Crew safety on the same network</div></div></div>
+          <div style="display:flex; align-items:flex-start; gap:24px;"><div style="width:30px; height:30px; flex:none; margin-top:4px; border-radius:8px; border:3px solid var(--lite);"></div><div><div style="font-size:var(--t-body); font-weight:700; color:var(--ink);">Ring 2 · Abyssal Weather</div><div style="font-size:var(--t-small); color:var(--body);">A trusted ocean-data market</div></div></div>
+        </div>
+        <div style="font-size:var(--t-small); font-style:italic; color:var(--script); font-weight:600; max-width:820px;"><span>Each ring reuses the last — new markets, no new architecture. The system outlasts this one client.</span></div>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>20/23</span></div>
+  </section>
+
+  <section data-label="New Markets" data-speaker-notes="Ring 1 in depth — SafeDepth: the four sealed zones we built for security already carry safety traffic, so crew protection is a software add-on, not new hardware. Wearables give live vitals and location; man-overboard detection fires an instant alert with a GPS drop; gas and confined-space sensors alarm before conditions turn deadly. It's sellable to every offshore operator — oil &amp; gas, wind, shipping — a recurring safety tenant on hardware TMC already paid for. Ring 2 in depth — Abyssal Weather: the deep Pacific is a data desert, almost nothing is measured down there. The same sensors that prove TMC's impact become the first commercial abyssal observation network. Science gets governed research feeds, shipping and industry get real current and condition data for safer routing, and climate models get long-term deep-ocean records. Mining pays for the sensors; the world gets the data — and the architecture outlives this one client, portable to any seabed operator." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <div style="position:absolute; right:-60px; top:100px; width:230px; height:230px; border-radius:42px; background:rgba(75,154,184,0.11); transform:rotate(18deg);"></div>
+    <div style="position:absolute; left:-60px; bottom:-50px; width:210px; height:210px; border-radius:40px; background:rgba(75,154,184,0.1); transform:rotate(-16deg);"></div>
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; justify-content:center; padding:var(--pad-top) var(--pad-x) var(--pad-bottom); gap:52px;">
+      <div>
+        <div style="font-family:'Great Vibes',cursive; font-size:var(--t-script); color:var(--script); line-height:0.75;"><span>two more markets</span></div>
+        <div style="font-size:var(--t-sub); font-weight:500; color:var(--lite); margin-top:10px;"><span>The same architecture, resold</span></div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:44px;">
+        <div style="background:#fff; border:1px solid var(--line); border-radius:20px; padding:48px 52px; display:flex; flex-direction:column; gap:24px; box-shadow:0 14px 36px rgba(20,88,111,0.09);">
+          <div style="display:flex; align-items:center; gap:24px;"><div style="width:80px; height:80px; flex:none; border-radius:50%; background:rgba(37,110,128,0.1); display:flex; align-items:center; justify-content:center;"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#256e80" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 5.5v6c0 5 3.4 8.2 8 10 4.6-1.8 8-5 8-10v-6L12 2.5Z"></path><path d="M12 8v5"></path><path d="M12 15.5h.01"></path></svg></div><div><div style="display:inline-block; border:2px solid var(--teal); color:var(--teal); font-size:var(--t-tiny); font-weight:700; letter-spacing:0.16em; padding:6px 22px; border-radius:999px; margin-bottom:10px;">RING&nbsp;1</div><div style="font-size:38px; font-weight:700; color:var(--ink); line-height:1;">SafeDepth</div></div></div>
+          <div style="font-size:var(--t-small); color:var(--body);">Crew safety on the same network</div>
+          <div style="display:flex; flex-wrap:wrap; gap:12px;"><span style="border:1px solid var(--line); border-radius:999px; padding:8px 22px; font-size:var(--t-tiny); color:var(--teal); background:#f3f8fa; white-space:nowrap;">Wearables</span><span style="border:1px solid var(--line); border-radius:999px; padding:8px 22px; font-size:var(--t-tiny); color:var(--teal); background:#f3f8fa; white-space:nowrap;">Man-overboard</span><span style="border:1px solid var(--line); border-radius:999px; padding:8px 22px; font-size:var(--t-tiny); color:var(--teal); background:#f3f8fa; white-space:nowrap;">Gas alarms</span></div>
+          <div style="font-size:var(--t-small); font-style:italic; color:var(--script); font-weight:600;">Sellable to every offshore operator.</div>
+        </div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:20px; padding:48px 52px; display:flex; flex-direction:column; gap:24px; box-shadow:0 14px 36px rgba(20,88,111,0.09);">
+          <div style="display:flex; align-items:center; gap:24px;"><div style="width:80px; height:80px; flex:none; border-radius:50%; background:rgba(37,110,128,0.1); display:flex; align-items:center; justify-content:center;"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#256e80" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18Z"></path></svg></div><div><div style="display:inline-block; border:2px solid var(--lite); color:var(--lite); font-size:var(--t-tiny); font-weight:700; letter-spacing:0.16em; padding:6px 22px; border-radius:999px; margin-bottom:10px;">RING&nbsp;2</div><div style="font-size:38px; font-weight:700; color:var(--ink); line-height:1;">Abyssal Weather</div></div></div>
+          <div style="font-size:var(--t-small); color:var(--body);">A trusted ocean-data market</div>
+          <div style="display:flex; flex-wrap:wrap; gap:12px;"><span style="border:1px solid var(--line); border-radius:999px; padding:8px 22px; font-size:var(--t-tiny); color:var(--teal); background:#f3f8fa; white-space:nowrap;">Science</span><span style="border:1px solid var(--line); border-radius:999px; padding:8px 22px; font-size:var(--t-tiny); color:var(--teal); background:#f3f8fa; white-space:nowrap;">Shipping</span><span style="border:1px solid var(--line); border-radius:999px; padding:8px 22px; font-size:var(--t-tiny); color:var(--teal); background:#f3f8fa; white-space:nowrap;">Climate</span></div>
+          <div style="font-size:var(--t-small); font-style:italic; color:var(--script); font-weight:600;">Mining pays for the sensors; the world gets the data.</div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>21/23</span></div>
+  </section>
+
+  <section data-label="Ocean Trust Index" data-speaker-notes="This is our closing argument, and we deliberately do NOT lead with money. Money is a lagging output — it only shows up once someone lets you operate. So we invented the Ocean Trust Index: a composite of the four things that actually GATE a deep-sea mining license — regulatory acceptance, verifiable proof, cyber resilience, and investor confidence. Three paths. Do Nothing (~15): TMC keeps self-reported data an activist can dispute, an exposed OT network, and investors already pricing in the risk — the license is the thing at stake, not the margin. Alternatives (~55): competitors bolt on point tools — better firewalls, some monitoring — but the data is still editable and there's no single, public, tamper-proof proof, so regulators still have to take TMC's word for it. Veritas Blue (~94): tamper-proof proof by architecture, a sealed zero-trust network, live public transparency, and the ESG capital that distrust was blocking. The point of the metric: on dollars alone the three look similar; on trust, the gap is enormous — and trust is what converts into dollars. We're upfront the scores are our own illustrative index, not audited figures." style="font-family:'Quicksand',sans-serif; background:linear-gradient(180deg,#fdfefe 0%,#f3f8fa 42%,#d3e5ec 82%,#aecdd8 100%); overflow:hidden;">
+    <div style="position:absolute; top:44px; left:60px; line-height:1.5;">
+      <div style="font-size:24px; font-weight:700; letter-spacing:0.2em; color:var(--ink); white-space:nowrap;">CISCO&nbsp;&nbsp;|&nbsp;&nbsp;TMC</div>
+      <div style="font-size:24px; letter-spacing:0.16em; color:var(--lite); white-space:nowrap;">VERITAS BLUE</div>
+    </div>
+    <div style="height:100%; display:flex; flex-direction:column; justify-content:center; padding:64px var(--pad-x) 104px; gap:26px;">
+      <div style="text-align:center;">
+        <div style="font-family:'Great Vibes',cursive; font-size:68px; color:var(--script); line-height:0.72;"><span>the deciding metric</span></div>
+        <div style="font-size:var(--t-sub); font-weight:600; color:var(--ink); margin-top:8px;"><span>Ocean Trust Index</span></div>
+        
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:34px; align-items:stretch;">
+        <div style="background:#fff; border:1px solid var(--line); border-radius:20px; padding:40px 40px 44px; display:flex; flex-direction:column; gap:22px; box-shadow:0 10px 30px rgba(20,88,111,0.07);">
+          <div style="display:inline-block; align-self:flex-start; border:2px solid #b9c9d1; color:#7d95a1; font-size:var(--t-tiny); font-weight:700; letter-spacing:0.16em; padding:8px 26px; border-radius:999px; white-space:nowrap;">DO NOTHING</div>
+          <div style="display:flex; align-items:baseline; gap:8px;"><div style="font-size:88px; font-weight:700; color:#9bb0bb; line-height:0.9;">15</div><div style="font-size:30px; color:#9bb0bb;">/100</div></div>
+          <div style="font-size:var(--t-small); font-weight:600; color:#7d95a1;">License at risk</div>
+          <div style="display:flex; flex-direction:column; gap:16px; margin-top:6px;"><div style="display:flex; align-items:center; gap:18px;"><div style="width:210px; flex:none; font-size:var(--t-tiny); color:var(--body);">Regulatory acceptance</div><div style="display:flex; gap:6px; flex:1;"><div style="flex:1; height:11px; border-radius:6px; background:rgba(75,154,184,0.18);"></div><div style="flex:1; height:11px; border-radius:6px; background:rgba(75,154,184,0.18);"></div><div style="flex:1; height:11px; border-radius:6px; background:rgba(75,154,184,0.18);"></div></div></div><div style="display:flex; align-items:center; gap:18px;"><div style="width:210px; flex:none; font-size:var(--t-tiny); color:var(--body);">Verifiable proof</div><div style="display:flex; gap:6px; flex:1;"><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:rgba(75,154,184,0.18);"></div><div style="flex:1; height:11px; border-radius:6px; background:rgba(75,154,184,0.18);"></div></div></div><div style="display:flex; align-items:center; gap:18px;"><div style="width:210px; flex:none; font-size:var(--t-tiny); color:var(--body);">Cyber resilience</div><div style="display:flex; gap:6px; flex:1;"><div style="flex:1; height:11px; border-radius:6px; background:rgba(75,154,184,0.18);"></div><div style="flex:1; height:11px; border-radius:6px; background:rgba(75,154,184,0.18);"></div><div style="flex:1; height:11px; border-radius:6px; background:rgba(75,154,184,0.18);"></div></div></div><div style="display:flex; align-items:center; gap:18px;"><div style="width:210px; flex:none; font-size:var(--t-tiny); color:var(--body);">Investor confidence</div><div style="display:flex; gap:6px; flex:1;"><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:rgba(75,154,184,0.18);"></div><div style="flex:1; height:11px; border-radius:6px; background:rgba(75,154,184,0.18);"></div></div></div></div>
+        </div>
+        <div style="background:#fff; border:1px solid var(--line); border-radius:20px; padding:40px 40px 44px; display:flex; flex-direction:column; gap:22px; box-shadow:0 10px 30px rgba(20,88,111,0.07);">
+          <div style="display:inline-block; align-self:flex-start; border:2px solid var(--lite); color:var(--lite); font-size:var(--t-tiny); font-weight:700; letter-spacing:0.16em; padding:8px 26px; border-radius:999px; white-space:nowrap;">ALTERNATIVES</div>
+          <div style="display:flex; align-items:baseline; gap:8px;"><div style="font-size:88px; font-weight:700; color:var(--lite); line-height:0.9;">55</div><div style="font-size:30px; color:var(--lite);">/100</div></div>
+          <div style="font-size:var(--t-small); font-weight:600; color:var(--lite);">Tools, not trust</div>
+          <div style="display:flex; flex-direction:column; gap:16px; margin-top:6px;"><div style="display:flex; align-items:center; gap:18px;"><div style="width:210px; flex:none; font-size:var(--t-tiny); color:var(--body);">Regulatory acceptance</div><div style="display:flex; gap:6px; flex:1;"><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:rgba(75,154,184,0.18);"></div></div></div><div style="display:flex; align-items:center; gap:18px;"><div style="width:210px; flex:none; font-size:var(--t-tiny); color:var(--body);">Verifiable proof</div><div style="display:flex; gap:6px; flex:1;"><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:rgba(75,154,184,0.18);"></div><div style="flex:1; height:11px; border-radius:6px; background:rgba(75,154,184,0.18);"></div></div></div><div style="display:flex; align-items:center; gap:18px;"><div style="width:210px; flex:none; font-size:var(--t-tiny); color:var(--body);">Cyber resilience</div><div style="display:flex; gap:6px; flex:1;"><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:rgba(75,154,184,0.18);"></div></div></div><div style="display:flex; align-items:center; gap:18px;"><div style="width:210px; flex:none; font-size:var(--t-tiny); color:var(--body);">Investor confidence</div><div style="display:flex; gap:6px; flex:1;"><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:rgba(75,154,184,0.18);"></div></div></div></div>
+        </div>
+        <div style="background:linear-gradient(180deg,#ffffff, #eef6f9); border:2.5px solid var(--teal); border-radius:20px; padding:40px 40px 44px; display:flex; flex-direction:column; gap:22px; box-shadow:0 22px 50px rgba(20,88,111,0.22); transform:translateY(-14px);">
+          <div style="display:inline-block; align-self:flex-start; background:var(--teal); color:#fff; font-size:var(--t-tiny); font-weight:700; letter-spacing:0.16em; padding:8px 26px; border-radius:999px; white-space:nowrap;">VERITAS BLUE</div>
+          <div style="display:flex; align-items:baseline; gap:8px;"><div style="font-size:88px; font-weight:700; color:var(--teal); line-height:0.9;">94</div><div style="font-size:30px; color:var(--teal);">/100</div></div>
+          <div style="font-size:var(--t-small); font-weight:700; color:var(--ink);">Cleared to operate</div>
+          <div style="display:flex; flex-direction:column; gap:16px; margin-top:6px;"><div style="display:flex; align-items:center; gap:18px;"><div style="width:210px; flex:none; font-size:var(--t-tiny); color:var(--body);">Regulatory acceptance</div><div style="display:flex; gap:6px; flex:1;"><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div></div></div><div style="display:flex; align-items:center; gap:18px;"><div style="width:210px; flex:none; font-size:var(--t-tiny); color:var(--body);">Verifiable proof</div><div style="display:flex; gap:6px; flex:1;"><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div></div></div><div style="display:flex; align-items:center; gap:18px;"><div style="width:210px; flex:none; font-size:var(--t-tiny); color:var(--body);">Cyber resilience</div><div style="display:flex; gap:6px; flex:1;"><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div></div></div><div style="display:flex; align-items:center; gap:18px;"><div style="width:210px; flex:none; font-size:var(--t-tiny); color:var(--body);">Investor confidence</div><div style="display:flex; gap:6px; flex:1;"><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div><div style="flex:1; height:11px; border-radius:6px; background:var(--teal);"></div></div></div></div>
+        </div>
+      </div>
+      <div style="font-size:var(--t-tiny); font-style:italic; color:var(--lite); text-align:center; max-width:1500px; margin:0 auto 8px;"><span></span></div><div style="font-size: var(--t-tiny); color: var(--lite); margin-top: 6px; text-align: center"><span>Not dollars — the four things that actually unlock a license to operate</span></div>
+    </div>
+    <div style="position:absolute; bottom:32px; left:0; width:100%; text-align:center; font-size:var(--t-tiny); color:var(--lite);"><span>22/23</span></div>
+  </section>
+
+  <section data-label="Thanks" data-speaker-notes="Close on the thesis: give the machines eyes, give the ocean a voice, and lock both behind doors nobody can pick — turning TMC's biggest liability into its license to operate. Then questions." style="font-family:'Quicksand',sans-serif; background:url('assets/whale.jpg') center/cover; overflow:hidden;">
+    <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(190,214,226,0.25) 0%, rgba(20,60,80,0.35) 100%);"></div>
+    <div style="position:relative; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px; text-align:center;">
+      <div style="font-family:'Great Vibes',cursive; font-size:230px; color:#fff; line-height:0.9; text-shadow:0 8px 40px rgba(10,40,60,0.45);"><span>thank you</span></div>
+      <div style="font-size:38px; font-weight:500; letter-spacing:0.06em; color:#f0f7fa; text-shadow:0 4px 20px rgba(10,40,60,0.5);"><span>Questions welcome</span></div>
+      <div style="font-size:var(--t-tiny); letter-spacing:0.22em; color:rgba(240,247,250,0.85); margin-top:16px;"><span>VERITAS BLUE&nbsp;&nbsp;·&nbsp;&nbsp;BAT BRIDGE PARTNERS&nbsp;&nbsp;·&nbsp;&nbsp;CISCO HS CAPSTONE 2026</span></div>
+    </div>
+  </section>
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;cyberIntro&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;A floating factory of ships, robots and sensors — running under a permit the UN's ocean authority calls illegal. Governments, activists and rivals all have reason to attack it.&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Zero Trust — Problem&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      cyberIntro: this.props.cyberIntro ?? "A floating factory of ships, robots and sensors — running under a permit the UN's ocean authority calls illegal. Governments, activists and rivals all have reason to attack it.",
+    };
+  }
+}
+</script>
+<script>
+(async () => {
+  if (!document.title || !document.title.trim()) document.title = "Veritas Blue Deck";
+  // rAF raced with a short timeout: inside a cross-origin iframe (PrintMode),
+  // rAF can be throttled or paused even while the tab is focused, which would
+  // hang the scroll loop and never reach print(). Same pattern as
+  // buildExportSettleScript (export/shared.ts).
+  var raf = function () {
+    return Promise.race([
+      new Promise(function (r) { requestAnimationFrame(r); }),
+      new Promise(function (r) { setTimeout(r, 50); }),
+    ]);
+  };
+  var t0 = performance.now();
+  var mark = function (phase) {
+    var ms = Math.round(performance.now() - t0);
+    console.info('[autoprint]', phase, ms + 'ms');
+    try { parent.postMessage({ __omelette_autoprint: { phase: phase, ms: ms } }, '*'); } catch (e) {}
+  };
+  mark('start');
+  // Prepend so page-supplied @page / break rules (deck-stage's margin:0,
+  // author CSS) keep source-order precedence over the baseline.
+  const baseCss = document.createElement('style');
+  baseCss.textContent = "@media print {\n  figure, table { break-inside: avoid; }\n  *, *::before, *::after {\n    print-color-adjust: exact; -webkit-print-color-adjust: exact;\n    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;\n    animation-delay: -99s !important; animation-duration: .001s !important;\n    animation-iteration-count: 1 !important; animation-fill-mode: both !important;\n    animation-play-state: running !important; transition-duration: 0s !important;\n  }\n}";
+  document.head.prepend(baseCss);
+  if (document.readyState === 'loading') {
+    await new Promise((r) => document.addEventListener('DOMContentLoaded', r, { once: true }));
+  }
+  let ds = document.querySelector('deck-stage');
+  // whenDefined never resolves when nothing registers the element, so only
+  // await it when a <deck-stage> tag exists (and race a timeout regardless).
+  if (ds && !customElements.get('deck-stage')) {
+    try {
+      await Promise.race([
+        customElements.whenDefined('deck-stage'),
+        new Promise((r) => setTimeout(r, 3000)),
+      ]);
+    } catch (e) {}
+    ds = document.querySelector('deck-stage');
+  }
+  // dc-runtime assigns window.DCLogic at init and mounts into #dc-root on
+  // DOMContentLoaded; settle on that subtree so React has rendered before
+  // print(). Non-DC pages fall through to weighing body.
+  const isDc = !ds && 'DCLogic' in window;
+  const settleRoot = ds || (isDc ? document.getElementById('dc-root') : null) || document.body;
+  if (settleRoot) {
+    // Weigh only content children — skip script/style/template so inline
+    // Babel/CSS doesn't register as stable "content" before the framework
+    // has mounted anything.
+    const MEDIA = 'img,svg,canvas,video,picture,iframe,embed,object';
+    const weigh = () => {
+      let text = 0, media = 0;
+      for (const c of settleRoot.children) {
+        const t = c.tagName;
+        if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+        text += (c.textContent || '').trim().length;
+        media += c.querySelectorAll(MEDIA).length + (c.matches(MEDIA) ? 1 : 0);
+      }
+      return text + media * 100;
+    };
+    // "Non-zero and stable" alone is not sufficient to mean rendered: generic
+    // body can carry a static shell while async main content is pending, and
+    // #dc-root can carry the root DC's static text while child refs are still
+    // .sc-placeholder boxes. Gate generic on readyState 'complete', and never
+    // accept stability while a dc-runtime placeholder is present.
+    const isGeneric = settleRoot === document.body;
+    // A placeholder whose fetch failed (.sc-placeholder-error inside) keeps
+    // .sc-placeholder forever — don't wait on it. JS loop, not :has(), so an
+    // engine without :has() support can't throw out of the while and skip
+    // print() entirely.
+    var pendingPlaceholders = function () {
+      var all = settleRoot.querySelectorAll('.sc-placeholder'), n = 0;
+      for (var i = 0; i < all.length; i++)
+        if (!all[i].querySelector('.sc-placeholder-error')) n++;
+      return n;
+    };
+    const deadline = Date.now() + 15000;
+    let last = -1, stable = 0;
+    while (Date.now() < deadline) {
+      const n = weigh();
+      const ready =
+        (!isGeneric || document.readyState === 'complete') &&
+        pendingPlaceholders() === 0;
+      if (n > 0 && n === last && ready) { if (++stable >= 2) break; } else { stable = 0; }
+      last = n;
+      await new Promise((r) => setTimeout(r, 250));
+    }
+  }
+  mark('settle-done' + (settleRoot ? ' (errs=' + settleRoot.querySelectorAll('.sc-placeholder-error').length + ' pending=' + pendingPlaceholders() + ')' : ''));
+  // Project support.js may predate runtime default-seeding; push via bridge.
+  if (isDc && window.__dcSetProps && window.__dcRootName) {
+    try {
+      const dpEl = document.querySelector('script[data-dc-script]');
+      const meta = JSON.parse((dpEl && dpEl.getAttribute('data-props')) || '{}');
+      const bag = {};
+      for (const k in meta)
+        if (k[0] !== '$' && meta[k] && meta[k].default !== undefined)
+          bag[k] = meta[k].default;
+      if (Object.keys(bag).length) {
+        window.__dcSetProps(window.__dcRootName(), bag);
+        await new Promise((r) => setTimeout(r, 50));
+      }
+    } catch (e) {}
+  }
+  // Reveal content gated on scroll or visibility before printing. Lazy <img>,
+  // IntersectionObserver fade-ins, and collapsed <details> don't render while
+  // off-screen, so a long page would print with them blank or closed. Open
+  // every <details>, force native-lazy images eager, and scroll the document
+  // through its full height to trip lazy-load + IO; then wait (bounded) for the
+  // newly-triggered images. Inert for deck-stage (slides aren't scroll-gated).
+  try {
+    for (const d of document.querySelectorAll('details')) d.open = true;
+    for (const img of document.querySelectorAll('img[loading="lazy"]'))
+      img.loading = 'eager';
+    const scroller = document.scrollingElement || document.documentElement;
+    const full = Math.max(scroller.scrollHeight, document.body.scrollHeight);
+    const step = window.innerHeight || 800;
+    var scrollDeadline = Date.now() + 4000;
+    for (let y = 0; y <= full && Date.now() < scrollDeadline; y += step) {
+      window.scrollTo(0, y);
+      await raf();
+    }
+    window.scrollTo(0, 0);
+    await Promise.race([
+      Promise.all(
+        [...document.images].map((img) =>
+          img.complete
+            ? null
+            : new Promise((res) => {
+                img.addEventListener('load', res, { once: true });
+                img.addEventListener('error', res, { once: true });
+              })
+        )
+      ),
+      new Promise((r) => setTimeout(r, 4000)),
+    ]);
+  } catch (e) {}
+  mark('scroll-done');
+  try { await Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 3000))]); } catch (e) {}
+  mark('fonts-done');
+  // Jump every animation to its end state so print() never captures a slide
+  // mid-entrance. Ordering matters: the 0s-transition style must be live
+  // BEFORE data-deck-active is set so attribute-keyed transitions don't
+  // start a (now-0s) run from the pre-active base.
+  const st = document.createElement('style');
+  st.textContent = '*,*::before,*::after{animation-delay:-99s !important;animation-duration:.001s !important;animation-iteration-count:1 !important;animation-fill-mode:both !important;animation-play-state:running !important;transition-duration:0s !important}';
+  document.head.appendChild(st);
+  for (const d of document.querySelectorAll('deck-stage')) {
+    for (const c of d.children) {
+      const t = c.tagName;
+      if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+      c.setAttribute('data-deck-active', '');
+    }
+  }
+  // Re-append deck-stage's @page last so no author @page can add a margin and
+  // spill each full-bleed slide onto two sheets. Backstop for old copies.
+  if (ds) {
+    let pg = document.getElementById('deck-stage-print-page');
+    if (!pg) {
+      pg = document.createElement('style');
+      pg.textContent = '@page{size:' + (+ds.getAttribute('width') || 1920) +
+        'px ' + (+ds.getAttribute('height') || 1080) + 'px;margin:0}';
+    }
+    document.body.appendChild(pg);
+  }
+  try {
+    const sweep = () => {
+      for (const a of document.getAnimations()) {
+        try { a.finish(); } catch (e) {
+          try { a.currentTime = (a.effect && a.effect.getComputedTiming().duration) || 0; a.pause(); } catch (e2) {}
+        }
+      }
+    };
+    sweep();
+    await raf();
+    sweep();
+    await raf();
+  } catch (e) {}
+  // A document that owns its print CSS (the doc-page starter injects the
+  // meta at runtime; hand-rolled print designs author it) gets no automatic
+  // page geometry and keeps its forced breaks: strip the injected default
+  // @page — write time cannot see a runtime-injected meta — skip the frame
+  // override below, and skip the fakepage-flattening further down. What
+  // still applies: the print baseline and break-hygiene defaults (no @page
+  // in either; low specificity, so the document's own print CSS wins) and
+  // the break-inside relaxation on >page elements (avoid on those cannot
+  // be honored whoever authored it).
+  var ownsPrint = !!document.querySelector('meta[name="omelette-owns-print" i]');
+  if (ownsPrint) {
+    var dst = document.querySelector('style[data-omelette-print-defaults]');
+    if (dst && dst.textContent) {
+      dst.textContent = dst.textContent.replace(/@page\b[^{}]*\{[^}]*\}/, '');
+    }
+  }
+  // Size the PDF page to the rendered design unless the file opted into
+  // standard paper via @page{size:letter|A4|…} or declared print ownership
+  // via the meta above. Decks own their own @page.
+  // Wrappers (body, …) lose padding+margin so the frame sits at (0,0); the
+  // frame itself loses only margin — its padding is INSIDE the measured
+  // rect and must stay, or content shifts and leaves a gap at bottom/right.
+  var __m = null;
+  try { __m = (() => {
+  var STAMP = true;
+  var docEl = document.documentElement;
+  var doc = { width: docEl.scrollWidth, height: docEl.scrollHeight };
+  // Name-presence check, case-insensitive — the same contract as the
+  // instant-PDF path's runtime check in deck-stage-export.ts. The name is
+  // a string literal here because that file interpolates this script into
+  // its print script, so importing a shared constant from it would be a
+  // cycle; measure.test.ts pins the literal so the two cannot drift apart
+  // silently.
+  var ownsPrint = !!document.querySelector('meta[name="omelette-owns-print" i]');
+
+  var ds = document.querySelector('deck-stage');
+  if (ds) {
+    var dw = Number(ds.getAttribute('width')) || 1920;
+    var dh = Number(ds.getAttribute('height')) || 1080;
+    var n = typeof ds.length === 'number' ? ds.length : ds.children.length;
+    var idx = typeof ds.index === 'number' ? ds.index : 0;
+    var frames = [];
+    for (var i = 0; i < n; i++) frames.push({ left: 0, top: 0, width: dw, height: dh });
+    return { kind: 'deck', source: 'declared', doc: doc, frames: frames,
+      authored: frames.map(function(){return{width:true,height:true}}),
+      deck: { width: dw, height: dh, slideCount: n, index: idx },
+      signals: { paperPage: false, pxPage: false, ownsPrint: ownsPrint } };
+  }
+
+  // Declared kind: a doc-page tag names the kind outright, so no signal
+  // heuristics run (like the deck branch above, signals report false —
+  // they describe inferred classifications only). The tag alone is not
+  // trusted: the element must have upgraded (shadowRoot present), so a
+  // leftover tag whose script was deleted falls through to the heuristics
+  // that handle plain markup.
+  var stageSx = window.scrollX || 0, stageSy = window.scrollY || 0;
+  var dp = document.querySelector('doc-page');
+  if (dp && dp.shadowRoot) {
+    // Crop to the sheet, not the host — the desk around it is screen-only
+    // chrome that must not land in PNG exports.
+    var sheet = dp.shadowRoot.querySelector('.sheet');
+    var sr = (sheet || dp).getBoundingClientRect();
+    return { kind: 'paper-doc', source: 'declared', doc: doc,
+      frames: [{ left: sr.left + stageSx, top: sr.top + stageSy,
+        width: sr.width, height: sr.height }],
+      authored: [{ width: false, height: false }],
+      signals: { paperPage: false, pxPage: false, ownsPrint: ownsPrint } };
+  }
+  var paperPage = false, pxPage = false;
+  var eachRule = function (fn) {
+    for (var s = 0; s < document.styleSheets.length; s++) {
+      var rs; try { rs = document.styleSheets[s].cssRules; } catch (e) { continue; }
+      for (var r = 0; r < rs.length; r++) {
+        fn(rs[r]);
+        if (rs[r].cssRules) for (var n = 0; n < rs[r].cssRules.length; n++) fn(rs[r].cssRules[n]);
+      }
+    }
+  };
+  eachRule(function (r) {
+    if (r.type !== 6) return;
+    var m = /\bsize\s*:\s*([^;}]+)/i.exec(r.cssText || '');
+    if (!m) return;
+    if (/\b(letter|a[3-5]|legal|ledger)\b/i.test(m[1])) paperPage = true;
+    if (/\d+(?:\.\d+)?px\b/i.test(m[1])) pxPage = true;
+  });
+  var signals = { paperPage: paperPage, pxPage: pxPage, ownsPrint: ownsPrint };
+
+  var pxVal = function (v) {
+    var m = /^(\d+(?:\.\d+)?)px$/.exec(v || ''); return m ? +m[1] : 0;
+  };
+  var authoredPx = function (el, prop) {
+    if (pxVal(el.style[prop])) return true;
+    var attr = el.getAttribute(prop);
+    if (attr && /^\d+$/.test(attr)) return true;
+    var hit = false;
+    eachRule(function (r) {
+      if (hit || r.type !== 1 || !r.style) return;
+      try { if (el.matches(r.selectorText) && pxVal(r.style[prop])) hit = true; } catch (e) {}
+    });
+    return hit;
+  };
+
+  var el = document.body, rootPxW = false;
+  for (;;) {
+    var kids = [];
+    for (var c = 0; c < el.children.length; c++) {
+      var t = el.children[c].tagName;
+      if (t !== 'SCRIPT' && t !== 'STYLE' && t !== 'TEMPLATE') kids.push(el.children[c]);
+    }
+    if (kids.length !== 1 || !(kids[0] instanceof HTMLElement)) break;
+    if (STAMP) el.setAttribute('data-om-frame-wrap', '');
+    el = kids[0];
+    rootPxW = authoredPx(el, 'width');
+    if (rootPxW) break;
+  }
+  if (!rootPxW) rootPxW = authoredPx(el, 'width');
+
+  // @page{size:letter} alone is a flowing doc; with a px-width root it's a
+  // fixed sheet pretending to be paper — fall through and size to render.
+  if (paperPage && !rootPxW) {
+    return { kind: 'paper-doc', source: 'inferred', doc: doc, signals: signals,
+      frames: [{ left: 0, top: 0, width: doc.width, height: doc.height }],
+      authored: [{ width: false, height: false }] };
+  }
+
+  var sx = window.scrollX || 0, sy = window.scrollY || 0;
+  var rectOf = function (e) {
+    var r = e.getBoundingClientRect();
+    var oy; try { oy = getComputedStyle(e).overflowY; } catch (err) {}
+    var h = oy === 'visible' ? Math.max(r.height, e.scrollHeight || 0) : r.height;
+    return { left: r.left + sx, top: r.top + sy, width: r.width, height: h };
+  };
+
+  // Multi-frame: off unless the page opts in via data-om-multi-frame on the
+  // stop element — the explicit opt-in is what guards against card grids
+  // and pricing tables that match the geometry but aren't separate
+  // canvases. Two ways to name the frames, explicit first:
+  // 1. Descendants marked data-om-frame-export (the social-frames starter
+  //    marks each asset frame; shells/panels around them are presentation,
+  //    so nesting is expected). Document order.
+  // 2. Fallback, no marked descendants: direct children with an authored px
+  //    width AND height (the original geometry heuristic).
+  // Frames may be different sizes (a gallery mixes 1080×1920 stories with
+  // 728×90 banners); data-om-frame-label rides along for export filenames.
+  if (el.hasAttribute('data-om-multi-frame')) {
+    var visOk = function (e) {
+      var cs; try { cs = getComputedStyle(e); } catch (err) { return false; }
+      return cs.display !== 'none' && cs.visibility !== 'hidden' && cs.position !== 'fixed';
+    };
+    // A frame's crop is its VISUAL box — never the scrollHeight-inflated
+    // rect that rectOf computes for page roots. Shadow-DOM hover controls
+    // (image-slot's Replace bar parks 29px below its host) and similar
+    // escaping UI contribute scrollable overflow to the frame, and the
+    // inflated height both squashes the nominal-size resize and drags
+    // content below the frame into the crop. Zoom-independent; bit every
+    // slot-bearing frame.
+    var frameRectOf = function (e) {
+      var r = e.getBoundingClientRect();
+      return { left: r.left + sx, top: r.top + sy, width: r.width, height: r.height };
+    };
+    var pushCand = function (list, e) {
+      if (!visOk(e)) return;
+      var rc = frameRectOf(e);
+      if (rc.width < 2 || rc.height < 2) return;
+      var lbl = e.getAttribute('data-om-frame-label');
+      if (lbl) rc.label = lbl;
+      list.push(rc);
+    };
+    var cands = [];
+    var marked = el.querySelectorAll('[data-om-frame-export]');
+    if (marked.length) {
+      for (var mk = 0; mk < marked.length; mk++) pushCand(cands, marked[mk]);
+    } else {
+      for (var k = 0; k < el.children.length; k++) {
+        var ch = el.children[k];
+        if (!authoredPx(ch, 'width') || !authoredPx(ch, 'height')) continue;
+        pushCand(cands, ch);
+      }
+    }
+    if (cands.length >= 2) {
+      return { kind: 'multi-frame', source: 'inferred', doc: doc, signals: signals,
+        frames: cands, authored: cands.map(function(){return{width:true,height:true}}) };
+    }
+  }
+
+  if (STAMP) el.setAttribute('data-om-frame', '');
+  return { kind: 'single-canvas', source: 'inferred', doc: doc, signals: signals,
+    frames: [rectOf(el)],
+    authored: [{ width: rootPxW, height: authoredPx(el, 'height') }] };
+})(); } catch (e) {}
+  var frame = null;
+  if (!ownsPrint && __m && __m.kind === 'single-canvas') {
+    var f = __m.frames && __m.frames[0];
+    if (f && f.width >= 200 && f.height >= 200) {
+      frame = f;
+      var fst = document.createElement('style');
+      fst.textContent = '@media print{@page{size:' + Math.ceil(f.width) + 'px ' +
+        Math.ceil(f.height) + 'px;margin:0}' +
+        'html,body,[data-om-frame-wrap]{padding:0!important;margin:0!important;background:none!important}' +
+        '[data-om-frame]{margin:0!important}}';
+      document.body.appendChild(fst);
+    }
+  }
+  // Relax break-inside on oversized elements. An element taller than a
+  // printable page can't honor break-inside: avoid — browsers either overflow
+  // it or push it whole to the next page, leaving a blank gap, then break it
+  // anyway at an arbitrary point. After the final layout (content revealed,
+  // animations jumped), find elements taller than a page that still compute
+  // break-inside: avoid and reset them to auto, so the browser breaks them at
+  // their children's boundaries instead (children keep their own avoid). PAGE_PX
+  // is a conservative portrait estimate at 96 CSS px/in — Letter/A4 usable
+  // height minus our 0.5in margins — so only clearly-oversized elements are
+  // touched and under-page elements still stay whole. Skipped for decks (slides
+  // are sized to the page) and for fixed-size canvases (frame set, or an author
+  // px-based @page) — runs as before for flowing docs on letter/A4.
+  try {
+    if (!ds && !frame && !(__m && __m.signals && __m.signals.pxPage)) {
+      const PAGE_PX = 1024;
+      // Our print defaults add a real @page margin only when the source has
+      // no @page of its own; computed style can't tell us (it reports screen
+      // media), so read the injected rule directly.
+      const defaults = document.querySelector('style[data-omelette-print-defaults]');
+      const pageInset = /@page\s*\{[^}]*margin/.test(defaults ? defaults.textContent || '' : '');
+      const SEL = 'section,article,figure,table,pre,blockquote,[class~="card" i],[class~="page" i],[class~="sheet" i]';
+      for (const el of document.body.querySelectorAll(SEL)) {
+        if (el instanceof HTMLElement && el.offsetHeight > PAGE_PX) {
+          el.setAttribute('data-om-oversized', '');
+          // Fake-paged docs simulate sheets with over-tall break-after:page
+          // boxes; honoring the break spills half-blank pages and ends a
+          // colored box mid-sheet. Flow them, and (only when we own the page
+          // inset) drop the redundant padding/background via the rule below.
+          const cs = getComputedStyle(el);
+          // An owns-print doc's forced breaks are intentional sheet
+          // boundaries, never fake-paged simulation — don't strip them.
+          // The break-inside relaxation above still applies: avoid on a
+          // >page element is impossible to honor whoever authored it.
+          if (
+            !ownsPrint &&
+            (cs.breakAfter === 'page' || cs.pageBreakAfter === 'always')
+          ) {
+            el.setAttribute('data-om-fakepage', '');
+          }
+        }
+      }
+      const ost = document.createElement('style');
+      ost.textContent = '@media print{' +
+        '[data-om-oversized]{break-inside:auto !important;page-break-inside:auto !important}' +
+        '[data-om-fakepage]{break-after:auto !important;page-break-after:auto !important}' +
+        (pageInset ? '[data-om-fakepage]{padding:0 !important;background:none !important}' : '') +
+        '}';
+      document.head.appendChild(ost);
+    }
+  } catch (e) {}
+  // macOS Preview renders Skia-PDF Luminosity soft-masks as opaque grey boxes;
+  // swap the CSS that triggers them for Preview-safe forms.
+  try {
+    for (const el of document.body.querySelectorAll('*')) {
+      const cs = getComputedStyle(el);
+
+      if (cs.boxShadow !== 'none' && cs.filter === 'none') {
+        const outs = [], kept = [];
+        for (const s of cs.boxShadow.split(/,(?![^(]*[)])/)) {
+          const t = s.trim();
+          const m = t.match(/^(rgba?[(][^)]+[)]) (-?[0-9.]+px) (-?[0-9.]+px) ([0-9.]+px) -?[0-9.]+px$/);
+          if (m && parseFloat(m[4]) > 0) outs.push('drop-shadow(' + m[2] + ' ' + m[3] + ' ' + m[4] + ' ' + m[1] + ')');
+          else kept.push(t);
+        }
+        if (outs.length) {
+          el.style.setProperty('filter', outs.join(' '), 'important');
+          el.style.setProperty('box-shadow', kept.join(', ') || 'none', 'important');
+        }
+      }
+
+      const mask = cs.maskImage && cs.maskImage !== 'none' ? cs.maskImage : cs.webkitMaskImage;
+      if (mask && mask !== 'none' && cs.filter === 'none') el.style.setProperty('filter', 'opacity(1)', 'important');
+    }
+  } catch (e) {}
+  mark('print-calling');
+  setTimeout(() => { try { window.print(); } catch (e) {} }, 200);
+})();
+</script>
+</body>
+</html>
