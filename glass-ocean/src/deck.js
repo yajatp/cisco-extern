@@ -31,6 +31,21 @@ export class Deck {
 
   start() {
     this.goTo(0, { instant: true })
+    this.reclaimFocus()
+  }
+
+  /**
+   * Pull keyboard focus back to the deck. A preloaded demo iframe can grab focus
+   * on load (or from a mouse click), which silently kills arrow-key nav until you
+   * click the page — so whenever we land on a slide, blur whatever stole focus and
+   * hand it back to the top window.
+   */
+  reclaimFocus() {
+    const el = document.activeElement
+    if (el && el !== document.body && typeof el.blur === 'function') el.blur()
+    try {
+      window.focus()
+    } catch {}
   }
 
   bindKeys() {
@@ -130,6 +145,8 @@ export class Deck {
     this.slides.hide('sink')
     this.demos.show(n)
     this.activeDemo = n
+    this.demos.setActive(n) // the demo now owns the clicker
+    this.demos.focus(n) // land keyboard + mouse beats in the demo itself
   }
 
   /* ---------- slide cues ---------- */
@@ -137,17 +154,16 @@ export class Deck {
     if (this.activeDemo != null) {
       // surfacing up out of a demo: the slide rises over the demo, demo sinks away
       this.demos.hide(this.activeDemo)
+      this.demos.setActive(null)
       this.activeDemo = null
       this.slides.show(to.slide, 'surface')
+      this.reclaimFocus() // take the clicker back from the demo iframe
       return
     }
-    // A forward slide change washes in as a full-screen bubble curtain; the
-    // slide is swapped underneath once the bubbles cover it, hiding the cut.
-    if (forward && !instant && this.bubbles) {
-      this.bubbles.burst(() => this.slides.show(to.slide, 'none'))
-    } else {
-      this.slides.show(to.slide, instant ? 'none' : 'fade')
-    }
+    // a bubble sweep breathes over each forward slide change
+    if (forward && !instant) this.bubbles?.burst()
+    this.slides.show(to.slide, instant ? 'none' : 'fade')
+    this.reclaimFocus()
   }
 
   updateDots() {

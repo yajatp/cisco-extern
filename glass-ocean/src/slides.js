@@ -1,9 +1,14 @@
 /* Programmatically load the Veritas Blue slide deck images */
 
+// Photographic slides ship as compressed JPEG (small, fast to decode); the rest
+// are flat-graphic PNGs that compress well as-is.
+const JPG = new Set(['page-21'])
 const DEFS = {}
-for (let i = 1; i <= 23; i++) {
+for (let i = 1; i <= 21; i++) {
   const num = String(i).padStart(2, '0')
-  DEFS[`page-${num}`] = `<img src="slides/page-${num}.png" alt="Slide ${i}" class="slide-img" />`
+  const id = `page-${num}`
+  const ext = JPG.has(id) ? 'jpg' : 'png'
+  DEFS[id] = `<img src="slides/${id}.${ext}" alt="Slide ${i}" class="slide-img" />`
 }
 
 export function createSlides(root) {
@@ -15,6 +20,14 @@ export function createSlides(root) {
     el.innerHTML = html
     root.appendChild(el)
     els[id] = el
+  }
+
+  // Pre-decode every slide bitmap up front so a heavy image (e.g. the photographic
+  // thank-you slide) can never paint half-way through its fade — the browser has a
+  // ready bitmap the instant the slide is shown.
+  for (const el of Object.values(els)) {
+    const img = el.querySelector('img')
+    img?.decode?.().catch(() => {})
   }
 
   let currentId = null

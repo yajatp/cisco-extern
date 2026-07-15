@@ -344,7 +344,6 @@ class Component extends DCLogic {
     const pt=new THREE.PointLight(0x8fe0ff,0.36,32); pt.position.set(0,6,0); this.scene.add(pt);
     // seabed — warm sand, opaque, with detail
     const bed=new THREE.Mesh(new THREE.CircleGeometry(30,72), this.mat(0xd8c48c,{rough:1})); bed.rotation.x=-Math.PI/2; bed.position.y=-0.02; this.scene.add(bed);
-    const sandLo=new THREE.Mesh(new THREE.CircleGeometry(30,72), this.mat(0xc7ac70,{rough:1})); sandLo.rotation.x=-Math.PI/2; sandLo.position.y=-0.04; sandLo.scale.setScalar(1.0); this.scene.add(sandLo);
     this.buildSandDetail();
     this.buildBubbles();
     // build

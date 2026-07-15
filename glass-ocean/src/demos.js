@@ -17,6 +17,42 @@ export function createDemos() {
   }
 
   const hideTimers = {}
+  let activeN = null // which demo currently owns the clicker, or null
+  let relaying = false // true while we inject a synthetic key, so it isn't echoed
+
+  const NAV_KEYS = ['ArrowRight', 'ArrowLeft', ' ', 'PageDown', 'PageUp']
+
+  // Keyboard-nav lifeline: a preloaded (or clicked) demo iframe can quietly grab
+  // focus, and then key presses land in the iframe instead of the parent window
+  // — the deck goes deaf until you mouse-click the page. Since the demos are
+  // same-origin, relay any real nav key pressed while an *inactive* frame holds
+  // focus up to the parent window so the deck always hears it. (When the frame
+  // IS the active demo it drives its own beats, so relaying would double-fire.)
+  function wireRelay(n, f) {
+    if (!f) return
+    const attach = () => {
+      let cw
+      try {
+        cw = f.contentWindow
+      } catch {
+        return // cross-origin — can't attach; focus reclaim still covers us
+      }
+      if (!cw) return
+      try {
+        cw.addEventListener('keydown', (e) => {
+          if (relaying) return // a key we injected — don't echo it back
+          if (activeN === n) return // active demo handles its own keys
+          if (!NAV_KEYS.includes(e.key)) return
+          window.dispatchEvent(new KeyboardEvent('keydown', { key: e.key }))
+        })
+      } catch {
+        /* cross-origin (shouldn't happen for same-origin demos) */
+      }
+    }
+    f.addEventListener('load', attach)
+    attach() // in case it's already loaded
+  }
+  for (const n of Object.keys(frames)) wireRelay(Number(n), frames[n])
 
   function show(n) {
     const f = frames[n]
@@ -31,6 +67,9 @@ export function createDemos() {
     const f = frames[n]
     if (!f) return
     f.classList.remove('active') // fade + sink away
+    try {
+      f.blur() // let focus fall back to the parent as we leave the demo
+    } catch {}
     clearTimeout(hideTimers[n])
     hideTimers[n] = setTimeout(() => f.classList.remove('live'), 1650) // stop painting after the fade
   }
@@ -40,11 +79,26 @@ export function createDemos() {
     const w = frames[n]?.contentWindow
     if (!w) return
     try {
+      relaying = true
       w.dispatchEvent(new w.KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }))
     } catch (e) {
       /* iframe not ready yet — the press is simply dropped */
+    } finally {
+      relaying = false
     }
   }
 
-  return { frames, show, hide, forwardKey }
+  /** Mark which demo owns the clicker (null = none), so relay knows when to stay quiet. */
+  function setActive(n) {
+    activeN = n
+  }
+
+  /** Give a demo iframe keyboard focus so mouse- and key-driven beats both land in it. */
+  function focus(n) {
+    try {
+      frames[n]?.focus()
+    } catch {}
+  }
+
+  return { frames, show, hide, forwardKey, setActive, focus }
 }

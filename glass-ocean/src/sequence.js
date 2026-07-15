@@ -25,11 +25,9 @@ export const SEQUENCE = [
   { slide: 'page-16' },  // 16 Zero Trust / Our Solution
   { slide: 'page-17' },  // 17 Zero Trust / Cisco Tech
   { demo: 3 },           // 18 SINK → Demo 3: Shark Attack live threat view (was page-18)
-  { slide: 'page-19' },  // 19 Value & Metrics
-  { slide: 'page-20' },  // 20 Scalability
-  { slide: 'page-21' },  // 21 Two More Markets
-  { slide: 'page-22' },  // 22 The Deciding Metric
-  { slide: 'page-23' },  // 23 Thank You
+  { slide: 'page-19' },  // 19 Scalability
+  { slide: 'page-20' },  // 20 The Deciding Metric / Ocean Trust Index
+  { slide: 'page-21' },  // 21 Thank You
 ]
 
 /** Chapter id per cue (for the progress dots): consecutive cues sharing a slide/demo collapse to one dot. */

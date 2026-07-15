@@ -167,11 +167,8 @@
   <!-- ============ STAGE A — EXTERIOR 360 ============ -->
   <sc-if value="{{ isExterior }}" hint-placeholder-val="{{ true }}">
     <div style="position:absolute; inset:0;">
-      <!-- clean inspection ring: thin static ring + slow rotating scan arc -->
+      <!-- clean inspection ring: thin static ring -->
       <div style="position:absolute; left:48%; top:47%; width:560px; height:560px; transform:translate(-50%,-50%); border-radius:50%; border:1px solid rgba(15,66,86,0.16);"></div>
-      <div style="position:absolute; left:48%; top:47%; width:560px; height:560px; transform:translate(-50%,-50%); border-radius:50%; background:conic-gradient(from 0deg, transparent 0 74%, rgba(4,159,217,0.20) 86%, rgba(4,159,217,0.05) 92%, transparent 96%); -webkit-mask:radial-gradient(circle, transparent 271px, #000 273px); mask:radial-gradient(circle, transparent 271px, #000 273px); animation:rc-spin 18s linear infinite;">
-        <span style="position:absolute; left:50%; top:-5px; width:9px; height:9px; margin-left:-4.5px; border-radius:50%; background:#049fd9; box-shadow:0 0 12px #049fd9;"></span>
-      </div>
       <!-- cardinal ticks -->
       <div style="position:absolute; left:48%; top:47%; width:560px; height:560px; transform:translate(-50%,-50%);">
         <span style="position:absolute; left:50%; top:-1px; width:2px; height:12px; margin-left:-1px; background:rgba(15,66,86,0.35);"></span>
