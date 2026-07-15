@@ -22,6 +22,14 @@ const deck = new Deck({
 })
 deck.start()
 
+// Tiny corner fullscreen toggle.
+const fsBtn = document.getElementById('fs-btn')
+fsBtn?.addEventListener('click', () => {
+  if (document.fullscreenElement) document.exitFullscreen?.()
+  else document.documentElement.requestFullscreen?.()
+  fsBtn.blur() // keep keyboard authority with the deck
+})
+
 // Dev-only probes for headless capture.
 const params = new URLSearchParams(location.search)
 if (params.get('bubbles') === 'preview') {

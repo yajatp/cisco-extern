@@ -61,6 +61,21 @@ html, body {
 }
 .hidden { display: none !important; }
 
+/* tiny fullscreen toggle, tucked in the corner */
+#fs-btn {
+  position: fixed; right: 12px; top: 10px; z-index: 40;
+  width: 28px; height: 28px; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(2, 12, 22, 0.32);
+  color: rgba(255, 255, 255, 0.6);
+  border-radius: 7px; cursor: pointer;
+  font-size: 15px; line-height: 1;
+  opacity: 0.3; transition: opacity 0.2s ease;
+  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+}
+#fs-btn:hover { opacity: 0.95; color: #fff; }
+
 /* ---------- embedded demos (full-bleed iframes) ---------- */
 /* Each demo waits below the surface (faded, nudged down) and rises into place
    on the SINK, then sinks away on the SURFACE — complementing the slide layer's

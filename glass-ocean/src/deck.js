@@ -26,6 +26,7 @@ export class Deck {
     })
     this.bindKeys()
     this.bindMessages()
+    this.bindClick()
   }
 
   start() {
@@ -71,6 +72,17 @@ export class Deck {
           this.prev()
           break
       }
+    })
+  }
+
+  /** Click anywhere to advance, like pressing →. */
+  bindClick() {
+    window.addEventListener('click', (e) => {
+      // don't hijack the corner UI controls
+      if (e.target?.closest?.('#fs-btn')) return
+      // while a demo is live, clicks belong to the demo (mouse-driven beats)
+      if (this.activeDemo != null) return
+      this.next()
     })
   }
 

@@ -1,10 +1,10 @@
 /**
- * A full-screen bubble transition played on each forward slide change: a dense
- * curtain of bubbles fades in across the whole screen, drifts up with a gentle
- * wobble, and dissolves — and the slide underneath is swapped WHILE the bubbles
- * cover it, so the change reads as a wash of water rather than a cut.
+ * A full-screen bubble transition that completely covers the screen on each
+ * forward slide change: a curtain of ~30 big bubbles rides an opaque wash that
+ * ramps to full cover, hides the slide swap underneath, then clears to reveal
+ * the next slide. Few, large bubbles → cheap to draw, no lag.
  *
- * Runs its own rAF only while bubbles are alive, then goes idle.
+ * Runs its own rAF only during a transition, then goes idle.
  */
 export function createBubbles() {
   const canvas = document.createElement('canvas')
@@ -28,55 +28,80 @@ export function createBubbles() {
   resize()
   window.addEventListener('resize', resize)
 
-  const COVER_DELAY = 240 // ms until the curtain is dense enough to hide the swap
-  const FADE_IN = 0.16
-  const FADE_OUT = 0.5
+  const DUR = 1.6 // whole transition length (s)
+  const COVER_IN = 0.42 // wash reaches full opacity by here — safe to swap the slide
+  const HOLD_END = 0.85 // fully covered through here, then it clears
 
   let bubbles = []
+  let t = 0 // elapsed seconds within the current transition
   let raf = 0
   let last = 0
+  let coverCb = null
+  let coverFired = false
 
   function spawn() {
-    // count scales with screen area so the whole viewport fills densely
-    const n = Math.round((W * H) / 1500)
+    bubbles = []
+    // Densely pack the screen: enough bubbles of a roughly uniform size that
+    // they overlap edge-to-edge with no gaps.
+    const n = Math.round((W * H) / 5000)
     for (let i = 0; i < n; i++) {
-      const r = 5 + Math.random() * Math.random() * 34 // 5–~39px, skewed small
+      const r = 64 + Math.random() * 30 // ~64–94px, roughly uniform
       bubbles.push({
         x: Math.random() * W,
-        y: Math.random() * (H * 1.1) - H * 0.05, // seeded across the whole screen
+        y: Math.random() * (H + 300) - 100,
         r,
-        vy: 110 + Math.random() * 210 + r * 4, // gentle upward drift
+        vy: 40 + Math.random() * 110,
         phase: Math.random() * Math.PI * 2,
-        wob: 5 + Math.random() * 16,
-        wobRate: 1.2 + Math.random() * 2.4,
-        baseAlpha: 0.6 + Math.random() * 0.4,
-        life: 0,
-        maxLife: 1.15 + Math.random() * 0.6, // 1.15–1.75s
+        wob: 5 + Math.random() * 12,
+        wobRate: 1 + Math.random() * 2,
       })
     }
   }
 
-  function frame(t) {
-    const dt = Math.min((t - last) / 1000, 0.05)
-    last = t
+  /** Opacity of the covering wash across the transition (0 → 1 → 0). */
+  function washAlpha(tt) {
+    if (tt < COVER_IN) return tt / COVER_IN
+    if (tt < HOLD_END) return 1
+    return Math.max(0, 1 - (tt - HOLD_END) / (DUR - HOLD_END))
+  }
+
+  function frame(now) {
+    const dt = Math.min((now - last) / 1000, 0.05)
+    last = now
+    t += dt
     ctx.clearRect(0, 0, W, H)
 
-    for (const b of bubbles) {
-      b.life += dt
-      b.y -= b.vy * dt
-      b.phase += b.wobRate * dt
-      const x = b.x + Math.sin(b.phase) * b.wob
-      const fin = Math.min(1, b.life / FADE_IN)
-      const fout = Math.min(1, Math.max(0, (b.maxLife - b.life) / FADE_OUT))
-      const a = b.baseAlpha * fin * fout
-      if (a > 0.01) drawBubble(x, b.y, b.r, a)
+    // 1) the opaque wash that hides the slide swap
+    const wa = washAlpha(t)
+    if (wa > 0) {
+      const g = ctx.createLinearGradient(0, 0, 0, H)
+      g.addColorStop(0, `rgba(238, 249, 253, ${wa})`)
+      g.addColorStop(1, `rgba(200, 230, 242, ${wa})`)
+      ctx.fillStyle = g
+      ctx.fillRect(0, 0, W, H)
     }
-    bubbles = bubbles.filter((b) => b.life < b.maxLife && b.y + b.r > -8)
 
-    if (bubbles.length) {
+    // 2) once fully covered, swap the slide underneath (caller's callback)
+    if (!coverFired && t >= COVER_IN) {
+      coverFired = true
+      coverCb && coverCb()
+    }
+
+    // 3) big bubbles riding on top — fade in fast, out with the wash
+    const ba = Math.min(1, t / 0.25) * Math.min(1, Math.max(0, (DUR - t) / 0.55))
+    if (ba > 0.01) {
+      for (const b of bubbles) {
+        b.y -= b.vy * dt
+        b.phase += b.wobRate * dt
+        drawBubble(b.x + Math.sin(b.phase) * b.wob, b.y, b.r, ba)
+      }
+    }
+
+    if (t < DUR) {
       raf = requestAnimationFrame(frame)
     } else {
       ctx.clearRect(0, 0, W, H)
+      bubbles = []
       raf = 0
     }
   }
@@ -85,48 +110,51 @@ export function createBubbles() {
     ctx.beginPath()
     ctx.arc(x, y, r, 0, Math.PI * 2)
 
-    // translucent body — noticeably lightens whatever's behind
-    ctx.fillStyle = `rgba(224, 244, 251, ${a * 0.28})`
+    // translucent body
+    ctx.fillStyle = `rgba(232, 247, 252, ${a * 0.35})`
     ctx.fill()
 
-    // soft darker inner edge gives the ring definition on light backgrounds
-    ctx.lineWidth = Math.max(1.4, r * 0.11)
-    ctx.strokeStyle = `rgba(120, 168, 190, ${a * 0.5})`
+    // soft darker inner edge for ring definition
+    ctx.lineWidth = Math.max(2, r * 0.05)
+    ctx.strokeStyle = `rgba(120, 168, 190, ${a * 0.45})`
     ctx.stroke()
 
-    // crisp bright rim on top
-    ctx.lineWidth = Math.max(1, r * 0.06)
+    // crisp bright rim
+    ctx.lineWidth = Math.max(1.5, r * 0.028)
     ctx.strokeStyle = `rgba(255, 255, 255, ${a * 0.9})`
     ctx.stroke()
 
-    // small off-center specular highlight (cheap — no gradient, so dense fields stay smooth)
+    // specular highlight
     ctx.fillStyle = `rgba(255, 255, 255, ${a * 0.5})`
     ctx.beginPath()
-    ctx.arc(x - r * 0.3, y - r * 0.32, Math.max(0.8, r * 0.2), 0, Math.PI * 2)
+    ctx.arc(x - r * 0.3, y - r * 0.32, Math.max(3, r * 0.13), 0, Math.PI * 2)
     ctx.fill()
   }
 
   /**
-   * Play one bubble wash. `onCover` (optional) fires once the curtain is dense,
-   * so the caller can swap the slide underneath while it's hidden.
+   * Play one covering bubble transition. `onCover` (optional) fires the instant
+   * the wash is fully opaque, so the caller can swap the slide while it's hidden.
    */
   function burst(onCover) {
     spawn()
-    if (onCover) setTimeout(onCover, COVER_DELAY)
-    if (!raf) {
-      last = performance.now()
-      raf = requestAnimationFrame(frame)
-    }
+    t = 0
+    coverCb = onCover
+    coverFired = false
+    last = performance.now()
+    if (!raf) raf = requestAnimationFrame(frame)
   }
 
-  /** Dev-only: hold a static dense field (via the redraw loop) to eyeball it. */
+  /** Dev-only: hold the fully-covered peak so it can be eyeballed headless. */
   function preview() {
-    // Static field, redrawn on an interval (resilient to headless resize/idle).
     const draw = () => {
-      bubbles = []
       spawn()
       ctx.clearRect(0, 0, W, H)
-      for (const b of bubbles) drawBubble(b.x, b.y, b.r, b.baseAlpha)
+      const g = ctx.createLinearGradient(0, 0, 0, H)
+      g.addColorStop(0, 'rgba(238, 249, 253, 1)')
+      g.addColorStop(1, 'rgba(200, 230, 242, 1)')
+      ctx.fillStyle = g
+      ctx.fillRect(0, 0, W, H)
+      for (const b of bubbles) drawBubble(b.x, b.y, b.r, 1)
     }
     draw()
     setInterval(draw, 200)
