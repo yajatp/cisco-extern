@@ -67,6 +67,16 @@ export class Deck {
         e.preventDefault()
         return this.skipDemo()
       }
+      // Number keys jump straight to the start of that demo, from anywhere
+      // (a slide, or another live demo). Relayed up from the iframe by demos.js
+      // when a demo currently holds focus.
+      if (e.key >= '1' && e.key <= '9') {
+        const target = this.sequence.findIndex((c) => c.demo === Number(e.key))
+        if (target !== -1) {
+          e.preventDefault()
+          return this.goTo(target, { instant: true })
+        }
+      }
 
       // While a demo is live it owns the beats: forward the press into it and
       // never navigate slides ourselves (avoids double-navigation at the seam).
