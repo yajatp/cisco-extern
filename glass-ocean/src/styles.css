@@ -98,6 +98,12 @@ html, body {
 .demo-frame.active {                    /* fully surfaced, driving the clicker */
   transform: none;
   pointer-events: auto;
+  /* Drop the compositor-layer promotion once surfaced. Left on, the full-bleed
+     iframe (a WebGL canvas repainting every frame over the deck's own canvas)
+     sits on its own GPU layer at a sub-pixel offset and re-rasterizes each frame,
+     which makes ALL text inside the demo shimmer/flicker. transform:none +
+     will-change:auto paints it pixel-aligned in the normal layer, so it's stable. */
+  will-change: auto;
 }
 
 /* ---------- slides ---------- */

@@ -318,11 +318,15 @@ class Component extends DCLogic {
   fireFlash(x,z,hex){ const s=this.flashes[this._fi=(this._fi+1)%this.flashes.length]; s.material.color.setHex(hex); s.position.set(x,1.0,z); s.userData.life=0; }
 
   // ---------- overlay labels ----------
-  mkLabel(cls){ const el=document.createElement('div'); el.style.position='absolute'; el.style.fontFamily="'Quicksand',sans-serif"; el.style.pointerEvents='none'; el.style.transition='opacity 0.45s ease'; el.style.whiteSpace='nowrap'; this.labelsRef.current.appendChild(el); return el; }
+  // Labels are positioned every frame with an integer-pixel `transform` (see
+  // projectLabels) rather than fractional left/top — writing sub-pixel left/top
+  // under a translate(-50%,…) anchor makes the browser re-rasterize the glyphs at
+  // a shifting sub-pixel offset every frame, which reads as a hard strobe/flicker.
+  mkLabel(cls){ const el=document.createElement('div'); el.style.position='absolute'; el.style.left='0'; el.style.top='0'; el.style.fontFamily="'Quicksand',sans-serif"; el.style.pointerEvents='none'; el.style.transition='opacity 0.45s ease'; el.style.whiteSpace='nowrap'; this.labelsRef.current.appendChild(el); return el; }
   buildLabels(){
-    this.zoneLabels=this.RINGS.map((cfg,i)=>{ const el=this.mkLabel(); el.textContent=cfg.name; el.style.transform='translate(-50%,-50%)'; el.style.color='#0d4a63'; el.style.opacity='0.96'; el.style.fontSize='12px'; el.style.letterSpacing='0.18em'; el.style.fontWeight='800'; el.style.background='rgba(253,254,254,0.86)'; el.style.padding='5px 13px'; el.style.borderRadius='999px'; el.style.border='1px solid rgba(4,159,217,0.35)'; el.style.boxShadow='0 6px 16px rgba(10,48,66,0.18)'; const a=this.ZONE_A[i]; return { el, anchor:new THREE.Vector3(Math.cos(a)*cfg.R,1.9,Math.sin(a)*cfg.R) }; });
-    this.sharkLabels=this.sharkObjs.map(s=>{ const el=this.mkLabel(); el.textContent=s.cfg.atk; el.style.transform='translate(-50%,-120%)'; el.style.color='#c62828'; el.style.fontWeight='800'; el.style.letterSpacing='0.26em'; el.style.fontSize='14px'; el.style.opacity='0'; el.style.textShadow='0 2px 8px rgba(255,255,255,0.7)'; return el; });
-    this.defLabels=this.sharkObjs.map(s=>{ const el=this.mkLabel(); el.innerHTML=`${s.cfg.def}<small style="display:block;color:#2f7f99;font-size:0.8em;font-style:italic;font-weight:500;margin-top:2px;">${s.cfg.sub}</small>`; el.style.transform='translate(-50%,0)'; el.style.border='2px solid #049fd9'; el.style.background='rgba(253,254,254,0.93)'; el.style.color='#0f4256'; el.style.padding='9px 15px'; el.style.borderRadius='10px'; el.style.fontSize='14px'; el.style.fontWeight='600'; el.style.boxShadow='0 8px 26px rgba(4,159,217,0.18)'; el.style.opacity='0'; return el; });
+    this.zoneLabels=this.RINGS.map((cfg,i)=>{ const el=this.mkLabel(); el.textContent=cfg.name; el.dataset.anchor='translate(-50%,-50%)'; el.style.color='#0d4a63'; el.style.opacity='0.96'; el.style.fontSize='12px'; el.style.letterSpacing='0.18em'; el.style.fontWeight='800'; el.style.background='rgba(253,254,254,0.86)'; el.style.padding='5px 13px'; el.style.borderRadius='999px'; el.style.border='1px solid rgba(4,159,217,0.35)'; el.style.boxShadow='0 6px 16px rgba(10,48,66,0.18)'; const a=this.ZONE_A[i]; return { el, anchor:new THREE.Vector3(Math.cos(a)*cfg.R,1.9,Math.sin(a)*cfg.R) }; });
+    this.sharkLabels=this.sharkObjs.map(s=>{ const el=this.mkLabel(); el.textContent=s.cfg.atk; el.dataset.anchor='translate(-50%,-120%)'; el.style.color='#c62828'; el.style.fontWeight='800'; el.style.letterSpacing='0.26em'; el.style.fontSize='14px'; el.style.opacity='0'; el.style.textShadow='0 2px 8px rgba(255,255,255,0.7)'; return el; });
+    this.defLabels=this.sharkObjs.map(s=>{ const el=this.mkLabel(); el.innerHTML=`${s.cfg.def}<small style="display:block;color:#2f7f99;font-size:0.8em;font-style:italic;font-weight:500;margin-top:2px;">${s.cfg.sub}</small>`; el.dataset.anchor='translate(-50%,0)'; el.style.border='2px solid #049fd9'; el.style.background='rgba(253,254,254,0.93)'; el.style.color='#0f4256'; el.style.padding='9px 15px'; el.style.borderRadius='10px'; el.style.fontSize='14px'; el.style.fontWeight='600'; el.style.boxShadow='0 8px 26px rgba(4,159,217,0.18)'; el.style.opacity='0'; return el; });
   }
 
   // ---------- init ----------
@@ -441,7 +445,7 @@ class Component extends DCLogic {
     const wrap=this.wrapRef.current; const w=wrap.clientWidth,h=wrap.clientHeight;
     this.rig.updateMatrixWorld(true);
     const v=new THREE.Vector3();
-    const put=(el,pos)=>{ v.copy(pos).project(this.camera); const vis=v.z<1; el.style.display=vis?'block':'none'; el.style.left=((v.x*0.5+0.5)*w)+'px'; el.style.top=((-v.y*0.5+0.5)*h)+'px'; };
+    const put=(el,pos)=>{ v.copy(pos).project(this.camera); const vis=v.z<1; el.style.display=vis?'block':'none'; if(!vis) return; const x=Math.round((v.x*0.5+0.5)*w), y=Math.round((-v.y*0.5+0.5)*h); el.style.transform=`translate(${x}px,${y}px) ${el.dataset.anchor}`; };
     this.zoneLabels.forEach(z=>put(z.el,z.anchor));
     this.sharkObjs.forEach((s,i)=>{ v.copy(s.g.position); v.y+=1.4; put(this.sharkLabels[i], v); this.sharkLabels[i].style.opacity = (s.phase!=='resolved')?'1':'0.35'; });
     this.sharkObjs.forEach((s,i)=>{ const R=this.RINGS[s.cfg.stop].R; const a=s.cfg.A; const pos=new THREE.Vector3(Math.cos(a)*(R+0.4),2.3,Math.sin(a)*(R+0.4)); put(this.defLabels[i],pos); const show=s.phase==='resolved'||s.phase==='recoil'; this.defLabels[i].style.opacity=show?'1':'0'; });
